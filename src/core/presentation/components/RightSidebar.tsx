@@ -14,7 +14,10 @@ export const RightSidebar = () => {
         borderLeft: "2px solid #1890FF",
       }}
     >
-      <ProfileOutlined onClick={() => {}} />
+      <ProfileOutlined
+        onClick={() => {}}
+        style={{ fontSize: 30, color: "purple" }}
+      />
     </div>
   );
 };

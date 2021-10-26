@@ -1,5 +1,9 @@
 import { Button } from "antd";
 
 export const LogoutButton = () => {
-  return <Button>Right Extra Action</Button>;
+  return (
+    <Button type="primary" danger size="large" style={{ marginLeft: 30 }}>
+      Salir
+    </Button>
+  );
 };
