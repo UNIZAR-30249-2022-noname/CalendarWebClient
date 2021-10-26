@@ -1,12 +1,3 @@
-% In your preamble
- 
-\usepackage[smartEllipses]{markdown}
-
-% In the main body of your document
-
-\markdownInput{README.md}
-
-\begin{markdown}
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
