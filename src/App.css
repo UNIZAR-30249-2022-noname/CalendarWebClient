@@ -37,3 +37,12 @@
     transform: rotate(360deg);
   }
 }
+
+* {
+  font-family: "Avenir Next";
+  font-weight: 500;
+}
+
+p {
+  color: #282c34;
+}
