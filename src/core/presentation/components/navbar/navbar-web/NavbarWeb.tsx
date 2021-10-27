@@ -18,7 +18,7 @@ export const NavbarWeb: FC<Props> = ({ path }) => {
 
   useEffect(() => {
     setselectedTab(path);
-  }, []);
+  }, [path]);
 
   return (
     <Row

@@ -1,7 +1,6 @@
-import { Col, Drawer, Row, Tabs } from "antd";
-import { CSSProperties, FC, useContext, useEffect, useState } from "react";
+import { Col, Row } from "antd";
+import { CSSProperties, FC } from "react";
 import { useMediaQuery } from "react-responsive";
-import { DrawerContext } from "../../context/context";
 import { NotesDrawer } from "../components/notes-drawer/Drawer";
 import { NavbarMobile } from "../components/navbar/navbar-movile/NavbarMobile";
 import { NavbarWeb } from "../components/navbar/navbar-web/NavbarWeb";

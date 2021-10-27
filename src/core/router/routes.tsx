@@ -1,6 +1,5 @@
 import Text from "antd/lib/typography/Text";
 import { Redirect } from "react-router-dom";
-import { SumCalc } from "../../features/sum-feature/presentation/SumCalc";
 import { ProfessorLayout } from "../presentation/layouts/ProfessorLayout";
 import { Calendar } from "../presentation/pages/Calendar";
 import { Data } from "../presentation/pages/Data";

@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import { createContext } from "react";
 import { session } from "../../features/auth/domain/services/session";
 import { AppTheme } from "../config/themes";
 

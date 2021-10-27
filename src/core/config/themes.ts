@@ -1,7 +1,5 @@
 import { CSSProperties } from "react";
 
-const text: CSSProperties = {};
-
 const lightMode: CSSProperties = {
   backgroundColor: "#E1E2E3",
   color: "#585858",

@@ -1,5 +1,5 @@
 import { ProfileOutlined } from "@ant-design/icons";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { DrawerContext } from "../../context/context";
 
 export const RightSidebar = () => {

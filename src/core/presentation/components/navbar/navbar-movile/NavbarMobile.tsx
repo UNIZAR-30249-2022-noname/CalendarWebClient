@@ -20,7 +20,7 @@ export const NavbarMobile: FC<Props> = ({ path }) => {
 
   useEffect(() => {
     setselectedTab(path);
-  }, []);
+  }, [path]);
 
   return (
     <Row align="middle" justify="space-between" style={{ padding: 5 }}>
