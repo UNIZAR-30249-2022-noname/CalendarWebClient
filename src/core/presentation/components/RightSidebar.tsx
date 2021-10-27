@@ -1,12 +1,17 @@
 import { ProfileOutlined } from "@ant-design/icons";
-import { Col } from "antd";
+import { useContext, useState } from "react";
+import { DrawerContext } from "../../context/context";
 
 export const RightSidebar = () => {
+  const { setVisibleDrawer } = useContext(DrawerContext);
+
+  const toggleDrawer = () => {
+    setVisibleDrawer(true);
+  };
+
   return (
     <div
       style={{
-        display: "flex",
-        justifyContent: "center",
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: "#D6D6D6",
@@ -14,10 +19,12 @@ export const RightSidebar = () => {
         borderLeft: "2px solid #1890FF",
       }}
     >
-      <ProfileOutlined
-        onClick={() => {}}
-        style={{ fontSize: 30, color: "purple" }}
-      />
+      <div style={{ display: "grid" }}>
+        <ProfileOutlined
+          onClick={() => toggleDrawer()}
+          style={{ fontSize: 30, color: "purple" }}
+        />
+      </div>
     </div>
   );
 };

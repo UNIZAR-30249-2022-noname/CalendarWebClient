@@ -26,7 +26,13 @@ export const NavbarWeb: FC<Props> = ({ path }) => {
       justify="space-between"
       style={{ paddingLeft: 20, paddingRight: 20 }}
     >
-      <MainLogo />
+      <div
+        id="mainLogo"
+        onClick={() => handleOnClick("/")}
+        style={{ cursor: "pointer" }}
+      >
+        <MainLogo />
+      </div>
       <NavTabs activeTab={selectedTab} handleOnClick={handleOnClick} />
     </Row>
   );

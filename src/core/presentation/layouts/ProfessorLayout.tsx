@@ -1,11 +1,11 @@
 import { Col, Drawer, Row, Tabs } from "antd";
-import { CSSProperties, FC } from "react";
+import { CSSProperties, FC, useContext, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { NavbarMobile } from "../components/navbar/navbar-movile/NavbarMovile";
+import { DrawerContext } from "../../context/context";
+import { NotesDrawer } from "../components/notes-drawer/Drawer";
+import { NavbarMobile } from "../components/navbar/navbar-movile/NavbarMobile";
 import { NavbarWeb } from "../components/navbar/navbar-web/NavbarWeb";
 import { RightSidebar } from "../components/RightSidebar";
-
-const { TabPane } = Tabs;
 
 type Props = {
   user: String;
@@ -28,10 +28,7 @@ export const ProfessorLayout: FC<Props> = ({ children, user, theme, path }) => {
           <RightSidebar />
         </Col>
       </Row>
-
-      <Drawer title="Basic drawer" placement="right">
-        {/*TODO: hacer el componente de notas en features para anyadirlo*/}
-      </Drawer>
+      <NotesDrawer>{/*TODO: Notes */}</NotesDrawer>
     </>
   );
 };

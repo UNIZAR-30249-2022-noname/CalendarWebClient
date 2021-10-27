@@ -1,7 +1,7 @@
 import { Row, Menu } from "antd";
 import { FC, useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { CalendarFilled, MoreOutlined } from "@ant-design/icons";
+import { CalendarFilled, AppstoreOutlined } from "@ant-design/icons";
 import { routerManager } from "../../../../router/user-control/router-manager";
 import SubMenu from "antd/lib/menu/SubMenu";
 
@@ -24,18 +24,26 @@ export const NavbarMobile: FC<Props> = ({ path }) => {
 
   return (
     <Row align="middle" justify="space-between" style={{ padding: 5 }}>
-      <CalendarFilled style={{ fontSize: 35, color: "#1890FF" }} />
+      <CalendarFilled
+        style={{ fontSize: 35, color: "#1890FF" }}
+        onClick={() => history.push("/")}
+      />
       <Menu
         triggerSubMenuAction="click"
-        expandIcon={<MoreOutlined style={{ color: "black", fontSize: 25 }} />}
+        expandIcon={
+          <AppstoreOutlined style={{ color: "666666", fontSize: 25 }} />
+        }
         selectedKeys={[selectedTab]}
+        mode="vertical"
       >
         <SubMenu key="submenu" popupOffset={[-50, 50]}>
           {routerManager().map((e) => {
             return (
-              <Menu.Item key={e.path} onClick={(e) => handleOnClick(e.key)}>
-                {e.name}
-              </Menu.Item>
+              e.name && (
+                <Menu.Item key={e.path} onClick={(e) => handleOnClick(e.key)}>
+                  {e.name}
+                </Menu.Item>
+              )
             );
           })}
         </SubMenu>

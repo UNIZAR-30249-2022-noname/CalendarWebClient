@@ -22,7 +22,7 @@ export const NavTabs: FC<Props> = ({ handleOnClick, activeTab }) => {
       tabBarExtraContent={<LogoutButton />}
     >
       {routerManager().map((e) => {
-        return <TabPane tab={e.name} key={e.path} />;
+        return e.name && <TabPane tab={e.name} key={e.path} />;
       })}
     </Tabs>
   );
