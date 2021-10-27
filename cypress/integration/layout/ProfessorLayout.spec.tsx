@@ -94,7 +94,7 @@ describe("Professor layout", () => {
     });
 
     /*TODO: mejorar */
-    describe.only("Drawer", () => {
+    describe("Drawer", () => {
       it(`should open drawer and close it correctly by clicking 'X'`, () => {
         //cy.react("Drawer").should("not.be.visible");
         // Given
