@@ -4,9 +4,9 @@ import { AppTheme } from "../config/themes";
 
 const UserContext = createContext(session.getUser());
 const ThemeContext = createContext(AppTheme.getTheme());
-const DrawerContext = createContext({
+const NotesDrawerContext = createContext({
   visibleDrawer: false,
   setVisibleDrawer: Object(),
 });
 
-export { UserContext, ThemeContext, DrawerContext };
+export { UserContext, ThemeContext, NotesDrawerContext };

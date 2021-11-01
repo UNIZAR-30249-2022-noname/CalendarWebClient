@@ -1,5 +1,5 @@
 import axios from "axios";
-import options from "../config/axios.config";
+import options from "../../config/axios.config";
 
 //
 const get = async (url: string) => {

@@ -1,8 +1,8 @@
 import "./App.css";
-import { RoutesApp } from "./core/router/Routes-App";
+import { AppWrapper } from "./core/context/AppWrapper";
 
 function App() {
-  return <RoutesApp />;
+  return <AppWrapper />;
 }
 
 export default App;

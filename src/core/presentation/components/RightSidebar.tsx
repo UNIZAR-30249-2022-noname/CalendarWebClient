@@ -1,14 +1,11 @@
 import { ProfileOutlined } from "@ant-design/icons";
-import { useContext } from "react";
-import { DrawerContext } from "../../context/context";
+import { FC } from "react";
 
-export const RightSidebar = () => {
-  const { setVisibleDrawer } = useContext(DrawerContext);
+type Props = {
+  openNotesDrawer: Function;
+};
 
-  const toggleDrawer = () => {
-    setVisibleDrawer(true);
-  };
-
+export const RightSidebar: FC<Props> = ({ openNotesDrawer }) => {
   return (
     <div
       style={{
@@ -21,7 +18,7 @@ export const RightSidebar = () => {
     >
       <div style={{ display: "grid" }}>
         <ProfileOutlined
-          onClick={() => toggleDrawer()}
+          onClick={() => openNotesDrawer()}
           style={{ fontSize: 30, color: "purple" }}
         />
       </div>

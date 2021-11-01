@@ -1,0 +1,51 @@
+import { Result } from "../../../../../core/config/result";
+import SubjectAvailableHours from "../../domain/models/AvailableHours";
+import { degreeAvailableHoursData } from "../data_sources/http/AvailableHours.data";
+import SubjectAvailableHoursDTO from "../dto/SubjectAvailableHoursDTO";
+
+export const degreeAvailableHoursRepo = {
+  getDegreeAvailableHours: async (): Promise<
+    Result<SubjectAvailableHours[]>
+  > => {
+    const res = await degreeAvailableHoursData.getDegreeAvailableHours();
+    if (res.isError) {
+      return { isError: true, error: res.error };
+    }
+    // Parse to domain models, where bussines logic can understand the data
+    try {
+      const value = res.value.map(
+        (subjectAvailableHoursDto): SubjectAvailableHours => {
+          nullCheck(subjectAvailableHoursDto);
+          return {
+            kind: subjectAvailableHoursDto.kind,
+            subject: subjectAvailableHoursDto.subject,
+            hours: {
+              remaining: subjectAvailableHoursDto.remaining,
+              total: subjectAvailableHoursDto.total,
+            },
+          };
+        }
+      );
+      return {
+        isError: false,
+        value: value,
+      };
+    } catch (e) {
+      return {
+        isError: true,
+        error: Error("parse error"),
+      };
+    }
+  },
+};
+
+// Manually check undefined and null xd
+const nullCheck = (subjectAvailableHoursDto: SubjectAvailableHoursDTO) => {
+  if (
+    subjectAvailableHoursDto.kind == null ||
+    subjectAvailableHoursDto.remaining == null ||
+    subjectAvailableHoursDto.subject == null ||
+    subjectAvailableHoursDto.total == null
+  )
+    throw Error();
+};

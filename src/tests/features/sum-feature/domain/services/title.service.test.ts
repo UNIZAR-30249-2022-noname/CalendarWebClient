@@ -2,7 +2,7 @@ import { titleService } from "../../../../../features/sum-feature/domain/service
 import { titleData } from "../../../../../features/sum-feature/infraestructure/data_sources/http/title.data";
 import { titleRepository } from "../../../../../features/sum-feature/infraestructure/repositories/title.repositories";
 
-describe("Title service tests", () => {
+describe.skip("Title service tests", () => {
   test("should get a [Title] model from title service", async () => {
     // Given
     jest.spyOn(titleRepository, "getTitles").mockReturnValue(

@@ -1,9 +1,9 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { config } from "../../../../../../core/config/constants";
+import { url } from "../../../../../../core/backend/http/services";
 import { titleData } from "../../../../../../features/sum-feature/infraestructure/data_sources/http/title.data";
 
-describe("title http api tests", () => {
+describe.skip("title http api tests", () => {
   let mock: MockAdapter;
 
   beforeAll(() => {
@@ -16,7 +16,7 @@ describe("title http api tests", () => {
 
   test("should get remote data and transform to [TitleDTO[]]", async () => {
     // Given
-    mock.onGet(config.baseURL1 + "/todos").reply(200, [{}]);
+    mock.onGet(url.baseURL1 + "/todos").reply(200, [{}]);
     // When
     const res = await titleData.getTitlesList();
     // Then
@@ -28,7 +28,7 @@ describe("title http api tests", () => {
 
   test("should fail when trying to get remote data - Network Error", async () => {
     // Given
-    mock.onGet(config.baseURL1 + "/todos").networkErrorOnce();
+    mock.onGet(url.baseURL1 + "/todos").networkErrorOnce();
     // When
     const res = await titleData.getTitlesList();
     // Then
@@ -40,7 +40,7 @@ describe("title http api tests", () => {
 
   test("should fail when traying to get remote data - timeout", async () => {
     // Given
-    mock.onGet(config.baseURL1 + "/todos").timeoutOnce();
+    mock.onGet(url.baseURL1 + "/todos").timeoutOnce();
     // When
     const res = await titleData.getTitlesList();
     // Then
