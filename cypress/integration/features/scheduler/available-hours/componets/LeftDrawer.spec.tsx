@@ -19,7 +19,7 @@ describe("Left Drawer", () => {
     window.localStorage.setItem("leftDrawerState", leftDrawerState);
   });
 
-  describe("local", () => {
+  describe("Responsive layout", () => {
     it("should open the left drawer correctly", () => {
       // Given
       cy.setLocalStorage("leftDrawerState", "opened");
@@ -50,6 +50,28 @@ describe("Left Drawer", () => {
       cy.get(".ant-layout-sider").invoke("width").should("be.lt", 1);
     });
 
+    const mobileSizes: Cypress.ViewportPreset[] = [
+      "iphone-6+",
+      "iphone-7",
+      "iphone-8",
+      "iphone-x",
+    ];
+    mobileSizes.forEach((size) => {
+      it("should not be visible when mobile version", () => {
+        // Given
+        cy.viewport(size);
+        cy.setLocalStorage("leftDrawerState", "closed");
+        cy.visit("/");
+        cy.waitForReact();
+        // Then
+        cy.get(".anticon-left-circle").should("not.exist");
+        cy.get(".anticon-right-circle").should("not.exist");
+        cy.get(".ant-layout-sider").should("not.exist");
+      });
+    });
+  });
+
+  describe("local", () => {
     it("should fetch degree information correctly", () => {
       // Given
       cy.setLocalStorage("leftDrawerState", "closed");

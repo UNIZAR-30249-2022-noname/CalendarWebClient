@@ -1,6 +1,6 @@
 import { Row, Space, Col, Layout, Card, notification } from "antd";
 import Text from "antd/lib/typography/Text";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import SubjectAvailableHours from "../../../features/scheduler/available-hours/domain/models/SubjectAvailableHours";
 import { degreeAvailableHoursService } from "../../../features/scheduler/available-hours/domain/services/AvailableHours.service";
@@ -26,12 +26,6 @@ export const Scheduler = () => {
     subjects: SubjectAvailableHours[];
   }>({ name: "", subjects: [] });
 
-  useEffect(() => {
-    loadDegreeInfo();
-    fetchDegrees();
-    fetchDegreeInfo();
-  }, []);
-
   const loadDegreeInfo = () => {
     //TODO: load from localstorage
     // setDegree("Ingeniería informática");
@@ -44,7 +38,7 @@ export const Scheduler = () => {
     setDegreeList(["Arquitectura", "Ingenería informática", "Matemáticas"]);
   };
 
-  const fetchDegreeInfo = async () => {
+  const fetchDegreeInfo = useCallback(async () => {
     //TODO: finish
     setLoaded(false);
     let degreeInfoRes =
@@ -53,35 +47,6 @@ export const Scheduler = () => {
         curso: year,
         grupo: group,
       });
-    // let degreeInfoRes: Result<SubjectAvailableHours[]> = {
-    //   isError: false,
-    //   value: [
-    //     {
-    //       subject: "Verificación y validación",
-    //       kind: 2,
-    //       hours: {
-    //         remaining: 3,
-    //         total: 5,
-    //       },
-    //     },
-    //     {
-    //       subject: "Arquitectura de computadores",
-    //       kind: 2,
-    //       hours: {
-    //         remaining: 1,
-    //         total: 5,
-    //       },
-    //     },
-    //     {
-    //       subject: "Teoría de la computación",
-    //       kind: 2,
-    //       hours: {
-    //         remaining: 4,
-    //         total: 5,
-    //       },
-    //     },
-    //   ],
-    // };
     if (degreeInfoRes.isError) {
       setLoaded(true);
       notification.destroy();
@@ -97,7 +62,13 @@ export const Scheduler = () => {
     }
     setDegreeInfo({ name: degree, subjects: degreeInfoRes.value });
     setLoaded(true);
-  };
+  }, [degree, group, year]);
+
+  useEffect(() => {
+    loadDegreeInfo();
+    fetchDegrees();
+    fetchDegreeInfo();
+  }, [fetchDegreeInfo]);
 
   const toggleVisibility = () => {
     setvisible(!visible);
