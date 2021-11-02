@@ -1,5 +1,5 @@
-import AvailableHoursParamsDTO from "../../../../../../../features/scheduler/available-hours/infraestructure/dto/AvailableHoursParamsDTO";
-import SubjectAvailableHoursDTO from "../../../../../../../features/scheduler/available-hours/infraestructure/dto/SubjectAvailableHoursDTO";
+import AvailableHoursParamsDTO from "../../../../../../../features/scheduler/degrees/infraestructure/dto/AvailableHoursParamsDTO";
+import SubjectAvailableHoursDTO from "../../../../../../../features/scheduler/degrees/infraestructure/dto/SubjectAvailableHoursDTO";
 
 const DegreeParams: AvailableHoursParamsDTO = {
   titulacion: "Verificación y validación",
@@ -12,13 +12,13 @@ const getAvailableHours: SubjectAvailableHoursDTO[] = [
     kind: 2,
     subject: "Verificación y validación",
     remaining: 10,
-    total: 20,
+    max: 20,
   },
   {
     kind: 1,
     subject: "Introducción a computadores",
     remaining: 23,
-    total: 60,
+    max: 60,
   },
 ];
 

@@ -3,15 +3,15 @@ import { Row, Space, Col, Layout, Card, notification } from "antd";
 import Text from "antd/lib/typography/Text";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import SubjectAvailableHours from "../../../features/scheduler/available-hours/domain/models/SubjectAvailableHours";
-import { degreeAvailableHoursService } from "../../../features/scheduler/available-hours/domain/services/AvailableHours.service";
+import SubjectAvailableHours from "../../../features/scheduler/degrees/domain/models/SubjectAvailableHours";
+import { degreeAvailableHoursService } from "../../../features/scheduler/degrees/domain/services/AvailableHours.service";
 
-import { DegreesSelector } from "../../../features/scheduler/available-hours/presentation/components/DegreesSelector";
-import { GroupSelector } from "../../../features/scheduler/available-hours/presentation/components/GroupSelector";
-import { SearchDegreeInfo } from "../../../features/scheduler/available-hours/presentation/components/SearchDegreeInfo";
-import { YearSelector } from "../../../features/scheduler/available-hours/presentation/components/YearSelector";
+import { DegreesSelector } from "../../../features/scheduler/degrees/presentation/components/DegreesSelector";
+import { GroupSelector } from "../../../features/scheduler/degrees/presentation/components/GroupSelector";
+import { SearchDegreeInfo } from "../../../features/scheduler/degrees/presentation/components/SearchDegreeInfo";
+import { YearSelector } from "../../../features/scheduler/degrees/presentation/components/YearSelector";
 import { leftDrawerContext } from "../../context/leftDrawerContext";
-import { LeftDrawer } from "../../../features/scheduler/available-hours/presentation/components/LeftDrawer";
+import { LeftDrawer } from "../../../features/scheduler/degrees/presentation/components/LeftDrawer";
 import { ButtonToggleND } from "../components/notes-drawer/ButtonToggleND";
 
 export const Scheduler = () => {

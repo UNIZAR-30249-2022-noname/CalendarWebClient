@@ -1,4 +1,4 @@
-import { degreeAvailableHoursService } from "../../../../../../features/scheduler/available-hours/domain/services/AvailableHours.service";
+import { degreeAvailableHoursService } from "../../../../../../features/scheduler/degrees/domain/services/AvailableHours.service";
 import { fixtures } from "./fixtures";
 
 describe("Degree available hours service tests", () => {

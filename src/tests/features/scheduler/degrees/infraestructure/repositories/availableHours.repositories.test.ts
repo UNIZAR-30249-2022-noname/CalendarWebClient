@@ -1,4 +1,4 @@
-import { degreeAvailableHoursRepo } from "../../../../../../features/scheduler/available-hours/infraestructure/repositories/AvailableHours.repositories";
+import { degreeAvailableHoursRepo } from "../../../../../../features/scheduler/degrees/infraestructure/repositories/AvailableHours.repositories";
 import { fixtures } from "./fixtures";
 
 describe("Degree available hours repository tests", () => {

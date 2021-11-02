@@ -1,7 +1,7 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { httpServices } from "../../../../../../../core/backend/http/services";
-import { degreeAvailableHoursData } from "../../../../../../../features/scheduler/available-hours/infraestructure/data_sources/http/AvailableHours.data";
+import { degreeAvailableHoursData } from "../../../../../../../features/scheduler/degrees/infraestructure/data_sources/http/AvailableHours.data";
 import { fixtures } from "./fixtures";
 
 describe("get available hours", () => {
@@ -16,7 +16,7 @@ describe("get available hours", () => {
     mock.reset();
   });
 
-  describe.only("Good request", () => {
+  describe("Good request", () => {
     test("should get all degree subjects with their available hours", async () => {
       // Given
       let res = fixtures.getAvailableHours;

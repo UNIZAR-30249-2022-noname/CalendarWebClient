@@ -1,6 +1,6 @@
 import { Result } from "../../../../../../core/config/result";
-import SubjectAvailableHours from "../../../../../../features/scheduler/available-hours/domain/models/SubjectAvailableHours";
-import AvailableHoursParamsDTO from "../../../../../../features/scheduler/available-hours/infraestructure/dto/AvailableHoursParamsDTO";
+import SubjectAvailableHours from "../../../../../../features/scheduler/degrees/domain/models/SubjectAvailableHours";
+import AvailableHoursParamsDTO from "../../../../../../features/scheduler/degrees/infraestructure/dto/AvailableHoursParamsDTO";
 
 const DegreeParams: AvailableHoursParamsDTO = {
   titulacion: "Verificación y validación",
