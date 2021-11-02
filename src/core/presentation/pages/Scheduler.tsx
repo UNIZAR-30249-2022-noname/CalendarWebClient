@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Row, Space, Col, Layout, Card, notification } from "antd";
 import Text from "antd/lib/typography/Text";
 import { useCallback, useEffect, useState } from "react";
@@ -38,7 +39,7 @@ export const Scheduler = () => {
     setDegreeList(["Arquitectura", "Ingenería informática", "Matemáticas"]);
   };
 
-  const fetchDegreeInfo = useCallback(async () => {
+  const fetchDegreeInfo = async () => {
     //TODO: finish
     setLoaded(false);
     let degreeInfoRes =
@@ -62,13 +63,13 @@ export const Scheduler = () => {
     }
     setDegreeInfo({ name: degree, subjects: degreeInfoRes.value });
     setLoaded(true);
-  }, [degree, group, year]);
+  };
 
   useEffect(() => {
     loadDegreeInfo();
     fetchDegrees();
     fetchDegreeInfo();
-  }, [fetchDegreeInfo]);
+  }, []);
 
   const toggleVisibility = () => {
     setvisible(!visible);
@@ -97,7 +98,7 @@ export const Scheduler = () => {
               width: "100%",
             }}
           >
-            <Col flex={1}>
+            <Col flex={2}>
               <Space align="center">
                 {isDrawerClosed && (
                   <ButtonToggleND
