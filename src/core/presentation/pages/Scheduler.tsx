@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Row, Space, Col, Layout, Card, notification } from "antd";
 import Text from "antd/lib/typography/Text";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import SubjectAvailableHours from "../../../features/scheduler/available-hours/domain/models/SubjectAvailableHours";
 import { degreeAvailableHoursService } from "../../../features/scheduler/available-hours/domain/services/AvailableHours.service";
