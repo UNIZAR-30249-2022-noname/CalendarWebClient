@@ -4,7 +4,7 @@ type SubjectAvailableHoursDTO = {
   kind: SubjectKind;
   subject: string;
   remaining: number;
-  total: number;
+  max: number;
 };
 
 export default SubjectAvailableHoursDTO;

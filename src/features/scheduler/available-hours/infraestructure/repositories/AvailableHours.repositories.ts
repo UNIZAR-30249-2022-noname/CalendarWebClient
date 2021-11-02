@@ -24,7 +24,7 @@ export const degreeAvailableHoursRepo = {
             subject: subjectAvailableHoursDto.subject,
             hours: {
               remaining: subjectAvailableHoursDto.remaining,
-              total: subjectAvailableHoursDto.total,
+              total: subjectAvailableHoursDto.max,
             },
           };
         }
@@ -48,7 +48,7 @@ const nullCheck = (subjectAvailableHoursDto: SubjectAvailableHoursDTO) => {
     subjectAvailableHoursDto.kind == null ||
     subjectAvailableHoursDto.remaining == null ||
     subjectAvailableHoursDto.subject == null ||
-    subjectAvailableHoursDto.total == null
+    subjectAvailableHoursDto.max == null
   )
     throw Error();
 };
