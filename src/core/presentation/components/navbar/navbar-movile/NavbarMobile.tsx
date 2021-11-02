@@ -1,7 +1,7 @@
 import { Row, Menu } from "antd";
 import { FC, useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { CalendarFilled, AppstoreOutlined } from "@ant-design/icons";
+import { CalendarOutlined, AppstoreOutlined } from "@ant-design/icons";
 import { routerManager } from "../../../../router/user-control/router-manager";
 import SubMenu from "antd/lib/menu/SubMenu";
 
@@ -24,7 +24,7 @@ export const NavbarMobile: FC<Props> = ({ path }) => {
 
   return (
     <Row align="middle" justify="space-between" style={{ padding: 5 }}>
-      <CalendarFilled
+      <CalendarOutlined
         style={{ fontSize: 35, color: "#1890FF" }}
         onClick={() => history.push("/")}
       />

@@ -5,7 +5,7 @@
   "scripts": {
     "cy:open": "cypress open start",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false react-scripts build",
     "test": "NODE_ENV=test react-scripts test a",
     "test-e2e": "cypress run",
     "eject": "react-scripts eject"
@@ -36,6 +36,7 @@
     "@types/crypto-js": "~4.0.2",
     "axios-mock-adapter": "^1.20.0",
     "cypress": "~8.5.0",
+    "cypress-localstorage-commands": "^1.6.0",
     "cypress-react-selector": "~2.3.11"
   },
   "eslintConfig": {
