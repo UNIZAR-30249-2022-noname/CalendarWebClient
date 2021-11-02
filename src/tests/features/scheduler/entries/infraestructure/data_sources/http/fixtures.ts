@@ -1,11 +1,4 @@
-import AvailableHoursParamsDTO from "../../../../../../../features/scheduler/degrees/infraestructure/dto/AvailableHoursParamsDTO";
 import EntryDTO from "../../../../../../../features/scheduler/entries/infraestructure/dto/EntryDTO";
-
-const DegreeParams: AvailableHoursParamsDTO = {
-  titulacion: "Verificación y validación",
-  curso: 1,
-  grupo: 2,
-};
 
 const postEntriesBody: EntryDTO[] = [
   {
@@ -23,5 +16,4 @@ const postEntriesBody: EntryDTO[] = [
 
 export const fixtures = {
   postEntriesBody,
-  DegreeParams,
 };
