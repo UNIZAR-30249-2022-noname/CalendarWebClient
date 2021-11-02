@@ -9,7 +9,6 @@ export const degreeAvailableHoursService = {
     // Proccess data
 
     // return it to component
-    console.log(titleList);
     return titleList;
   },
 };

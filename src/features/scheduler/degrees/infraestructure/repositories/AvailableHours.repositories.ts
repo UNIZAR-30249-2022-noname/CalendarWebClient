@@ -9,6 +9,7 @@ export const degreeAvailableHoursRepo = {
     params: AvailableHoursParamsDTO
   ): Promise<Result<SubjectAvailableHours[]>> => {
     const res = await degreeAvailableHoursData.getDegreeAvailableHours(params);
+    console.log(res);
     if (res.isError) {
       return { isError: true, error: res.error };
     }
