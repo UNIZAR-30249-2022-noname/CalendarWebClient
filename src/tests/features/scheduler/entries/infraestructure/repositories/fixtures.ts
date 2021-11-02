@@ -1,42 +1,52 @@
 import { Result } from "../../../../../../core/config/result";
-import SubjectAvailableHours from "../../../../../../features/scheduler/degrees/domain/models/SubjectAvailableHours";
-import AvailableHoursParamsDTO from "../../../../../../features/scheduler/degrees/infraestructure/dto/AvailableHoursParamsDTO";
+import Entry from "../../../../../../features/scheduler/entries/domain/models/Entry";
+import EntryDTO from "../../../../../../features/scheduler/entries/infraestructure/dto/EntryDTO";
 
-const DegreeParams: AvailableHoursParamsDTO = {
-  titulacion: "Verificación y validación",
-  curso: 1,
-  grupo: 2,
-};
+const postEntriesBodyDTO: EntryDTO[] = [
+  {
+    kind: 2,
+    subject: "Verificación y validación",
+    semana: "A",
+    room: "23",
+    initMin: 50,
+    initHour: 8,
+    grupo: "Tardes",
+    endMin: 40,
+    endHour: 9,
+  },
+];
 
-const getAvailableHours: Result<SubjectAvailableHours[]> = {
+const postEntriesBody: Entry[] = [
+  {
+    kind: 2,
+    subject: "Verificación y validación",
+    room: "23",
+    initTime: {
+      hour: 8,
+      min: 50,
+    },
+    endTime: {
+      hour: 9,
+      min: 40,
+    },
+    group: "Tardes",
+    week: "A",
+  },
+];
+
+const resEntries: Result<boolean> = {
   isError: false,
-  value: [
-    {
-      kind: 2,
-      subject: "Verificación y validación",
-      hours: {
-        remaining: 10,
-        total: 20,
-      },
-    },
-    {
-      kind: 1,
-      subject: "Introducción a computadores",
-      hours: {
-        remaining: 23,
-        total: 60,
-      },
-    },
-  ],
+  value: true,
 };
 
-const getAvailableHoursError: Result<SubjectAvailableHours[]> = {
+const resEntriesError: Result<boolean> = {
   isError: true,
-  error: Error("available hours error"),
+  error: Error(),
 };
 
 export const fixtures = {
-  getAvailableHours,
-  getAvailableHoursError,
-  DegreeParams,
+  postEntriesBodyDTO,
+  postEntriesBody,
+  resEntries,
+  resEntriesError,
 };

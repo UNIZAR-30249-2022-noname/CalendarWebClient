@@ -9,17 +9,14 @@ export const degreeAvailableHoursRepo = {
     params: AvailableHoursParamsDTO
   ): Promise<Result<SubjectAvailableHours[]>> => {
     const res = await degreeAvailableHoursData.getDegreeAvailableHours(params);
-    console.log(res);
     if (res.isError) {
       return { isError: true, error: res.error };
     }
-    console.log(res.value[0]);
     // Parse to domain models, where bussines logic can understand the data
     try {
       const value = res.value.map(
         (subjectAvailableHoursDto): SubjectAvailableHours => {
           nullCheck(subjectAvailableHoursDto);
-          console.log(subjectAvailableHoursDto);
           return {
             kind: subjectAvailableHoursDto.kind,
             subject: subjectAvailableHoursDto.subject,
