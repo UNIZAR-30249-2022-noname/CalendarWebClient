@@ -9,7 +9,9 @@ describe("Degree available hours service tests", () => {
       .mockReturnValue(Promise.resolve(fixtures.getAvailableHours));
     // When
     const subjectListRes =
-      await degreeAvailableHoursService.getDegreeAvailableHours();
+      await degreeAvailableHoursService.getDegreeAvailableHours(
+        fixtures.DegreeParams
+      );
     // Then
     if (subjectListRes.isError) {
       throw Error();
@@ -26,7 +28,9 @@ describe("Degree available hours service tests", () => {
       .mockReturnValue(Promise.resolve(fixtures.getAvailableHoursError));
     // When
     const subjectListRes =
-      await degreeAvailableHoursService.getDegreeAvailableHours();
+      await degreeAvailableHoursService.getDegreeAvailableHours(
+        fixtures.DegreeParams
+      );
     // Then
     if (!subjectListRes.isError) {
       throw Error();

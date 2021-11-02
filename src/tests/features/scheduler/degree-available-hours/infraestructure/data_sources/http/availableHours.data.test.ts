@@ -22,8 +22,9 @@ describe("get available hours", () => {
       let res = fixtures.getAvailableHours;
       mock.onGet(service).reply(200, res);
       // When
-      let subjectList =
-        await degreeAvailableHoursData.getDegreeAvailableHours();
+      let subjectList = await degreeAvailableHoursData.getDegreeAvailableHours(
+        fixtures.DegreeParams
+      );
       // Then
       if (subjectList.isError) {
         throw Error();
@@ -37,7 +38,9 @@ describe("get available hours", () => {
       // Given
       mock.onGet(service).networkErrorOnce();
       // When
-      const res = await degreeAvailableHoursData.getDegreeAvailableHours();
+      const res = await degreeAvailableHoursData.getDegreeAvailableHours(
+        fixtures.DegreeParams
+      );
       // Then
       if (!res.isError) {
         throw Error();
@@ -49,7 +52,9 @@ describe("get available hours", () => {
       // Given
       mock.onGet(service).timeoutOnce();
       // When
-      const res = await degreeAvailableHoursData.getDegreeAvailableHours();
+      const res = await degreeAvailableHoursData.getDegreeAvailableHours(
+        fixtures.DegreeParams
+      );
       // Then
       if (!res.isError) {
         throw Error();

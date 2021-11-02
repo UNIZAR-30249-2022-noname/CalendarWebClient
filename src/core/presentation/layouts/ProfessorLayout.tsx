@@ -5,7 +5,6 @@ import { NotesDrawer } from "../components/notes-drawer/NotesDrawer";
 import { NavbarMobile } from "../components/navbar/navbar-movile/NavbarMobile";
 import { NavbarWeb } from "../components/navbar/navbar-web/NavbarWeb";
 import { RightSidebar } from "../components/RightSidebar";
-import "react-pro-sidebar/dist/css/styles.css";
 
 type Props = {
   user: String;
@@ -31,12 +30,19 @@ export const ProfessorLayout: FC<Props> = ({ children, user, theme, path }) => {
         <Col flex="auto">
           {!isMobile ? <NavbarWeb path={path} /> : <NavbarMobile path={path} />}
           <Row>
-            <Col flex={50}>
-              <div style={{ ...theme, height: "100%" }}>{children}</div>
-            </Col>
-            <Col flex="auto">
+            <div
+              style={{
+                ...theme,
+                height: "100vh",
+                width: "100%",
+                paddingRight: 30,
+              }}
+            >
+              {children}
+            </div>
+            <div style={{ position: "absolute", right: 0 }}>
               <RightSidebar openNotesDrawer={openNotesDrawer} />
-            </Col>
+            </div>
           </Row>
         </Col>
       </Row>

@@ -9,11 +9,11 @@ export const mock = {
   ) => {
     return cy.intercept(
       {
-        url: url,
+        pathname: url,
         method: "GET",
       },
       (req) => {
-        req.reply(response);
+        req.reply(203, response);
         req.query = query ?? {};
       }
     );

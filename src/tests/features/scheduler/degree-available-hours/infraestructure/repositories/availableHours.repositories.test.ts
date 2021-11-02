@@ -1,4 +1,3 @@
-import { degreeAvailableHoursData } from "../../../../../../features/scheduler/available-hours/infraestructure/data_sources/http/AvailableHours.data";
 import { degreeAvailableHoursRepo } from "../../../../../../features/scheduler/available-hours/infraestructure/repositories/AvailableHours.repositories";
 import { fixtures } from "./fixtures";
 
@@ -11,7 +10,9 @@ describe("Degree available hours repository tests", () => {
     //jest.spyOn(degreeAvailableHoursData, "getDegreeAvailableHours");
     // When
     const subjectListRes =
-      await degreeAvailableHoursRepo.getDegreeAvailableHours();
+      await degreeAvailableHoursRepo.getDegreeAvailableHours(
+        fixtures.DegreeParams
+      );
     // Then
     if (subjectListRes.isError) {
       throw Error();
@@ -29,7 +30,9 @@ describe("Degree available hours repository tests", () => {
       .mockReturnValue(Promise.resolve(fixtures.getAvailableHoursError));
     // When
     const subjectListRes =
-      await degreeAvailableHoursRepo.getDegreeAvailableHours();
+      await degreeAvailableHoursRepo.getDegreeAvailableHours(
+        fixtures.DegreeParams
+      );
     // Then
     if (!subjectListRes.isError) {
       throw Error();

@@ -2,8 +2,8 @@ import axios from "axios";
 import options from "../../config/axios.config";
 
 //
-const get = async (url: string) => {
-  const response = await axios.get(url, options);
+const get = async (url: string, params?: Object) => {
+  const response = await axios.get(url, { params: params });
   return response;
 };
 

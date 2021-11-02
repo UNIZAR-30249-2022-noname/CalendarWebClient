@@ -1,4 +1,11 @@
+import AvailableHoursParamsDTO from "../../../../../../../features/scheduler/available-hours/infraestructure/dto/AvailableHoursParamsDTO";
 import SubjectAvailableHoursDTO from "../../../../../../../features/scheduler/available-hours/infraestructure/dto/SubjectAvailableHoursDTO";
+
+const DegreeParams: AvailableHoursParamsDTO = {
+  titulacion: "Verificación y validación",
+  curso: 1,
+  grupo: 2,
+};
 
 const getAvailableHours: SubjectAvailableHoursDTO[] = [
   {
@@ -17,4 +24,5 @@ const getAvailableHours: SubjectAvailableHoursDTO[] = [
 
 export const fixtures = {
   getAvailableHours,
+  DegreeParams,
 };
