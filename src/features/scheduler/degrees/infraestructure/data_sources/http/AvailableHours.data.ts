@@ -15,10 +15,11 @@ export const degreeAvailableHoursData = {
       if (res.status === 200) {
         return { isError: false, value: res.data };
       } else {
-        return { isError: true, error: new Error("Pepe") };
+        return { isError: true, error: new Error("http error") };
       }
     } catch (e) {
-      return { isError: true, error: new Error() };
+      console.error((e as Error).message);
+      return { isError: true, error: e as Error };
     }
   },
 };

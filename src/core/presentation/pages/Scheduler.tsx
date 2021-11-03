@@ -13,6 +13,7 @@ import { YearSelector } from "../../../features/scheduler/degrees/presentation/c
 import { leftDrawerContext } from "../../context/leftDrawerContext";
 import { LeftDrawer } from "../../../features/scheduler/degrees/presentation/components/LeftDrawer";
 import { ButtonToggleND } from "../components/notes-drawer/ButtonToggleND";
+import { notifications } from "../components/notifications/notifications";
 
 export const Scheduler = () => {
   const isDrawerClosed = useMediaQuery({ query: "(min-width: 600px)" });
@@ -50,15 +51,7 @@ export const Scheduler = () => {
       });
     if (degreeInfoRes.isError) {
       setLoaded(true);
-      notification.destroy();
-      notification.open({
-        placement: "bottomLeft",
-        duration: 5,
-        type: "error",
-        message: "Error",
-        description: "Error al cargar la información",
-        style: { padding: 10 },
-      });
+      notifications.error(`Error al cargar los datos de ${degree}`);
       return;
     }
     setDegreeInfo({ name: degree, subjects: degreeInfoRes.value });

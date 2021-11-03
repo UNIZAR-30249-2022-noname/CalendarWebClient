@@ -1,10 +1,10 @@
 type SubjectKind = 0 | 1 | 2;
 
 type SubjectAvailableHoursDTO = {
-  kind: SubjectKind;
-  subject: string;
-  remaining: number;
-  max: number;
+  Kind: SubjectKind;
+  Subject: string;
+  Remaining: number;
+  Max: number;
 };
 
 export default SubjectAvailableHoursDTO;

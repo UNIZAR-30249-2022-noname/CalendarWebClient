@@ -45,7 +45,7 @@ describe("get available hours", () => {
       if (!res.isError) {
         throw Error();
       }
-      expect(res.error).toEqual(Error());
+      expect(res.error).toEqual(Error("Network Error"));
     });
 
     test("should fail when traying to get available hours - timeout", async () => {
@@ -59,7 +59,7 @@ describe("get available hours", () => {
       if (!res.isError) {
         throw Error();
       }
-      expect(res.error).toEqual(Error());
+      expect(res.error).toEqual(Error("Timeout exceeded 0ms"));
     });
   });
 });

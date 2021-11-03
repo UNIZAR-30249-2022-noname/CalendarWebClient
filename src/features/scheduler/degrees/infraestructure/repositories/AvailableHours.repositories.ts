@@ -1,3 +1,4 @@
+import { debuglog } from "util";
 import { Result } from "../../../../../core/config/result";
 import SubjectAvailableHours from "../../domain/models/SubjectAvailableHours";
 import { degreeAvailableHoursData } from "../data_sources/http/AvailableHours.data";
@@ -18,11 +19,11 @@ export const degreeAvailableHoursRepo = {
         (subjectAvailableHoursDto): SubjectAvailableHours => {
           nullCheck(subjectAvailableHoursDto);
           return {
-            kind: subjectAvailableHoursDto.kind,
-            subject: subjectAvailableHoursDto.subject,
+            kind: subjectAvailableHoursDto.Kind,
+            subject: subjectAvailableHoursDto.Subject,
             hours: {
-              remaining: subjectAvailableHoursDto.remaining,
-              total: subjectAvailableHoursDto.max,
+              remaining: subjectAvailableHoursDto.Remaining,
+              total: subjectAvailableHoursDto.Max,
             },
           };
         }
@@ -32,9 +33,10 @@ export const degreeAvailableHoursRepo = {
         value: value,
       };
     } catch (e) {
+      console.error((e as Error).message);
       return {
         isError: true,
-        error: Error("parse error"),
+        error: e as Error,
       };
     }
   },
@@ -43,10 +45,10 @@ export const degreeAvailableHoursRepo = {
 // Manually check undefined and null xd
 const nullCheck = (subjectAvailableHoursDto: SubjectAvailableHoursDTO) => {
   if (
-    subjectAvailableHoursDto.kind == null ||
-    subjectAvailableHoursDto.remaining == null ||
-    subjectAvailableHoursDto.subject == null ||
-    subjectAvailableHoursDto.max == null
+    subjectAvailableHoursDto.Kind == null ||
+    subjectAvailableHoursDto.Remaining == null ||
+    subjectAvailableHoursDto.Subject == null ||
+    subjectAvailableHoursDto.Max == null
   )
     throw Error();
 };

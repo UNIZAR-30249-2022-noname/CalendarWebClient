@@ -1,5 +1,5 @@
 const url = {
-  baseURL1: "https://jsonplaceholder.typicode.com",
+  baseURL1: "http://localhost:8080",
 };
 
 const httpServices = {

@@ -13,16 +13,16 @@ const getAvailableHoursDTO: Result<SubjectAvailableHoursDTO[]> = {
   isError: false,
   value: [
     {
-      kind: 2,
-      subject: "Verificación y validación",
-      remaining: 10,
-      max: 20,
+      Kind: 2,
+      Subject: "Verificación y validación",
+      Remaining: 10,
+      Max: 20,
     },
     {
-      kind: 1,
-      subject: "Introducción a computadores",
-      remaining: 23,
-      max: 60,
+      Kind: 1,
+      Subject: "Introducción a computadores",
+      Remaining: 23,
+      Max: 60,
     },
   ],
 };
