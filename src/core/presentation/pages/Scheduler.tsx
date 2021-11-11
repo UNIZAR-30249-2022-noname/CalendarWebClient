@@ -3,7 +3,7 @@ import { Row, Space, Col, Layout, Card, notification } from "antd";
 import Text from "antd/lib/typography/Text";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import SubjectAvailableHours from "../../../features/scheduler/degrees/domain/models/SubjectAvailableHours";
+import { SubjectAvailableHours } from "../../../features/scheduler/degrees/domain/models/SubjectAvailableHours";
 import { degreeAvailableHoursService } from "../../../features/scheduler/degrees/domain/services/AvailableHours.service";
 
 import { DegreesSelector } from "../../../features/scheduler/degrees/presentation/components/DegreesSelector";

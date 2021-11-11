@@ -59,7 +59,7 @@ describe("get available hours", () => {
       if (!res.isError) {
         throw Error();
       }
-      expect(res.error).toEqual(Error("Timeout exceeded 0ms"));
+      expect(res.error).toEqual(Error("timeout of 0ms exceeded"));
     });
   });
 });

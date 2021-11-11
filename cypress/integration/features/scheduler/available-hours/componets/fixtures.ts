@@ -15,10 +15,10 @@ const Params2: AvailableHoursParamsDTO = {
 
 const ResponseGood: SubjectAvailableHoursDTO[] = [
   {
-    subject: "Verificación y validación",
-    kind: 2,
-    remaining: 2,
-    max: 4,
+    Subject: "Verificación y validación",
+    Kind: 2,
+    Remaining: 2,
+    Max: 4,
   },
 ];
 

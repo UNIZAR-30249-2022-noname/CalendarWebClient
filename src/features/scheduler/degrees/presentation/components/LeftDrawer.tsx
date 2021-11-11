@@ -2,7 +2,8 @@ import { Badge, Button, Space } from "antd";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
 import { FC } from "react";
-import SubjectAvailableHours from "../../domain/models/SubjectAvailableHours";
+import { SubjectAvailableHours } from "../../domain/models/SubjectAvailableHours";
+import { degreeAvailableHoursService } from "../../domain/services/AvailableHours.service";
 
 type Props = {
   degreeInfo: { name: string; subjects: SubjectAvailableHours[] };
@@ -16,13 +17,13 @@ export const LeftDrawer: FC<Props> = ({ degreeInfo }) => {
         type="primary"
         style={{
           height: "auto",
-          backgroundColor: "green",
+          backgroundColor: degreeAvailableHoursService.getSubjectColor(
+            degreeInfo.kind
+          ),
           maxHeight: 150,
         }}
       >
-        <Text style={{ whiteSpace: "normal", color: "white" }}>
-          {degreeInfo.subject}
-        </Text>
+        <Text style={{ whiteSpace: "normal" }}>{degreeInfo.subject}</Text>
       </Button>
     </Badge>
   ));

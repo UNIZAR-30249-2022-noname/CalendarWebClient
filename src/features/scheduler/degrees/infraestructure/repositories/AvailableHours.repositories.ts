@@ -1,6 +1,6 @@
 import { debuglog } from "util";
 import { Result } from "../../../../../core/config/result";
-import SubjectAvailableHours from "../../domain/models/SubjectAvailableHours";
+import { SubjectAvailableHours } from "../../domain/models/SubjectAvailableHours";
 import { degreeAvailableHoursData } from "../data_sources/http/AvailableHours.data";
 import AvailableHoursParamsDTO from "../dto/AvailableHoursParamsDTO";
 import SubjectAvailableHoursDTO from "../dto/SubjectAvailableHoursDTO";

@@ -1,10 +1,13 @@
-import { Radio } from "antd";
+import { Radio, Select } from "antd";
+import Text from "antd/lib/typography/Text";
 import { FC, useEffect, useState } from "react";
 
 type Props = {
   activeGroup: number;
   setActiveGroup: Function;
 };
+
+const { Option } = Select;
 
 export const GroupSelector: FC<Props> = ({ activeGroup, setActiveGroup }) => {
   const [groupList, setGroupList] = useState([{ value: 0, name: "" }]);
@@ -24,18 +27,19 @@ export const GroupSelector: FC<Props> = ({ activeGroup, setActiveGroup }) => {
   };
 
   const menu = groupList.map((group, i) => (
-    <Radio.Button key={i} value={group.value}>
-      {group.name}
-    </Radio.Button>
+    <Option key={i} children={<Text>{group.name}</Text>} value={group.value} />
   ));
 
   return (
-    <Radio.Group
-      value={activeGroup}
-      defaultValue={activeGroup}
-      onChange={(e) => selectGroup(e.target.value)}
+    <Select
+      optionFilterProp="children"
+      placeholder="Elige grupo..."
+      value={groupList[activeGroup] ? groupList[activeGroup].name : ""}
+      defaultValue={""}
+      onChange={selectGroup}
+      style={{ minWidth: 110 }}
     >
       {menu}
-    </Radio.Group>
+    </Select>
   );
 };

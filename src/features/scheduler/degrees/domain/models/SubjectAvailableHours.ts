@@ -8,4 +8,5 @@ type SubjectAvailableHours = {
     total: number;
   };
 };
-export default SubjectAvailableHours;
+
+export type { SubjectAvailableHours, SubjectKind };

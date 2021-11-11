@@ -35,7 +35,7 @@ export const ProfessorLayout: FC<Props> = ({ children, user, theme, path }) => {
                 ...theme,
                 height: "100vh",
                 width: "100%",
-                paddingRight: 30,
+                paddingRight: 45,
               }}
             >
               {children}

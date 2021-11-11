@@ -1,5 +1,5 @@
 import { Result } from "../../../../../../core/config/result";
-import SubjectAvailableHours from "../../../../../../features/scheduler/degrees/domain/models/SubjectAvailableHours";
+import { SubjectAvailableHours } from "../../../../../../features/scheduler/degrees/domain/models/SubjectAvailableHours";
 import AvailableHoursParamsDTO from "../../../../../../features/scheduler/degrees/infraestructure/dto/AvailableHoursParamsDTO";
 
 const DegreeParams: AvailableHoursParamsDTO = {

@@ -99,14 +99,14 @@ describe("Left Drawer", () => {
       fixtures.ResponseGood.forEach((subject, i) => {
         cy.react("LeftDrawer")
           .react("Badge")
-          .should("contain", subject.remaining);
+          .should("contain", subject.Remaining);
         cy.react("LeftDrawer")
           .react("Button")
-          .should("contain", subject.subject);
+          .should("contain", subject.Subject);
         cy.react("LeftDrawer")
           .react("Button")
           .should("have.css", "background-color")
-          .and("eq", "rgb(0, 128, 0)");
+          .and("eq", "rgb(166, 236, 134)");
       });
     });
 
@@ -152,14 +152,14 @@ describe("Left Drawer", () => {
       fixtures.ResponseGood.forEach((subject, i) => {
         cy.react("LeftDrawer")
           .react("Badge")
-          .should("contain", subject.remaining);
+          .should("contain", subject.Remaining);
         cy.react("LeftDrawer")
           .react("Button")
-          .should("contain", subject.subject);
+          .should("contain", subject.Subject);
         cy.react("LeftDrawer")
           .react("Button")
           .should("have.css", "background-color")
-          .and("eq", "rgb(0, 128, 0)");
+          .and("eq", "rgb(166, 236, 134)");
       });
     });
 
@@ -203,10 +203,10 @@ describe("Left Drawer", () => {
       fixtures.ResponseGood.forEach((subject, i) => {
         cy.react("LeftDrawer")
           .react("Badge")
-          .should("contain", subject.remaining);
+          .should("contain", subject.Remaining);
         cy.react("LeftDrawer")
           .react("Button")
-          .should("contain", subject.subject);
+          .should("contain", subject.Subject);
       });
     });
 
