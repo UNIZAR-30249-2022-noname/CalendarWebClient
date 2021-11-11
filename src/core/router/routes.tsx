@@ -1,9 +1,9 @@
 import Text from "antd/lib/typography/Text";
 import { Redirect } from "react-router-dom";
 import { ProfessorLayout } from "../presentation/layouts/ProfessorLayout";
-import { Calendar } from "../presentation/pages/Calendar";
-import { Data } from "../presentation/pages/Data";
-import { Scheduler } from "../presentation/pages/Scheduler";
+import { Calendar } from "../presentation/pages/CalendarPage";
+import { Data } from "../presentation/pages/DataPage";
+import { Scheduler } from "../presentation/pages/SchedulerPage";
 import RouteType from "./models/RouteType";
 
 const index: RouteType = {
