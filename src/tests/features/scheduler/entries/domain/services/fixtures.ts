@@ -41,7 +41,7 @@ const entriesBody: Entry[] = [
 
 const postNewEntriesError: Result<Entry[]> = {
   isError: true,
-  error: Error("available hours error"),
+  error: Error(),
 };
 
 export const fixtures = {

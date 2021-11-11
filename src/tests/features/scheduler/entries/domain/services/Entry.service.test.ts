@@ -38,7 +38,7 @@ describe("Entry service tests", () => {
     }
     expect(entriesRepo.postNewEntries).toBeCalled();
     expect(entriesService.postNewEntries).toBeCalled();
-    expect(res.error).toBe(Error());
+    expect(res.error).toEqual(Error());
   });
 });
 
