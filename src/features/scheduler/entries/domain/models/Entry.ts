@@ -4,9 +4,11 @@ type Time = {
   min: number;
 };
 
+type Week = "A" | "B";
+
 type Entry = {
   subject: string;
-  week: string;
+  week: Week;
   room: string;
   kind: Kind;
   group: string;

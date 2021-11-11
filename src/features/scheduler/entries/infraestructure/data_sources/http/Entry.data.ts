@@ -6,7 +6,7 @@ import EntryDTO from "../../dto/EntryDTO";
 let service = httpServices.entries;
 
 export const entriesData = {
-  postNewEntries: async (body: EntryDTO[]): Promise<Result<boolean>> => {
+  postNewEntries: async (body: EntryDTO[]): Promise<Result<true>> => {
     try {
       const res = await http.post(service, body);
       if (res.status === 200) {
