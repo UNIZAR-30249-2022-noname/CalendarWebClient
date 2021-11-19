@@ -14,8 +14,9 @@ import { leftDrawerContext } from "../../context/leftDrawerContext";
 import { LeftDrawer } from "../../../features/scheduler/degrees/presentation/components/LeftDrawer";
 import { ButtonToggleND } from "../components/notes-drawer/ButtonToggleND";
 import { notifications } from "../components/notifications/notifications";
+import { SchedulerCard } from "../../../features/scheduler/entries/presentation/components/SchedulerCard";
 
-export const Scheduler = () => {
+export const SchedulerPage = () => {
   const isDrawerClosed = useMediaQuery({ query: "(min-width: 600px)" });
   const [visible, setvisible] = useState(leftDrawerContext.getVisibility());
   const [group, setGroup] = useState(1);
@@ -131,7 +132,9 @@ export const Scheduler = () => {
           </Row>
         </Col>
         <Row>
-          <Card style={{ height: "100%", width: "100%" }}>horario :3</Card>
+          <Card style={{ height: "100%", width: "100%" }}>
+            <SchedulerCard />
+          </Card>
         </Row>
       </Col>
     </Layout>
