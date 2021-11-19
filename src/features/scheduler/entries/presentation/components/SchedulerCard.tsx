@@ -73,16 +73,18 @@ export const SchedulerCard = () => {
   };
 
   const newEvent = (event: any) => {
-    let idList = events.map((a) => a.id);
-    let newId = Math.max(...idList) + 1;
+    //let idList = events.map((a) => a.id);
+    let newId = Math.random() * 20;
     let hour = {
       id: newId,
       title: "New Event",
-      allDay: event.slots.length == 1,
+      allDay: event.slots.length === 1,
       start: event.start,
       end: event.end,
     };
+    console.log(hour);
     setevents(events.concat([hour]));
+    console.log(events);
   };
 
   return (
