@@ -8,6 +8,8 @@ import moment from "moment";
 const DragAndDropCalendar = withDragAndDrop(Calendar as any);
 const localizer = momentLocalizer(moment);
 
+// Sources: https://github.com/jquense/react-big-calendar/blob/master/examples/demos/dndOutsideSource.js
+
 //FIXME: refactor component
 export const SchedulerCard = () => {
   const [draggedEvent, setdraggedEvent] = useState<any | null>();
@@ -28,16 +30,17 @@ export const SchedulerCard = () => {
   };
 
   const onDropFromOutside = ({ start, end, allDay }: any) => {
+    //FIXME: hardcoded
     const event = {
-      id: draggedEvent.id,
-      title: draggedEvent.title,
+      id: Math.random() * 30,
+      title: "Juan",
       start,
       end,
       allDay: allDay,
     };
 
     setdraggedEvent(null);
-    moveEvent({ event, start, end });
+    setevents([...events, event]);
   };
 
   const moveEvent = ({

@@ -11,21 +11,24 @@ type Props = {
 
 export const LeftDrawer: FC<Props> = ({ degreeInfo }) => {
   const subjectList = degreeInfo.subjects.map((degreeInfo, i) => (
-    <Badge key={i} showZero count={degreeInfo.hours.remaining}>
-      <Button
-        block
-        type="primary"
-        style={{
-          height: "auto",
-          backgroundColor: degreeAvailableHoursService.getSubjectColor(
-            degreeInfo.kind
-          ),
-          maxHeight: 150,
-        }}
-      >
-        <Text style={{ whiteSpace: "normal" }}>{degreeInfo.subject}</Text>
-      </Button>
-    </Badge>
+    // FIXME: add event to Scheduler state
+    <div draggable key={i} onDragStart={() => {}}>
+      <Badge key={i} showZero count={degreeInfo.hours.remaining}>
+        <Button
+          block
+          type="primary"
+          style={{
+            height: "auto",
+            backgroundColor: degreeAvailableHoursService.getSubjectColor(
+              degreeInfo.kind
+            ),
+            maxHeight: 150,
+          }}
+        >
+          <Text style={{ whiteSpace: "normal" }}>{degreeInfo.subject}</Text>
+        </Button>
+      </Badge>
+    </div>
   ));
 
   return (
