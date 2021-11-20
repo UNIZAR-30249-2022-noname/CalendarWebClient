@@ -1,5 +1,5 @@
 import Text from "antd/lib/typography/Text";
 
-export const Data = () => {
+export const DataPage = () => {
   return <Text>Data</Text>;
 };

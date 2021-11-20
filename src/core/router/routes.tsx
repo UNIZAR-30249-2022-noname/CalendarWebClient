@@ -1,8 +1,8 @@
 import Text from "antd/lib/typography/Text";
 import { Redirect } from "react-router-dom";
 import { ProfessorLayout } from "../presentation/layouts/ProfessorLayout";
-import { Calendar } from "../presentation/pages/CalendarPage";
-import { Data } from "../presentation/pages/DataPage";
+import { CalendarPage } from "../presentation/pages/CalendarPage";
+import { DataPage } from "../presentation/pages/DataPage";
 import { SchedulerPage } from "../presentation/pages/SchedulerPage";
 import RouteType from "./models/RouteType";
 
@@ -24,14 +24,14 @@ const calendar: RouteType = {
   name: "Calendario",
   path: "/calendar",
   layout: ProfessorLayout,
-  component: Calendar,
+  component: CalendarPage,
 };
 
 const data: RouteType = {
   name: "Datos",
   path: "/data",
   layout: ProfessorLayout,
-  component: Data,
+  component: DataPage,
 };
 
 const error: RouteType = {

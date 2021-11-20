@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
 import "cypress-react-selector";
-
+import { CalendarPage } from "../../../src/core/presentation/pages/CalendarPage";
+import { SchedulerPage } from "../../../src/core/presentation/pages/SchedulerPage";
+import { DataPage } from "../../../src/core/presentation/pages/DataPage";
 //Change tests timeout
 //Cypress.config('defaultCommandTimeout', 150000)
 describe("Professor layout", () => {
@@ -43,9 +45,9 @@ describe("Professor layout", () => {
   //TODO: [Logout] tests
   describe("Pages render correctly when select tabs", () => {
     const pages = [
-      { name: "Horario", compName: "Scheduler" },
-      { name: "Calendario", compName: "Calendar" },
-      { name: "Datos", compName: "Data" },
+      { name: "Horario", compName: SchedulerPage.name },
+      { name: "Calendario", compName: CalendarPage.name },
+      { name: "Datos", compName: DataPage.name },
     ];
 
     describe("Web version", () => {
@@ -67,7 +69,7 @@ describe("Professor layout", () => {
         // When
         cy.get("#mainLogo").click();
         // Then
-        cy.react("Scheduler").should("exist");
+        cy.react(SchedulerPage.name).should("exist");
       });
     });
 
@@ -89,7 +91,7 @@ describe("Professor layout", () => {
         cy.react("Data").should("exist");
         // Then
         cy.get(".anticon-calendar").click();
-        cy.react("Scheduler").should("exist");
+        cy.react(SchedulerPage.name).should("exist");
       });
     });
 
