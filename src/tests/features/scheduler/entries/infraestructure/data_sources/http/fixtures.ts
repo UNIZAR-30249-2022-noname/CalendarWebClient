@@ -1,10 +1,14 @@
+import {
+  SubjectKind,
+  Week,
+} from "../../../../../../../features/scheduler/entries/domain/models/Entry";
 import EntryDTO from "../../../../../../../features/scheduler/entries/infraestructure/dto/EntryDTO";
 
 const postEntriesBody: EntryDTO[] = [
   {
-    kind: 2,
+    kind: SubjectKind.practices,
     subject: "Verificación y validación",
-    semana: "A",
+    semana: Week.A,
     room: "23",
     initMin: 50,
     initHour: 8,

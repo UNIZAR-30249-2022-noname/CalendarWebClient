@@ -1,5 +1,7 @@
 import { Result } from "../../../../../../core/config/result";
-import Entry from "../../../../../../features/scheduler/entries/domain/models/Entry";
+import Entry, {
+  Week,
+} from "../../../../../../features/scheduler/entries/domain/models/Entry";
 
 const postNewEntries: Result<boolean> = {
   isError: false,
@@ -9,7 +11,7 @@ const postNewEntries: Result<boolean> = {
 const entriesBody: Entry[] = [
   {
     subject: "Ingeniería de requisitos",
-    week: "A",
+    week: Week.A,
     room: "234-de",
     kind: 1,
     group: "Mañanas",
@@ -24,7 +26,7 @@ const entriesBody: Entry[] = [
   },
   {
     subject: "Gestión de proyecto software",
-    week: "B",
+    week: Week.B,
     room: "22-e",
     kind: 0,
     group: "Tardes",

@@ -1,12 +1,13 @@
 import { Result } from "../../../../../../core/config/result";
 import Entry, {
+  SubjectKind,
   Week,
 } from "../../../../../../features/scheduler/entries/domain/models/Entry";
 import EntryDTO from "../../../../../../features/scheduler/entries/infraestructure/dto/EntryDTO";
 
 const postEntriesBodyDTO: EntryDTO[] = [
   {
-    kind: 2,
+    kind: SubjectKind.theory,
     subject: "Verificación y validación",
     semana: "A",
     room: "23",
@@ -20,7 +21,7 @@ const postEntriesBodyDTO: EntryDTO[] = [
 
 const postEntriesBody: Entry[] = [
   {
-    kind: 2,
+    kind: SubjectKind.theory,
     subject: "Verificación y validación",
     room: "23",
     initTime: {
