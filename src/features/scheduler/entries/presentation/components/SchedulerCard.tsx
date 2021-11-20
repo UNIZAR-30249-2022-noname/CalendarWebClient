@@ -1,46 +1,35 @@
 import { useState } from "react";
-import { Calendar, Views, momentLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
+import { PopupAddEntry } from "./PopUpAddEntry";
+import { degreeAvailableHoursService } from "../../../degrees/domain/services/AvailableHours.service";
 const DragAndDropCalendar = withDragAndDrop(Calendar as any);
 const localizer = momentLocalizer(moment);
 
+type Props = {
+  draggedEvent: any;
+};
+
 // Sources: https://github.com/jquense/react-big-calendar/blob/master/examples/demos/dndOutsideSource.js
-
+let today = new Date();
 //FIXME: refactor component
-export const SchedulerCard = () => {
-  const [draggedEvent, setdraggedEvent] = useState<any | null>();
-  const [events, setevents] = useState<any[]>([
-    {
-      start: new Date(),
-      end: new Date(),
-      title: "special event",
-    },
-  ]);
-
-  const handleDragStart = (event: any) => {
-    setdraggedEvent(event);
-  };
-
-  const dragFromOutsideItem = () => {
-    return draggedEvent;
-  };
+export const SchedulerCard = ({ draggedEvent }: Props) => {
+  const [selectedEvent, setselectedEvent] = useState<any>({});
+  const [visiblePopup, setvisiblePopup] = useState(false);
+  const [events, setevents] = useState<any[]>([]);
 
   const onDropFromOutside = ({ start, end, allDay }: any) => {
-    //FIXME: hardcoded
-    const event = {
-      id: Math.random() * 30,
-      title: "Juan",
+    newEvent({
+      title: draggedEvent.title,
+      kind: draggedEvent.kind,
       start,
       end,
-      allDay: allDay,
-    };
-
-    setdraggedEvent(null);
-    setevents([...events, event]);
+      allDay,
+    });
   };
 
   const moveEvent = ({
@@ -76,43 +65,68 @@ export const SchedulerCard = () => {
   };
 
   const newEvent = (event: any) => {
-    //let idList = events.map((a) => a.id);
-    let newId = Math.random() * 20;
-    let hour = {
-      id: newId,
-      title: "New Event",
-      allDay: event.slots.length === 1,
-      start: event.start,
-      end: event.end,
-    };
-    console.log(hour);
-    setevents(events.concat([hour]));
-    console.log(events);
+    setselectedEvent(event);
+    setvisiblePopup(true);
+  };
+
+  const selectEvent = (event: any) => {
+    setvisiblePopup(true);
+    setselectedEvent(event);
+  };
+
+  const onCreateEvent = (event: any) => {
+    setvisiblePopup(false);
+    console.log(event);
+    setevents([...events, event]);
+  };
+
+  const onCancelCreateEvent = () => {
+    setvisiblePopup(false);
   };
 
   return (
-    <DragAndDropCalendar
-      selectable
-      localizer={localizer}
-      events={events}
-      onEventDrop={moveEvent}
-      resizable
-      onEventResize={resizeEvent}
-      onSelectSlot={newEvent}
-      onDragStart={console.log}
-      defaultView={Views.WEEK}
-      showMultiDayTimes={false}
-      defaultDate={moment().toDate()}
-      popup={true}
-      // dragFromOutsideItem={
-      //   this.state.displayDragItemInCell ? this.dragFromOutsideItem : null
-      // }
-      onDropFromOutside={onDropFromOutside}
-      handleDragStart={handleDragStart}
-      style={{ height: "80vh", overflowX: "scroll" }}
-      components={{
-        toolbar: () => <></>,
-      }}
-    />
+    <>
+      <DragAndDropCalendar
+        selectable
+        //formats={formats}
+        localizer={localizer}
+        events={events}
+        onEventDrop={moveEvent}
+        resizable
+        onEventResize={resizeEvent}
+        onSelectSlot={newEvent}
+        onSelectEvent={(event, e) => selectEvent(event)}
+        onDragStart={console.log}
+        defaultView={"work_week"}
+        views={["work_week"]}
+        showMultiDayTimes={false}
+        defaultDate={moment().toDate()}
+        popup={true}
+        min={
+          new Date(today.getFullYear(), today.getMonth(), today.getDate(), 7)
+        }
+        max={
+          new Date(today.getFullYear(), today.getMonth(), today.getDate(), 21)
+        }
+        eventPropGetter={(e: any) => ({
+          style: {
+            backgroundColor: degreeAvailableHoursService.getSubjectColor(
+              e.kind ?? 0
+            ),
+          },
+        })}
+        onDropFromOutside={onDropFromOutside}
+        style={{ height: "80vh", overflowX: "scroll" }}
+        components={{
+          toolbar: () => <></>,
+        }}
+      />
+      <PopupAddEntry
+        event={selectedEvent}
+        visible={visiblePopup}
+        onOk={onCreateEvent}
+        onCancel={onCancelCreateEvent}
+      />
+    </>
   );
 };

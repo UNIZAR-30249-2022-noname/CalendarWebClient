@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.rbc-event-label {
+  white-space: break-spaces !important;
+  color: #000;
+}
+
+.rbc-event {
+  border: #53799c 2px solid;
+}
+
+.rbc-event-content {
+  color: #000;
+}
+
+.rbc-allday-cell {
+  display: none !important;
+}
+
+.rbc-header {
+  pointer-events: none;
+  font-size: 20px !important;
+}
+
+.rbc-time-header-cell {
+  height: 50px;
+}
+
+.rbc-time-slot {
+  min-height: 40px;
+}

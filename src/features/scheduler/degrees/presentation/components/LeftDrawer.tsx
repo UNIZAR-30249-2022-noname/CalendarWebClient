@@ -7,25 +7,35 @@ import { degreeAvailableHoursService } from "../../domain/services/AvailableHour
 
 type Props = {
   degreeInfo: { name: string; subjects: SubjectAvailableHours[] };
+  setDraggedEvent: Function;
 };
 
-export const LeftDrawer: FC<Props> = ({ degreeInfo }) => {
-  const subjectList = degreeInfo.subjects.map((degreeInfo, i) => (
+export const LeftDrawer = ({ degreeInfo, setDraggedEvent }: Props) => {
+  const subjectList = degreeInfo.subjects.map((subject, i) => (
     // FIXME: add event to Scheduler state
-    <div draggable key={i} onDragStart={() => {}}>
-      <Badge key={i} showZero count={degreeInfo.hours.remaining}>
+    <div
+      draggable
+      key={i}
+      onDragStart={() =>
+        setDraggedEvent({
+          title: subject.subject,
+          kind: subject.kind,
+        })
+      }
+    >
+      <Badge key={i} showZero count={subject.hours.remaining}>
         <Button
           block
           type="primary"
           style={{
             height: "auto",
             backgroundColor: degreeAvailableHoursService.getSubjectColor(
-              degreeInfo.kind
+              subject.kind
             ),
             maxHeight: 150,
           }}
         >
-          <Text style={{ whiteSpace: "normal" }}>{degreeInfo.subject}</Text>
+          <Text style={{ whiteSpace: "normal" }}>{subject.subject}</Text>
         </Button>
       </Badge>
     </div>

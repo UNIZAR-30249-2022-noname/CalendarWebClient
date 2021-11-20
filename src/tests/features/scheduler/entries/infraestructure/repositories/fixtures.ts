@@ -1,5 +1,7 @@
 import { Result } from "../../../../../../core/config/result";
-import Entry from "../../../../../../features/scheduler/entries/domain/models/Entry";
+import Entry, {
+  Week,
+} from "../../../../../../features/scheduler/entries/domain/models/Entry";
 import EntryDTO from "../../../../../../features/scheduler/entries/infraestructure/dto/EntryDTO";
 
 const postEntriesBodyDTO: EntryDTO[] = [
@@ -30,11 +32,11 @@ const postEntriesBody: Entry[] = [
       min: 40,
     },
     group: "Tardes",
-    week: "A",
+    week: Week.A,
   },
 ];
 
-const resEntries: Result<boolean> = {
+const resEntries: Result<true> = {
   isError: false,
   value: true,
 };

@@ -1,7 +1,7 @@
 import { colors } from "../../../../../core/config/constants";
+import { SubjectKind } from "../../../entries/domain/models/Entry";
 import AvailableHoursParamsDTO from "../../infraestructure/dto/AvailableHoursParamsDTO";
 import { degreeAvailableHoursRepo } from "../../infraestructure/repositories/AvailableHours.repositories";
-import { SubjectKind } from "../models/SubjectAvailableHours";
 
 export const degreeAvailableHoursService = {
   getDegreeAvailableHours: async (params: AvailableHoursParamsDTO) => {
@@ -15,13 +15,13 @@ export const degreeAvailableHoursService = {
   },
   getSubjectColor: (kind: SubjectKind): string => {
     switch (kind) {
-      case 0:
+      case SubjectKind.theory:
         return colors.subjectType.theory;
 
-      case 1:
+      case SubjectKind.practices:
         return colors.subjectType.practices;
 
-      case 2:
+      case SubjectKind.problems:
         return colors.subjectType.exercices;
 
       default:

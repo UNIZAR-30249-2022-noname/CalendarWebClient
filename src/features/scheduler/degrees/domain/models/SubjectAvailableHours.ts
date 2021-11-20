@@ -1,4 +1,4 @@
-type SubjectKind = 0 | 1 | 2;
+import { SubjectKind } from "../../../entries/domain/models/Entry";
 
 type SubjectAvailableHours = {
   kind: SubjectKind;

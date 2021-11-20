@@ -39,7 +39,7 @@ export const YearSelector: FC<Props> = ({ activeYear, setActiveYear }) => {
     <Select
       optionFilterProp="children"
       placeholder={"Elige el año..."}
-      value={activeYear}
+      //value={activeYear}
       defaultValue={activeYear}
       onChange={selectDegree}
       style={{ minWidth: 110 }}

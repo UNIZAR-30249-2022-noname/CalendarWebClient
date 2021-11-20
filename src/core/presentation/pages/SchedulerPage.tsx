@@ -15,6 +15,7 @@ import { LeftDrawer } from "../../../features/scheduler/degrees/presentation/com
 import { ButtonToggleND } from "../components/notes-drawer/ButtonToggleND";
 import { notifications } from "../components/notifications/notifications";
 import { SchedulerCard } from "../../../features/scheduler/entries/presentation/components/SchedulerCard";
+import Meta from "antd/lib/card/Meta";
 
 export const SchedulerPage = () => {
   const isDrawerClosed = useMediaQuery({ query: "(min-width: 600px)" });
@@ -28,6 +29,8 @@ export const SchedulerPage = () => {
     name: string;
     subjects: SubjectAvailableHours[];
   }>({ name: "", subjects: [] });
+
+  const [draggedEvent, setDraggedEvent] = useState(null);
 
   const loadDegreeInfo = () => {
     //TODO: load from localstorage
@@ -80,7 +83,10 @@ export const SchedulerPage = () => {
           trigger={null}
           style={{ height: "100%", borderRight: "2px solid #1890FF" }}
         >
-          <LeftDrawer degreeInfo={degreeInfo} />
+          <LeftDrawer
+            degreeInfo={degreeInfo}
+            setDraggedEvent={setDraggedEvent}
+          />
         </Layout.Sider>
       )}
       <Col flex="auto" style={{ padding: 15 }}>
@@ -133,7 +139,7 @@ export const SchedulerPage = () => {
         </Col>
         <Row>
           <Card style={{ height: "100%", width: "100%" }}>
-            <SchedulerCard />
+            <SchedulerCard draggedEvent={draggedEvent} />
           </Card>
         </Row>
       </Col>
