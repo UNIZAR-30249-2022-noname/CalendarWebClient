@@ -1,10 +1,12 @@
 /// <reference types="cypress" />
 import "cypress-react-selector";
+import chaiColors from "chai-colors";
 import "cypress-localstorage-commands";
 import { fixtures } from "./fixtures";
-
+import { degreeAvailableHoursService } from "../../../../../../src/features/scheduler/degrees/domain/services/AvailableHours.service";
 //Change tests timeout
 //Cypress.config('defaultCommandTimeout', 150000)
+chai.use(chaiColors);
 describe("Left Drawer", () => {
   var leftDrawerState: string;
 
@@ -96,18 +98,20 @@ describe("Left Drawer", () => {
       cy.react("LeftDrawer")
         .react("Title")
         .should("contain", fixtures.Params.titulacion);
-      fixtures.ResponseGood.forEach((subject, i) => {
-        cy.react("LeftDrawer")
-          .react("Badge")
-          .should("contain", subject.Remaining);
-        cy.react("LeftDrawer")
-          .react("Button")
-          .should("contain", subject.Subject);
-        cy.react("LeftDrawer")
-          .react("Button")
-          .should("have.css", "background-color")
-          .and("eq", "rgb(166, 236, 134)");
-      });
+      cy.react("LeftDrawer")
+        .react("div", { props: { draggable: true } })
+        .each((e, i) => {
+          const { Subject, Kind, Remaining } = fixtures.ResponseGood[i];
+          cy.wrap(e).react("Badge").should("contain", Remaining);
+          cy.wrap(e).react("Button").should("contain", Subject);
+          cy.wrap(e)
+            .react("Button")
+            .should("have.css", "background-color")
+            .and(
+              "be.colored",
+              degreeAvailableHoursService.getSubjectColor(Kind)
+            );
+        });
     });
 
     it("should fetch degree information correctly through [Buscar] button", () => {
@@ -149,18 +153,20 @@ describe("Left Drawer", () => {
       cy.react("LeftDrawer")
         .react("Title")
         .should("contain", fixtures.Params2.titulacion);
-      fixtures.ResponseGood.forEach((subject, i) => {
-        cy.react("LeftDrawer")
-          .react("Badge")
-          .should("contain", subject.Remaining);
-        cy.react("LeftDrawer")
-          .react("Button")
-          .should("contain", subject.Subject);
-        cy.react("LeftDrawer")
-          .react("Button")
-          .should("have.css", "background-color")
-          .and("eq", "rgb(166, 236, 134)");
-      });
+      cy.react("LeftDrawer")
+        .react("div", { props: { draggable: true } })
+        .each((e, i) => {
+          const { Subject, Kind, Remaining } = fixtures.ResponseGood[i];
+          cy.wrap(e).react("Badge").should("contain", Remaining);
+          cy.wrap(e).react("Button").should("contain", Subject);
+          cy.wrap(e)
+            .react("Button")
+            .should("have.css", "background-color")
+            .and(
+              "be.colored",
+              degreeAvailableHoursService.getSubjectColor(Kind)
+            );
+        });
     });
 
     it("should give and error and fetch degree information correctly through [Buscar] button", () => {
