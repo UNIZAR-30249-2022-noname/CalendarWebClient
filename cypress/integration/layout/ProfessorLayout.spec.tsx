@@ -1,8 +1,5 @@
 /// <reference types="cypress" />
 import "cypress-react-selector";
-import { CalendarPage } from "../../../src/core/presentation/pages/CalendarPage";
-import { SchedulerPage } from "../../../src/core/presentation/pages/SchedulerPage";
-import { DataPage } from "../../../src/core/presentation/pages/DataPage";
 //Change tests timeout
 //Cypress.config('defaultCommandTimeout', 150000)
 describe("Professor layout", () => {
@@ -45,9 +42,9 @@ describe("Professor layout", () => {
   //TODO: [Logout] tests
   describe("Pages render correctly when select tabs", () => {
     const pages = [
-      { name: "Horario", compName: SchedulerPage.name },
-      { name: "Calendario", compName: CalendarPage.name },
-      { name: "Datos", compName: DataPage.name },
+      { name: "Horario", compName: "SchedulerPage" },
+      { name: "Calendario", compName: "CalendarPage" },
+      { name: "Datos", compName: "DataPage" },
     ];
 
     describe("Web version", () => {
@@ -59,21 +56,23 @@ describe("Professor layout", () => {
           cy.react("Tabs").contains(page.name).click();
           // Then
           cy.react(page.compName).should("exist");
+          // [page.name] should be active in the topTabBar
+          cy.get(".ant-tabs-tab-active").should("contain", page.name);
         });
       });
 
       it(`should get back to Scheduler when clicking in logo`, () => {
         // Given
         cy.react("Tabs").contains("Datos").click();
-        cy.react("Data").should("exist");
+        cy.react("DataPage").should("exist");
         // When
         cy.get("#mainLogo").click();
         // Then
-        cy.react(SchedulerPage.name).should("exist");
+        cy.react("SchedulerPage").should("exist");
       });
     });
 
-    describe("Mobile version", () => {
+    describe.only("Mobile version", () => {
       pages.forEach((page) => {
         it(`should visit ${page.name} correctly`, () => {
           // When
@@ -88,10 +87,10 @@ describe("Professor layout", () => {
       it(`should get back to Scheduler when clicking in logo`, () => {
         //When
         cy.react("Tabs").contains("Datos").click();
-        cy.react("Data").should("exist");
+        cy.react("DataPage").should("exist");
         // Then
         cy.get(".anticon-calendar").click();
-        cy.react(SchedulerPage.name).should("exist");
+        cy.react("SchedulerPage").should("exist");
       });
     });
 
