@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 import "cypress-react-selector";
 import "cypress-localstorage-commands";
-import "@4tw/cypress-drag-drop";
 
 import { fixtures } from "../../degrees/componets/fixtures";
 import { SubjectKind } from "../../../../../../src/features/scheduler/entries/domain/models/Entry";
