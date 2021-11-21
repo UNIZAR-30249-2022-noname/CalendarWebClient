@@ -25,8 +25,8 @@ export const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (!event.start || !event.end) return;
     entryForm.loadData(form, event);
+    checkProblemSelector(event.kind);
   }, [visible]);
 
   /**
@@ -73,7 +73,7 @@ export const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
             <RoomSelector />
           </Col>
         </Row>
-        <TimeSelector />
+        <TimeSelector form={form} />
         <KindSelector check={checkProblemSelector} />
         <ProblemsGroupSelector disabled={problemSelectorDisabled} />
         <Form.Item>

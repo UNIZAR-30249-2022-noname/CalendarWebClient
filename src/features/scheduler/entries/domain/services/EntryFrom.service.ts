@@ -22,11 +22,13 @@ export const entryForm = {
   loadData: (form: FormInstance, event: any) => {
     form.setFieldsValue({
       time: [
-        moment(
-          `${event.start.getHours()}:${event.start.getMinutes()}`,
-          "HH:mm"
-        ),
-        moment(`${event.end.getHours()}:${event.end.getMinutes()}`, "HH:mm"),
+        event.start &&
+          moment(
+            `${event.start.getHours()}:${event.start.getMinutes()}`,
+            "HH:mm"
+          ),
+        event.end &&
+          moment(`${event.end.getHours()}:${event.end.getMinutes()}`, "HH:mm"),
       ],
       subject: event.title,
       kind: event.kind ?? SubjectKind.theory,

@@ -1,18 +1,13 @@
-import { Form, TimePicker } from "antd";
-import moment from "moment";
-import { useEffect } from "react";
-import { Time } from "../../domain/models/Entry";
-
-type Props = {
-  activeInitTime: Time | null;
-  activeEndTime: Time | null;
-  onChange: (hours: any) => void;
-};
+import { Form, FormInstance, TimePicker } from "antd";
 
 const format = "HH:mm";
 const { RangePicker } = TimePicker;
 
-export const TimeSelector = () => {
+type Props = {
+  form: FormInstance;
+};
+
+export const TimeSelector = ({ form }: Props) => {
   return (
     <Form.Item
       label="Horas"
