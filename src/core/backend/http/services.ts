@@ -4,5 +4,6 @@ const url = {
 
 const httpServices = {
   degreeAvailableHours: url.baseURL1 + "/availableHours",
+  listDegrees: url.baseURL1 + "/listDegrees/"
 };
 export { url, httpServices };
