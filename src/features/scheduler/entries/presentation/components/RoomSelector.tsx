@@ -26,6 +26,12 @@ export const RoomSelector = () => {
         optionFilterProp="children"
         placeholder={"Elige el aula..."}
         style={{ minWidth: 110 }}
+        showSearch
+        filterOption={(input, option) =>
+          option
+            ? option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            : false
+        }
       >
         {menu}
       </Select>

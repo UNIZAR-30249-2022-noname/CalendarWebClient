@@ -7,7 +7,7 @@ export const SubjectSelector = () => {
   // TODO: use redux to recover the info
   const subjectList = [
     "Arquitectura de Computadores",
-    "Verficación y validación",
+    "Verificación y validación",
     "Matemáticas 2",
   ];
 
@@ -29,8 +29,14 @@ export const SubjectSelector = () => {
     >
       <Select
         optionFilterProp="children"
-        placeholder={"Elige la asignatura.."}
+        placeholder={"Buscar la asignatura.."}
         style={{ minWidth: 110 }}
+        showSearch
+        filterOption={(input, option) =>
+          option
+            ? option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            : false
+        }
       >
         {menu}
       </Select>

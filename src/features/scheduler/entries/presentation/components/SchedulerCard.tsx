@@ -4,10 +4,15 @@ import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import moment from "moment";
+
 import { PopupAddEntry } from "./PopUpAddEntry";
-import { degreeAvailableHoursService } from "../../../degrees/domain/services/AvailableHours.service";
+import { SubjectKind } from "../../domain/models/Entry";
+import { EntryContent } from "./EntryContent";
+import moment from "moment";
+import dateFormat from "dateformat";
+import Text from "antd/lib/typography/Text";
 const DragAndDropCalendar = withDragAndDrop(Calendar as any);
+
 const localizer = momentLocalizer(moment);
 
 type Props = {
@@ -51,7 +56,6 @@ export const SchedulerCard = ({ draggedEvent }: Props) => {
         ? { ...existingEvent, start, end, allDay }
         : existingEvent;
     });
-
     setevents(nextEvents);
   };
 
@@ -88,7 +92,16 @@ export const SchedulerCard = ({ draggedEvent }: Props) => {
     <>
       <DragAndDropCalendar
         selectable
-        //formats={formats}
+        formats={{
+          timeGutterFormat: "H:mm",
+          eventTimeRangeFormat: (e) => {
+            return (
+              dateFormat(e.start, "H:MM") + " - " + dateFormat(e.end, "H:MM")
+            );
+          },
+        }}
+        step={10}
+        timeslots={6}
         localizer={localizer}
         events={events}
         onEventDrop={moveEvent}
@@ -110,15 +123,16 @@ export const SchedulerCard = ({ draggedEvent }: Props) => {
         }
         eventPropGetter={(e: any) => ({
           style: {
-            backgroundColor: degreeAvailableHoursService.getSubjectColor(
-              e.kind ?? 0
-            ),
+            backgroundColor:
+              e.kind === SubjectKind.practices ? "#FFE8B8" : "#C0E0FF",
           },
         })}
         onDropFromOutside={onDropFromOutside}
         style={{ height: "80vh", overflowX: "scroll" }}
         components={{
           toolbar: () => <></>,
+          event: (e) => <EntryContent event={e.event} />,
+          timeGutterHeader: () => <Text>Horas</Text>,
         }}
       />
       <PopupAddEntry
