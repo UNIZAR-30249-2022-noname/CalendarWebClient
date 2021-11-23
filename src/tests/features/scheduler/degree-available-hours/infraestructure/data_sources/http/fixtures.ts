@@ -1,4 +1,5 @@
 import AvailableHoursParamsDTO from "../../../../../../../features/scheduler/available-hours/infraestructure/dto/AvailableHoursParamsDTO";
+import DegreePropertiesDTO,{ YearPropertiesDTO} from "../../../../../../../features/scheduler/available-hours/infraestructure/dto/DegreePropertiesDTO";
 import SubjectAvailableHoursDTO from "../../../../../../../features/scheduler/available-hours/infraestructure/dto/SubjectAvailableHoursDTO";
 
 const DegreeParams: AvailableHoursParamsDTO = {
@@ -22,7 +23,22 @@ const getAvailableHours: SubjectAvailableHoursDTO[] = [
   },
 ];
 
+const listDegrees: DegreePropertiesDTO[]=[
+  {
+    name:"Verificación y validación",
+    years:[
+      {
+        name:1,
+        groups:["mañana","tardes"]
+      }
+    ]
+    
+
+  },
+]
+
 export const fixtures = {
   getAvailableHours,
   DegreeParams,
+  listDegrees,
 };
