@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { session } from "../../features/auth/domain/services/session";
+import { session } from "../../features/auth/domain/services/session.service";
 import { AppTheme } from "../config/themes";
 
 const UserContext = createContext(session.getUser());

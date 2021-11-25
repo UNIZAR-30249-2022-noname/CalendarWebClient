@@ -61,6 +61,34 @@ describe("get available hours", () => {
       }
       expect(res.error).toEqual(Error("timeout of 0ms exceeded"));
     });
+
+    test("should fail when is a bad response", async () => {
+      // Given
+      mock.onGet(service).reply(500);
+      // When
+      const res = await degreeAvailableHoursData.getDegreeAvailableHours(
+        fixtures.DegreeParams
+      );
+      // Then
+      if (!res.isError) {
+        throw Error();
+      }
+      expect(res.error).toEqual(Error("Request failed with status code 500"));
+    });
+
+    test("should fail when is a good response but no the expected one", async () => {
+      // Given
+      mock.onGet(service).reply(201);
+      // When
+      const res = await degreeAvailableHoursData.getDegreeAvailableHours(
+        fixtures.DegreeParams
+      );
+      // Then
+      if (!res.isError) {
+        throw Error();
+      }
+      expect(res.error).toEqual(Error());
+    });
   });
 });
 

@@ -12,10 +12,11 @@ export const entriesData = {
       if (res.status === 200) {
         return { isError: false, value: true };
       } else {
-        return { isError: true, error: new Error("Pepe") };
+        return { isError: true, error: new Error() };
       }
     } catch (e) {
-      return { isError: true, error: new Error() };
+      console.error((e as Error).message);
+      return { isError: true, error: e as Error };
     }
   },
 };

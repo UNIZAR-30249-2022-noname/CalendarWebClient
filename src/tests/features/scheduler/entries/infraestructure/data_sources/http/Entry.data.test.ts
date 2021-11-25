@@ -43,26 +43,39 @@ describe("Entries", () => {
         if (!res.isError) {
           throw Error();
         }
-        expect(res.error).toEqual(Error());
+        expect(res.error).toEqual(Error("Network Error"));
       });
 
       test("should fail when trying to post new [Entry] - timeout", async () => {
         // Given
         let body = fixtures.postEntriesBody;
-        mock.onGet(service, body).timeoutOnce();
+        mock.onPost(service, body).timeoutOnce();
         // When
         const res = await entriesData.postNewEntries(body);
         // Then
         if (!res.isError) {
           throw Error();
         }
-        expect(res.error).toEqual(Error());
+        expect(res.error).toEqual(Error("timeout of 0ms exceeded"));
       });
 
-      test("should fail when trying to post new [Entry] - Not found", async () => {
+      test("should fail when is a bad response", async () => {
         // Given
         let body = fixtures.postEntriesBody;
-        mock.onGet(service, body).reply(404);
+        mock.onPost(service, body).reply(500);
+        // When
+        const res = await entriesData.postNewEntries(body);
+        // Then
+        if (!res.isError) {
+          throw Error();
+        }
+        expect(res.error).toEqual(Error("Request failed with status code 500"));
+      });
+
+      test("should fail when is a good response but no the expected one", async () => {
+        // Given
+        let body = fixtures.postEntriesBody;
+        mock.onPost(service, body).reply(201);
         // When
         const res = await entriesData.postNewEntries(body);
         // Then

@@ -4,7 +4,7 @@ import moment from "moment";
 import { Moment } from "moment";
 import { useEffect, useState } from "react";
 import { Time, Week, SubjectKind } from "../../domain/models/Entry";
-import { entryForm } from "../../domain/services/EntryFrom.service";
+import { entryForm } from "../../domain/services/EntryForm.service";
 import { KindSelector } from "./KindSelector";
 import { ProblemsGroupSelector } from "./ProblemsGroupSelector";
 import { RoomSelector } from "./RoomSelector";
@@ -25,7 +25,7 @@ export const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    entryForm.loadData(form, event);
+    form.setFieldsValue(entryForm.loadData(event));
     checkProblemSelector(event.kind);
   }, [visible]);
 

@@ -19,8 +19,8 @@ export const entryForm = {
       room: values.room,
     });
   },
-  loadData: (form: FormInstance, event: any) => {
-    form.setFieldsValue({
+  loadData: (event: any) => {
+    return {
       time: [
         event.start &&
           moment(
@@ -34,7 +34,7 @@ export const entryForm = {
       kind: event.kind ?? SubjectKind.theory,
       week: event.week,
       room: event.room,
-    });
+    };
   },
   checkIfProblemsDisabled: (kind: SubjectKind) => {
     return kind == null || kind === SubjectKind.theory;

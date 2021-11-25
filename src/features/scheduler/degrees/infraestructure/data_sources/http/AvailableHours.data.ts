@@ -15,7 +15,7 @@ export const degreeAvailableHoursData = {
       if (res.status === 200) {
         return { isError: false, value: res.data };
       } else {
-        return { isError: true, error: new Error("http error") };
+        return { isError: true, error: new Error() };
       }
     } catch (e) {
       console.error((e as Error).message);

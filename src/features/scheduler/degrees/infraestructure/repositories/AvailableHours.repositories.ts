@@ -1,9 +1,7 @@
-import { debuglog } from "util";
 import { Result } from "../../../../../core/config/result";
 import { SubjectAvailableHours } from "../../domain/models/SubjectAvailableHours";
 import { degreeAvailableHoursData } from "../data_sources/http/AvailableHours.data";
 import AvailableHoursParamsDTO from "../dto/AvailableHoursParamsDTO";
-import SubjectAvailableHoursDTO from "../dto/SubjectAvailableHoursDTO";
 
 export const degreeAvailableHoursRepo = {
   getDegreeAvailableHours: async (
@@ -17,7 +15,6 @@ export const degreeAvailableHoursRepo = {
     try {
       const value = res.value.map(
         (subjectAvailableHoursDto): SubjectAvailableHours => {
-          nullCheck(subjectAvailableHoursDto);
           return {
             kind: subjectAvailableHoursDto.Kind,
             subject: subjectAvailableHoursDto.Subject,
@@ -40,15 +37,4 @@ export const degreeAvailableHoursRepo = {
       };
     }
   },
-};
-
-// Manually check undefined and null xd
-const nullCheck = (subjectAvailableHoursDto: SubjectAvailableHoursDTO) => {
-  if (
-    subjectAvailableHoursDto.Kind == null ||
-    subjectAvailableHoursDto.Remaining == null ||
-    subjectAvailableHoursDto.Subject == null ||
-    subjectAvailableHoursDto.Max == null
-  )
-    throw Error();
 };
