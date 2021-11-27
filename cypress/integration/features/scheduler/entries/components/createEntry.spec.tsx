@@ -118,7 +118,7 @@ describe("create scheduler entry", () => {
     //cy.get("Modal").react("")
   });
 
-  it.only("should create a new entry by clicking in the scheduler", () => {
+  it("should create a new entry by clicking in the scheduler", () => {
     cy.intercept(
       {
         pathname: "/availableHours",

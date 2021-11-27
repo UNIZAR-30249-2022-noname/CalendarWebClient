@@ -1,7 +1,7 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { httpServices } from "../../../../../../../core/backend/http/services";
-import { degreePropertiesData } from "../../../../../../../features/scheduler/available-hours/infraestructure/data_sources/http/DegreeProperties.data";
+import { degreePropertiesData } from "../../../../../../../features/scheduler/degrees/infraestructure/data_sources/http/DegreeProperties.data";
 import { fixtures } from "./fixtures";
 
 describe("get all degrees", () => {
@@ -36,7 +36,7 @@ describe("get all degrees", () => {
       // Given
       mock.onGet(service).networkErrorOnce();
       // When
-      const res = await degreePropertiesData.getDegrees(); 
+      const res = await degreePropertiesData.getDegrees();
       // Then
       if (!res.isError) {
         throw Error();

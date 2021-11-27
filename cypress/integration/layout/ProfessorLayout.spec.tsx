@@ -72,7 +72,7 @@ describe("Professor layout", () => {
       });
     });
 
-    describe.only("Mobile version", () => {
+    describe("Mobile version", () => {
       pages.forEach((page) => {
         it(`should visit ${page.name} correctly`, () => {
           // When
