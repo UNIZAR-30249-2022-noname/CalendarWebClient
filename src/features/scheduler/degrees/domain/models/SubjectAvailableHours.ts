@@ -9,4 +9,4 @@ type SubjectAvailableHours = {
   };
 };
 
-export type { SubjectAvailableHours, SubjectKind };
+export type { SubjectAvailableHours };
