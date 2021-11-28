@@ -3,7 +3,6 @@ import { httpServices } from "../../../../../../core/backend/http/services";
 import { Result } from "../../../../../../core/config/result";
 import DegreePropertiesDTO from "../../dto/DegreePropertiesDTO";
 
-
 let service = httpServices.listDegrees;
 
 export const degreePropertiesData = {
@@ -14,10 +13,10 @@ export const degreePropertiesData = {
       if (res.status === 200) {
         return { isError: false, value: res.data };
       } else {
-        return { isError: true, error: new Error("Pepe") };
+        return { isError: true, error: new Error() };
       }
     } catch (e) {
-      return { isError: true, error: new Error() };
+      return { isError: true, error: e as Error };
     }
   },
 };

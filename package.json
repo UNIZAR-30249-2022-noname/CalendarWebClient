@@ -6,7 +6,7 @@
     "cy:open": "cypress open start",
     "start": "react-scripts start",
     "build": "CI=false react-scripts build",
-    "test": "NODE_ENV=test react-scripts test --watchAll --silent",
+    "test": "NODE_ENV=test react-scripts test --silent",
     "test:coverage": "NODE_ENV=test react-scripts test --coverage --watchAll --silent",
     "test:e2e": "cypress run",
     "eject": "react-scripts eject"

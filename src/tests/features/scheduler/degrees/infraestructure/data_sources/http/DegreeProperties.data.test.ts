@@ -16,7 +16,7 @@ describe("get all degrees", () => {
     mock.reset();
   });
 
-  describe.only("Good request", () => {
+  describe("Good request", () => {
     test("should get all degrees with them properties", async () => {
       // Given
       let res = fixtures.listDegrees;
@@ -41,12 +41,36 @@ describe("get all degrees", () => {
       if (!res.isError) {
         throw Error();
       }
-      expect(res.error).toEqual(Error());
+      expect(res.error).toEqual(Error("Network Error"));
     });
 
     test("should fail when traying to get  all degrees - timeout", async () => {
       // Given
       mock.onGet(service).timeoutOnce();
+      // When
+      const res = await degreePropertiesData.getDegrees();
+      // Then
+      if (!res.isError) {
+        throw Error();
+      }
+      expect(res.error).toEqual(Error("timeout of 0ms exceeded"));
+    });
+
+    test("should fail when is a bad response", async () => {
+      // Given
+      mock.onGet(service).reply(500);
+      // When
+      const res = await degreePropertiesData.getDegrees();
+      // Then
+      if (!res.isError) {
+        throw Error();
+      }
+      expect(res.error).toEqual(Error("Request failed with status code 500"));
+    });
+
+    test("should fail when is a good response but no the expected one", async () => {
+      // Given
+      mock.onGet(service).reply(201);
       // When
       const res = await degreePropertiesData.getDegrees();
       // Then

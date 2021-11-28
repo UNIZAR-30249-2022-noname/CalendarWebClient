@@ -1,6 +1,10 @@
 import { Result } from "../../../../../../core/config/result";
 import { SubjectAvailableHours } from "../../../../../../features/scheduler/degrees/domain/models/SubjectAvailableHours";
+import DegreeProperties, {
+  YearProperties,
+} from "../../../../../../features/scheduler/degrees/domain/models/SubjectDegrees";
 import AvailableHoursParamsDTO from "../../../../../../features/scheduler/degrees/infraestructure/dto/AvailableHoursParamsDTO";
+import DegreePropertiesDTO from "../../../../../../features/scheduler/degrees/infraestructure/dto/DegreePropertiesDTO";
 import SubjectAvailableHoursDTO from "../../../../../../features/scheduler/degrees/infraestructure/dto/SubjectAvailableHoursDTO";
 
 const DegreeParams: AvailableHoursParamsDTO = {
@@ -54,9 +58,49 @@ const getAvailableHoursError: Result<SubjectAvailableHoursDTO[]> = {
   error: Error("available hours error"),
 };
 
+const createYearsList = () => {
+  let years = new Map<string, YearProperties[]>();
+  years.set("Verificación y validación", [
+    { name: 1, groups: ["mañana", "tarde"] },
+  ]);
+
+  return years;
+};
+
+const getDegreePropertiesDTO: Result<DegreePropertiesDTO[]> = {
+  isError: false,
+  value: [
+    {
+      name: "Verificación y validación",
+      years: [
+        {
+          groups: ["Mañanas", "Tardes", "Único"],
+          name: 1,
+        },
+      ],
+    },
+  ],
+};
+
+const getDegreeProperties: Result<DegreeProperties> = {
+  isError: false,
+  value: {
+    list: ["Verificación y validación"],
+    properties: createYearsList(),
+  },
+};
+
+const getDegreePropertiesError: Result<SubjectAvailableHours[]> = {
+  isError: true,
+  error: Error("degrees error"),
+};
+
 export const fixtures = {
   getAvailableHours,
   getAvailableHoursDTO,
   getAvailableHoursError,
   DegreeParams,
+  getDegreeProperties,
+  getDegreePropertiesDTO,
+  getDegreePropertiesError,
 };

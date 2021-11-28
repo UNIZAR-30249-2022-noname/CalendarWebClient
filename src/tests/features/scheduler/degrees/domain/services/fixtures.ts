@@ -33,28 +33,6 @@ const getAvailableHours: Result<SubjectAvailableHours[]> = {
   ],
 };
 
-const createYearsList = () => {
-  let years = new Map<string, YearProperties[]>();
-  years.set("Verificación y validación", [
-    { name: 1, groups: ["mañana", "tarde"] },
-  ]);
-
-  return years;
-};
-
-const getDegreeProperties: Result<DegreesProperties> = {
-  isError: false,
-  value: {
-    list: ["Verificación y validación"],
-    properties: createYearsList(),
-  },
-};
-
-const getDegreePropertiesError: Result<SubjectAvailableHours[]> = {
-  isError: true,
-  error: Error("degrees error"),
-};
-
 const getAvailableHoursError: Result<SubjectAvailableHours[]> = {
   isError: true,
   error: Error("available hours error"),
@@ -64,6 +42,4 @@ export const fixtures = {
   getAvailableHours,
   getAvailableHoursError,
   DegreeParams,
-  getDegreeProperties,
-  getDegreePropertiesError,
 };
