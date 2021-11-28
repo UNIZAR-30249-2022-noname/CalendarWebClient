@@ -3,5 +3,6 @@
   "retries": {
     "runMode": 5,
     "openMode": 0
-  }
+  },
+  "video": false
 }

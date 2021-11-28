@@ -19,7 +19,7 @@ export const RightSidebar: FC<Props> = ({ openNotesDrawer }) => {
       <div style={{ display: "grid" }}>
         <ProfileOutlined
           onClick={() => openNotesDrawer()}
-          style={{ fontSize: 30, color: "purple" }}
+          style={{ fontSize: 30, color: "purple", padding: 5 }}
         />
       </div>
     </div>

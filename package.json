@@ -6,38 +6,62 @@
     "cy:open": "cypress open start",
     "start": "react-scripts start",
     "build": "CI=false react-scripts build",
-    "test": "NODE_ENV=test react-scripts test a",
-    "test-e2e": "cypress run",
+    "test": "NODE_ENV=test react-scripts test --silent",
+    "test:coverage": "NODE_ENV=test react-scripts test --coverage --watchAll --silent",
+    "test:e2e": "cypress run",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/features/**/*.ts",
+      "!**/node_modules/**",
+      "!src/**/models/*",
+      "!src/**/dto/*",
+      "!**/vendor/**"
+    ]
   },
   "dependencies": {
     "@ant-design/icons": "~4.7.0",
+    "@microsoft/tsdoc": "^0.13.2",
+    "@types/dateformat": "^5.0.0",
     "@types/jest": "~26.0.15",
     "@types/node": "~12.0.0",
     "@types/react": "~17.0.0",
     "@types/react-dom": "~17.0.0",
+    "@types/react-redux": "^7.1.20",
     "@types/react-router-dom": "^5.3.0",
     "antd": "~4.16.13",
     "axios": "~0.22.0",
     "crypto-js": "~4.1.1",
+    "dateformat": "^5.0.2",
+    "global": "^4.4.0",
     "react": "~17.0.2",
+    "react-big-calendar": "^0.38.1",
     "react-dom": "~17.0.2",
+    "react-redux": "^7.2.6",
     "react-responsive": "^9.0.0-beta.4",
     "react-router-dom": "~5.3.0",
     "react-scripts": "~4.0.3",
+    "redux-thunk": "^2.4.0",
     "typescript": "~4.1.2",
     "web-vitals": "~1.0.1"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.9.11",
     "@cypress/react": "^5.10.1",
     "@testing-library/jest-dom": "~5.11.4",
     "@testing-library/react": "~11.1.0",
     "@testing-library/user-event": "~12.1.10",
     "@types/crypto-js": "~4.0.2",
+    "@types/react-big-calendar": "^0.36.1",
+    "@types/redux-thunk": "^2.1.0",
     "axios-mock-adapter": "^1.20.0",
-    "cypress": "~8.5.0",
+    "chai-colors": "^1.0.1",
+    "cypress": "9.0.0",
     "cypress-localstorage-commands": "^1.6.0",
-    "cypress-react-selector": "~2.3.11"
+    "cypress-react-selector": "~2.3.11",
+    "ts-node": "^10.4.0",
+    "tsconfig-paths": "^3.11.0"
   },
   "eslintConfig": {
     "extends": [

@@ -1,9 +1,9 @@
 import Text from "antd/lib/typography/Text";
 import { Redirect } from "react-router-dom";
 import { ProfessorLayout } from "../presentation/layouts/ProfessorLayout";
-import { Calendar } from "../presentation/pages/Calendar";
-import { Data } from "../presentation/pages/Data";
-import { Scheduler } from "../presentation/pages/Scheduler";
+import { CalendarPage } from "../presentation/pages/CalendarPage";
+import { DataPage } from "../presentation/pages/DataPage";
+import { SchedulerPage } from "../presentation/pages/SchedulerPage";
 import RouteType from "./models/RouteType";
 
 const index: RouteType = {
@@ -17,21 +17,21 @@ const scheduler: RouteType = {
   name: "Horario",
   path: "/scheduler",
   layout: ProfessorLayout,
-  component: Scheduler,
+  component: SchedulerPage,
 };
 
 const calendar: RouteType = {
   name: "Calendario",
   path: "/calendar",
   layout: ProfessorLayout,
-  component: Calendar,
+  component: CalendarPage,
 };
 
 const data: RouteType = {
   name: "Datos",
   path: "/data",
   layout: ProfessorLayout,
-  component: Data,
+  component: DataPage,
 };
 
 const error: RouteType = {

@@ -11,3 +11,45 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.rbc-event-label {
+  white-space: break-spaces !important;
+  color: rgb(65, 65, 65);
+  padding-bottom: 5px;
+}
+
+.rbc-event {
+  border: #53799c 2px solid;
+}
+
+.rbc-addons-dnd-drag-preview {
+}
+
+.rbc-event-content {
+  color: rgb(39, 39, 39);
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.rbc-allday-cell {
+  display: none !important;
+}
+
+.rbc-header {
+  pointer-events: none;
+  font-size: 20px !important;
+}
+
+.rbc-time-header-cell {
+  height: 50px;
+}
+
+.rbc-time-slot {
+  min-height: 25px;
+}
+
+.rbc-addons-dnd
+  .rbc-addons-dnd-resize-ns-anchor
+  .rbc-addons-dnd-resize-ns-icon {
+  width: 50% !important;
+}
