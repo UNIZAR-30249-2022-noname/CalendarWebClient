@@ -58,15 +58,6 @@ const getAvailableHoursError: Result<SubjectAvailableHoursDTO[]> = {
   error: Error("available hours error"),
 };
 
-const createYearsList = () => {
-  let years = new Map<string, YearProperties[]>();
-  years.set("Verificación y validación", [
-    { name: 1, groups: ["mañana", "tarde"] },
-  ]);
-
-  return years;
-};
-
 const getDegreePropertiesDTO: Result<DegreePropertiesDTO[]> = {
   isError: false,
   value: [
@@ -80,6 +71,15 @@ const getDegreePropertiesDTO: Result<DegreePropertiesDTO[]> = {
       ],
     },
   ],
+};
+
+const createYearsList = () => {
+  let years = new Map<string, YearProperties[]>();
+  years.set("Verificación y validación", [
+    { name: 1, groups: ["mañana", "tarde"] },
+  ]);
+
+  return years;
 };
 
 const getDegreeProperties: Result<DegreeProperties> = {
