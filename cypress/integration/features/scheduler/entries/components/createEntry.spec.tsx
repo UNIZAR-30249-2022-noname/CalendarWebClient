@@ -17,25 +17,24 @@ describe("create scheduler entry", () => {
     window.localStorage.setItem("leftDrawerState", leftDrawerState);
   });
 
-  it("should drag and drop a subject into the scheduler and create a new entry", () => {
+  it.only("should drag and drop a subject into the scheduler and create a new entry", () => {
     /* GIVEN */
     // Ensure left drawer is opened
     cy.setLocalStorage("leftDrawerState", "closed");
+    cy.setLocalStorage("selectedDegree", JSON.stringify(fixtures.Params));
     // Mock api call to get the subjects we want
-    cy.intercept(
-      {
-        pathname: "/availableHours",
-        method: "GET",
-      },
-      (req) => {
-        req.reply(200, fixtures.ResponseGood);
-        req.query = fixtures.Params;
-      }
-    ).as("getDegreeAvailableHours");
+    cy.intercept({ pathname: "/availableHours" }, (req) => {
+      req.reply(200, fixtures.ResponseGood);
+      req.query = fixtures.Params;
+    }).as("getDegreeAvailableHours");
+
+    cy.intercept({ pathname: "/listDegrees" }, (req) => {
+      req.reply(200, fixtures.ResponseDegreesGood);
+    }).as("getDegrees");
 
     cy.visit("/");
     cy.waitForReact();
-    cy.wait(["@getDegreeAvailableHours"]);
+    cy.wait(["@getDegrees", "@getDegreeAvailableHours"]);
     /* WHEN */
     let startSchedulerSlot = 14;
     let startTimeSlot = 0;

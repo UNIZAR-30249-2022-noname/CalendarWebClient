@@ -1,16 +1,12 @@
-
-
 type DegreePropertiesDTO = {
   name: string;
-  years:  YearPropertiesDTO[];
+  years: YearPropertiesDTO[];
 };
 
 type YearPropertiesDTO = {
-    groups:string[];
-    name: Number;
-
-}
-
+  groups: string[];
+  name: number;
+};
 
 export default DegreePropertiesDTO;
-export type {YearPropertiesDTO};
+export type { YearPropertiesDTO };

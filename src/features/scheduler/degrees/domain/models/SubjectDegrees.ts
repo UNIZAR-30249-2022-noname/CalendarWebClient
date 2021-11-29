@@ -1,10 +1,10 @@
 type DegreeProperties = {
-  list: String[];
+  list: string[];
   properties: Map<string, YearProperties[]>;
 };
 type YearProperties = {
   groups: string[];
-  name: Number;
+  name: number;
 };
 export default DegreeProperties;
 export type { YearProperties };

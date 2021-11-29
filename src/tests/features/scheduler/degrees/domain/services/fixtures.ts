@@ -8,7 +8,7 @@ import AvailableHoursParamsDTO from "../../../../../../features/scheduler/degree
 const DegreeParams: AvailableHoursParamsDTO = {
   titulacion: "Verificación y validación",
   curso: 1,
-  grupo: 2,
+  grupo: "Mañanas",
 };
 
 const getAvailableHours: Result<SubjectAvailableHours[]> = {

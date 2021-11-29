@@ -1,8 +1,6 @@
 import { colors } from "../../../../../core/config/constants";
 import { SubjectKind } from "../../../entries/domain/models/Entry";
-import AvailableHoursParamsDTO, {
-  Group,
-} from "../../infraestructure/dto/AvailableHoursParamsDTO";
+import AvailableHoursParamsDTO from "../../infraestructure/dto/AvailableHoursParamsDTO";
 import { degreeAvailableHoursRepo } from "../../infraestructure/repositories/AvailableHours.repositories";
 
 export const degreeAvailableHoursService = {

@@ -1,18 +1,20 @@
 import { Badge, Button, Space } from "antd";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
-import { FC } from "react";
-import { SubjectAvailableHours } from "../../domain/models/SubjectAvailableHours";
+import { useContext } from "react";
+import { DegreeSubjectsContext } from "../../../../../core/context/context";
 import { degreeAvailableHoursService } from "../../domain/services/AvailableHours.service";
+import { degreePropertiesService } from "../../domain/services/DegreeProperties.service";
 
 type Props = {
-  degreeInfo: { name: string; subjects: SubjectAvailableHours[] };
   setDraggedEvent: Function;
 };
 
-export const LeftDrawer = ({ degreeInfo, setDraggedEvent }: Props) => {
-  const subjectList = degreeInfo.subjects.map((subject, i) => (
-    // FIXME: add event to Scheduler state
+export const LeftDrawer = ({ setDraggedEvent }: Props) => {
+  const context = useContext(DegreeSubjectsContext);
+  const degreeName = degreePropertiesService.getSelectedDegree().titulacion;
+
+  const subjectList = context.store.map((subject, i) => (
     <div
       draggable
       key={i}
@@ -25,13 +27,13 @@ export const LeftDrawer = ({ degreeInfo, setDraggedEvent }: Props) => {
     >
       <Badge key={i} showZero count={subject.hours.remaining}>
         <Button
-          block
           type="primary"
           style={{
             height: "auto",
             backgroundColor: degreeAvailableHoursService.getSubjectColor(
               subject.kind
             ),
+            width: 190,
             maxHeight: 150,
           }}
         >
@@ -51,7 +53,9 @@ export const LeftDrawer = ({ degreeInfo, setDraggedEvent }: Props) => {
         padding: 15,
       }}
     >
-      <Title level={4}>{degreeInfo.name}</Title>
+      <Title level={4} ellipsis={{ rows: 2 }}>
+        {degreeName ?? ""}
+      </Title>
       {subjectList}
     </Space>
   );
