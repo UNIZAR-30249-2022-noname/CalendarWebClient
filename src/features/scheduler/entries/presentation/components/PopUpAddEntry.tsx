@@ -1,9 +1,8 @@
 import { Modal, Form, Input, Button, Row, Col } from "antd";
 import Title from "antd/lib/typography/Title";
-import moment from "moment";
-import { Moment } from "moment";
+import React from "react";
 import { useEffect, useState } from "react";
-import { Time, Week, SubjectKind } from "../../domain/models/Entry";
+import { SubjectKind } from "../../domain/models/Entry";
 import { entryForm } from "../../domain/services/EntryForm.service";
 import { KindSelector } from "./KindSelector";
 import { ProblemsGroupSelector } from "./ProblemsGroupSelector";
@@ -20,7 +19,7 @@ type Props = {
 };
 
 //FIXME: refactor
-export const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
+const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
   const [problemSelectorDisabled, setProblemSelectorDisabled] = useState(true);
   const [form] = Form.useForm();
 
@@ -87,3 +86,5 @@ export const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
     </Modal>
   );
 };
+
+export default React.memo(PopupAddEntry);

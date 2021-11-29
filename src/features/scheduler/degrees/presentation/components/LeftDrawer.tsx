@@ -10,7 +10,7 @@ type Props = {
   setDraggedEvent: Function;
 };
 
-export const LeftDrawer = ({ setDraggedEvent }: Props) => {
+const LeftDrawer = ({ setDraggedEvent }: Props) => {
   const context = useContext(DegreeSubjectsContext);
   const degreeName = degreePropertiesService.getSelectedDegree().titulacion;
 
@@ -60,3 +60,5 @@ export const LeftDrawer = ({ setDraggedEvent }: Props) => {
     </Space>
   );
 };
+
+export default LeftDrawer;

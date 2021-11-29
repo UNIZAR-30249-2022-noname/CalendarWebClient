@@ -1,5 +1,6 @@
 import { Button, Form } from "antd";
 import { useForm } from "antd/lib/form/Form";
+import React from "react";
 import { useContext, useEffect, useState } from "react";
 import {
   DegreeInfoContext,
@@ -14,7 +15,7 @@ import { DegreesSelector } from "./DegreesSelector";
 import { GroupSelector } from "./GroupSelector";
 import { YearSelector } from "./YearSelector";
 
-export const DegreeForm = () => {
+const DegreeForm = () => {
   const [form] = useForm();
   const contextSubjects = useContext(DegreeSubjectsContext);
   const constextDegrees = useContext(DegreeInfoContext);
@@ -92,3 +93,5 @@ export const DegreeForm = () => {
     </Form>
   );
 };
+
+export default React.memo(DegreeForm);

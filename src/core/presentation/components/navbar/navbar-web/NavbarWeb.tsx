@@ -1,39 +1,15 @@
 import { Row } from "antd";
-import { FC, useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import { MainLogo } from "./MainLogo";
-import { NavTabs } from "./Tabs";
+import NavTabs from "./Tabs";
 
-type Props = {
-  path: string;
-};
-
-export const NavbarWeb: FC<Props> = ({ path }) => {
-  const history = useHistory();
-  const [selectedTab, setselectedTab] = useState("/calendar");
-
-  const handleOnClick = (path: string) => {
-    history.push(path);
-  };
-
-  useEffect(() => {
-    setselectedTab(path);
-  }, [path]);
-
+export const NavbarWeb = () => {
   return (
-    <Row
-      align="middle"
-      justify="space-between"
-      style={{ paddingLeft: 20, paddingRight: 20 }}
-    >
-      <div
-        id="mainLogo"
-        onClick={() => handleOnClick("/")}
-        style={{ cursor: "pointer" }}
-      >
+    <Row align="middle" justify="space-between" style={{ padding: 10 }}>
+      <Link to="/" id="mainLogo" style={{ cursor: "pointer" }}>
         <MainLogo />
-      </div>
-      <NavTabs activeTab={selectedTab} handleOnClick={handleOnClick} />
+      </Link>
+      <NavTabs />
     </Row>
   );
 };

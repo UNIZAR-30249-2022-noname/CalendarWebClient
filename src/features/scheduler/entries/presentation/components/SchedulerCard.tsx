@@ -5,12 +5,11 @@ import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-import { PopupAddEntry } from "./PopUpAddEntry";
+import PopupAddEntry from "./PopUpAddEntry";
 import { SubjectKind } from "../../domain/models/Entry";
 import { EntryContent } from "./EntryContent";
 import moment from "moment";
 import dateFormat from "dateformat";
-import Text from "antd/lib/typography/Text";
 const DragAndDropCalendar = withDragAndDrop(Calendar as any);
 
 const localizer = momentLocalizer(moment);
@@ -22,7 +21,7 @@ type Props = {
 // Sources: https://github.com/jquense/react-big-calendar/blob/master/examples/demos/dndOutsideSource.js
 let today = new Date();
 //FIXME: refactor component
-export const SchedulerCard = ({ draggedEvent }: Props) => {
+const SchedulerCard = ({ draggedEvent }: Props) => {
   const [selectedEvent, setselectedEvent] = useState<any>({});
   const [visiblePopup, setvisiblePopup] = useState(false);
   const [events, setevents] = useState<any[]>([]);
@@ -80,7 +79,6 @@ export const SchedulerCard = ({ draggedEvent }: Props) => {
 
   const onCreateEvent = (event: any) => {
     setvisiblePopup(false);
-    console.log(event);
     setevents([...events, event]);
   };
 
@@ -108,13 +106,12 @@ export const SchedulerCard = ({ draggedEvent }: Props) => {
         resizable
         onEventResize={resizeEvent}
         onSelectSlot={newEvent}
-        onSelectEvent={(event, e) => selectEvent(event)}
+        onSelectEvent={(event) => selectEvent(event)}
         onDragStart={console.log}
         defaultView={"work_week"}
         views={["work_week"]}
         showMultiDayTimes={false}
         defaultDate={moment().toDate()}
-        popup={true}
         min={
           new Date(today.getFullYear(), today.getMonth(), today.getDate(), 7)
         }
@@ -132,7 +129,6 @@ export const SchedulerCard = ({ draggedEvent }: Props) => {
         components={{
           toolbar: () => <></>,
           event: (e) => <EntryContent event={e.event} />,
-          timeGutterHeader: () => <Text>Horas</Text>,
         }}
       />
       <PopupAddEntry
@@ -144,3 +140,5 @@ export const SchedulerCard = ({ draggedEvent }: Props) => {
     </>
   );
 };
+
+export default SchedulerCard;
