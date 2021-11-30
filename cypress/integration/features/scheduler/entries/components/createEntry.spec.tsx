@@ -17,7 +17,7 @@ describe("create scheduler entry", () => {
     window.localStorage.setItem("leftDrawerState", leftDrawerState);
   });
 
-  it.only("should drag and drop a subject into the scheduler and create a new entry", () => {
+  it("should drag and drop a subject into the scheduler and create a new entry", () => {
     /* GIVEN */
     // Ensure left drawer is opened
     cy.setLocalStorage("leftDrawerState", "closed");
@@ -118,16 +118,16 @@ describe("create scheduler entry", () => {
   });
 
   it("should create a new entry by clicking in the scheduler", () => {
-    cy.intercept(
-      {
-        pathname: "/availableHours",
-        method: "GET",
-      },
-      (req) => {
-        req.reply(200, fixtures.ResponseGood);
-        req.query = fixtures.Params;
-      }
-    ).as("getDegreeAvailableHours");
+    cy.setLocalStorage("selectedDegree", JSON.stringify(fixtures.Params));
+
+    cy.intercept({ pathname: "/availableHours" }, (req) => {
+      req.reply(200, fixtures.ResponseGood);
+      req.query = fixtures.Params;
+    }).as("getDegreeAvailableHours");
+
+    cy.intercept({ pathname: "/listDegrees" }, (req) => {
+      req.reply(200, fixtures.ResponseDegreesGood);
+    }).as("getDegrees");
 
     cy.visit("/");
     cy.waitForReact();

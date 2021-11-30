@@ -58,9 +58,9 @@ const DegreeForm = () => {
     if (degreeInfoRes.isError) {
       notifications.error(`Error al cargar los datos de ${degree.titulacion}`);
     } else {
+      degreePropertiesService.setSelectedDegree(degree);
       contextSubjects.actions.setDegreeSubjects(degreeInfoRes.value);
       contextSelectedDegree.actions.setSelectedDegree(degree);
-      degreePropertiesService.setSelectedDegree(degree);
     }
     setLoading(false);
   };

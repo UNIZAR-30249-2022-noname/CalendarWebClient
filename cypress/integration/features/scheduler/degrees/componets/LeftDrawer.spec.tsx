@@ -117,32 +117,24 @@ describe("Left Drawer", () => {
       cy.intercept({ pathname: "/availableHours" }, (req) => {
         req.reply(fixtures.ResponseGood);
         req.query = fixtures.Params;
-      });
+      }).as("getDegreeAvailableHours");
 
       cy.intercept({ pathname: "/listDegrees" }, (req) => {
-        req.reply(fixtures.ResponseDegreesGood);
+        req.reply(200, fixtures.ResponseDegreesGood);
       }).as("getDegrees");
 
       cy.visit("/");
       cy.waitForReact();
-      cy.wait(["@getDegrees"]);
+      cy.wait(["@getDegreeAvailableHours", "@getDegrees"]);
       // When
       cy.react("DegreesSelector").click();
       cy.get(".ant-select-item-option").contains("Arquitectura").click();
-      cy.intercept(
-        {
-          pathname: "/availableHours",
-          method: "GET",
-        },
-        (req) => {
-          req.reply(fixtures.ResponseGood);
-          req.query = fixtures.Params2;
-        }
-      ).as("getDegreeAvailableHours");
+      cy.intercept({ pathname: "/availableHours" }, (req) => {
+        req.reply(200, fixtures.ResponseGood);
+        req.query = fixtures.Params2;
+      }).as("getDegreeAvailableHours1");
       cy.react("Button").contains("Buscar").click();
-      cy.wait(["@getDegreeAvailableHours"]);
-      cy.clock();
-      cy.tick(1000);
+      cy.wait(["@getDegreeAvailableHours1"]);
       // Then
       cy.react("LeftDrawer").should("be.visible");
       cy.react("LeftDrawer")
@@ -179,7 +171,7 @@ describe("Left Drawer", () => {
       cy.waitForReact();
       // When
       cy.intercept({ pathname: "/availableHours" }, (req) => {
-        req.reply(fixtures.ResponseGood);
+        req.reply(200, fixtures.ResponseGood);
         req.query = fixtures.Params;
       }).as("getDegreeAvailableHours");
 
