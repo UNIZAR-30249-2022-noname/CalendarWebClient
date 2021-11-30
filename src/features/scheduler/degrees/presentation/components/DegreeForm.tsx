@@ -60,6 +60,7 @@ const DegreeForm = () => {
     } else {
       contextSubjects.actions.setDegreeSubjects(degreeInfoRes.value);
       contextSelectedDegree.actions.setSelectedDegree(degree);
+      degreePropertiesService.setSelectedDegree(degree);
     }
     setLoading(false);
   };

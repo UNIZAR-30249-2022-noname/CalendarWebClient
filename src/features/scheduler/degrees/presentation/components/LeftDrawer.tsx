@@ -1,10 +1,9 @@
-import { Badge, Button, Space } from "antd";
-import Text from "antd/lib/typography/Text";
+import Space from "antd/lib/space";
 import Title from "antd/lib/typography/Title";
 import { useContext } from "react";
 import { DegreeSubjectsContext } from "../../../../../core/context/context";
-import { degreeAvailableHoursService } from "../../domain/services/AvailableHours.service";
 import { degreePropertiesService } from "../../domain/services/DegreeProperties.service";
+import { SubjectBadget } from "./SubjectBadge";
 
 type Props = {
   setDraggedEvent: Function;
@@ -15,32 +14,11 @@ const LeftDrawer = ({ setDraggedEvent }: Props) => {
   const degreeName = degreePropertiesService.getSelectedDegree().titulacion;
 
   const subjectList = context.store.map((subject, i) => (
-    <div
-      draggable
+    <SubjectBadget
+      setDraggedEvent={setDraggedEvent}
+      subjectB={subject}
       key={i}
-      onDragStart={() =>
-        setDraggedEvent({
-          title: subject.subject,
-          kind: subject.kind,
-        })
-      }
-    >
-      <Badge key={i} showZero count={subject.hours.remaining}>
-        <Button
-          type="primary"
-          style={{
-            height: "auto",
-            backgroundColor: degreeAvailableHoursService.getSubjectColor(
-              subject.kind
-            ),
-            width: 190,
-            maxHeight: 150,
-          }}
-        >
-          <Text style={{ whiteSpace: "normal" }}>{subject.subject}</Text>
-        </Button>
-      </Badge>
-    </div>
+    />
   ));
 
   return (

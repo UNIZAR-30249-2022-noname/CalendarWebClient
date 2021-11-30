@@ -10,6 +10,7 @@ import { SubjectKind } from "../../domain/models/Entry";
 import { EntryContent } from "./EntryContent";
 import moment from "moment";
 import dateFormat from "dateformat";
+require("moment/locale/es.js");
 const DragAndDropCalendar = withDragAndDrop(Calendar as any);
 
 const localizer = momentLocalizer(moment);
@@ -97,6 +98,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
               dateFormat(e.start, "H:MM") + " - " + dateFormat(e.end, "H:MM")
             );
           },
+          dayFormat: "dddd",
         }}
         step={10}
         timeslots={6}

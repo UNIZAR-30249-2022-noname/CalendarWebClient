@@ -10,7 +10,6 @@ export const SelectedDegreeContextWrapper: FC = ({ children }) => {
   const actions = {
     setSelectedDegree: (degreeProps: AvailableHoursParamsDTO) => {
       setStore(degreeProps);
-      degreePropertiesService.setSelectedDegree(degreeProps);
     },
   };
 

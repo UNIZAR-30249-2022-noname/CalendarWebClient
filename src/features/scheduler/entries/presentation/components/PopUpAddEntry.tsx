@@ -1,4 +1,4 @@
-import { Modal, Form, Input, Button, Row, Col } from "antd";
+import { Modal, Form, Button, Row, Col } from "antd";
 import Title from "antd/lib/typography/Title";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -72,7 +72,7 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
             <RoomSelector />
           </Col>
         </Row>
-        <TimeSelector form={form} />
+        <TimeSelector />
         <KindSelector check={checkProblemSelector} />
         <ProblemsGroupSelector disabled={problemSelectorDisabled} />
         <Form.Item>

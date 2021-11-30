@@ -1,4 +1,4 @@
-import { Row, Space } from "antd";
+import { Space, Tag } from "antd";
 import Text from "antd/lib/typography/Text";
 import { SubjectKind, Week } from "../../domain/models/Entry";
 
@@ -11,11 +11,18 @@ export const EntryContent = ({ event }: Props) => {
     case SubjectKind.theory:
       return (
         <Space direction="horizontal">
-          <Text style={{ color: "green", fontWeight: "bold" }}>[T]</Text>
-          <div>
-            <Text>{event.title} </Text>
-            <Text>(Aula {event.room})</Text>
-          </div>
+          <Text style={{ color: "#046ccc", fontWeight: "bold" }}>[T]</Text>
+          <Space direction="vertical" size={2}>
+            <Tag
+              style={{
+                fontSize: 14,
+                whiteSpace: "break-spaces",
+              }}
+            >
+              {event.title}
+              {"\n"}(Aula {event.room})
+            </Tag>
+          </Space>
         </Space>
       );
     case SubjectKind.practices:
@@ -29,19 +36,32 @@ export const EntryContent = ({ event }: Props) => {
           break;
       }
       return (
-        <div>
-          <Text style={{ color: color }}>{event.title} </Text>
-          <Text style={{ color: color }}>(Aula {event.room})</Text>
-        </div>
+        <Space direction="vertical" size={2}>
+          <Tag
+            color={color}
+            style={{ fontSize: 14, whiteSpace: "break-spaces" }}
+          >
+            {event.title}
+            {"\n"}(Aula {event.room})
+          </Tag>
+        </Space>
       );
     case SubjectKind.problems:
       return (
         <Space direction="horizontal">
           <Text style={{ color: "purple", fontWeight: "bold" }}>[P]</Text>
-          <div>
-            <Text>{event.title} </Text>
-            <Text>(Aula {event.room})</Text>
-          </div>
+          <Space direction="vertical" size={2}>
+            <Tag
+              style={{
+                fontSize: 14,
+                whiteSpace: "break-spaces",
+                display: "inline-block",
+              }}
+            >
+              {event.title}
+              {"\n"}(Aula {event.room}) (Gr. {event.group})
+            </Tag>
+          </Space>
         </Space>
       );
   }

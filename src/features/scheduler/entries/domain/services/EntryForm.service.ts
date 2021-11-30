@@ -1,4 +1,3 @@
-import { FormInstance } from "antd";
 import moment from "moment";
 import { SubjectKind } from "../models/Entry";
 
@@ -17,6 +16,7 @@ export const entryForm = {
       week: values.week,
       kind: values.kind,
       room: values.room,
+      group: values.group,
     });
   },
   loadData: (event: any) => {
@@ -34,6 +34,7 @@ export const entryForm = {
       kind: event.kind ?? SubjectKind.theory,
       week: event.week,
       room: event.room,
+      group: event.group,
     };
   },
   checkIfProblemsDisabled: (kind: SubjectKind) => {
