@@ -53,17 +53,17 @@ describe("Professor layout", () => {
           // Given
           cy.react("NavbarWeb").should("exist");
           // When
-          cy.react("Tabs").contains(page.name).click();
+          cy.react("NavTabs").contains(page.name).click();
           // Then
           cy.react(page.compName).should("exist");
           // [page.name] should be active in the topTabBar
-          cy.get(".ant-tabs-tab-active").should("contain", page.name);
+          cy.react("NavTabs").get(".active").should("contain", page.name);
         });
       });
 
       it(`should get back to Scheduler when clicking in logo`, () => {
         // Given
-        cy.react("Tabs").contains("Datos").click();
+        cy.react("NavTabs").contains("Datos").click();
         cy.react("DataPage").should("exist");
         // When
         cy.get("#mainLogo").click();
@@ -86,7 +86,7 @@ describe("Professor layout", () => {
       });
       it(`should get back to Scheduler when clicking in logo`, () => {
         //When
-        cy.react("Tabs").contains("Datos").click();
+        cy.react("NavTabs").contains("Datos").click();
         cy.react("DataPage").should("exist");
         // Then
         cy.get(".anticon-calendar").click();

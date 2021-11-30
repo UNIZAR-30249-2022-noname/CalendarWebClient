@@ -1,45 +1,43 @@
-import { Radio, Select } from "antd";
+import { Form, Select } from "antd";
 import Text from "antd/lib/typography/Text";
-import { FC, useEffect, useState } from "react";
-
-type Props = {
-  activeGroup: number;
-  setActiveGroup: Function;
-};
+import { useContext } from "react";
+import {
+  DegreeInfoContext,
+  SelectedDegreeContext,
+} from "../../../../../core/context/context";
 
 const { Option } = Select;
 
-export const GroupSelector: FC<Props> = ({ activeGroup, setActiveGroup }) => {
-  const [groupList, setGroupList] = useState([{ value: 0, name: "" }]);
+export const GroupSelector = () => {
+  const context = useContext(DegreeInfoContext);
+  const contextSelectedDegree = useContext(SelectedDegreeContext);
+  const { titulacion, curso } = contextSelectedDegree.store;
 
-  useEffect(() => {
-    //TODO: get degree groups
-    let groupListRes = [
-      { value: 0, name: "Mañanas" },
-      { value: 1, name: "Tardes" },
-      { value: 2, name: "Único" },
-    ];
-    setGroupList(groupListRes);
-  }, []);
-
-  const selectGroup = (selectedGroup: string) => {
-    setActiveGroup(selectedGroup);
-  };
+  const group = context.store.properties.get(titulacion);
+  const groupList = group ? group[curso - 1].groups : [];
 
   const menu = groupList.map((group, i) => (
-    <Option key={i} children={<Text>{group.name}</Text>} value={group.value} />
+    <Option key={i} children={<Text>{group}</Text>} value={group} />
   ));
 
   return (
-    <Select
-      optionFilterProp="children"
-      placeholder="Elige grupo..."
-      value={groupList[activeGroup] ? groupList[activeGroup].name : ""}
-      defaultValue={""}
-      onChange={selectGroup}
-      style={{ minWidth: 110 }}
+    <Form.Item
+      name="group"
+      required
+      rules={[
+        {
+          required: true,
+          message: "Elige el grupo!",
+        },
+      ]}
     >
-      {menu}
-    </Select>
+      <Select
+        optionFilterProp="children"
+        placeholder="Elige grupo..."
+        style={{ minWidth: 110 }}
+      >
+        {menu}
+      </Select>
+    </Form.Item>
   );
 };

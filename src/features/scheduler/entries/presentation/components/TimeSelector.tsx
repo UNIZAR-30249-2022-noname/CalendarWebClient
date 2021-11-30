@@ -1,13 +1,9 @@
-import { Form, FormInstance, TimePicker } from "antd";
+import { Form, TimePicker } from "antd";
 
 const format = "HH:mm";
 const { RangePicker } = TimePicker;
 
-type Props = {
-  form: FormInstance;
-};
-
-export const TimeSelector = ({ form }: Props) => {
+export const TimeSelector = () => {
   return (
     <Form.Item
       label="Horas"

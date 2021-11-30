@@ -16,7 +16,7 @@ export const ProblemsGroupSelector = ({ disabled }: Props) => {
 
   return (
     <Form.Item
-      name="problems"
+      name="group"
       label="Grupo"
       required
       rules={[

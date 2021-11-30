@@ -8,11 +8,11 @@ type Props = {
   theme: CSSProperties;
 };
 
-export const RoutesApp = (propsMain: Props) => {
+export const RoutesApp = ({ user, theme }: Props) => {
   return (
     <BrowserRouter>
       <Switch>
-        {routerManager(propsMain.user).map((route, index) => {
+        {routerManager(user).map((route, index) => {
           return (
             <Route
               exact={route.exact}
@@ -20,16 +20,8 @@ export const RoutesApp = (propsMain: Props) => {
               key={index}
               component={(props: any) => {
                 return (
-                  <route.layout
-                    {...props}
-                    theme={propsMain.theme}
-                    path={route.path}
-                  >
-                    <route.component
-                      {...props}
-                      user={propsMain.user}
-                      theme={propsMain.theme}
-                    />
+                  <route.layout {...props} theme={theme} path={route.path}>
+                    <route.component {...props} user={user} theme={theme} />
                   </route.layout>
                 );
               }}

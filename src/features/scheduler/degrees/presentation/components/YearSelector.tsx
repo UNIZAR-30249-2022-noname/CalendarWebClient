@@ -1,50 +1,56 @@
 import Text from "antd/lib/typography/Text";
-import { FC, useEffect, useState } from "react";
-import { Select } from "antd";
-
-type Props = {
-  activeYear: number;
-  setActiveYear: Function;
-};
+import { Form, Select } from "antd";
+import { useContext } from "react";
+import {
+  DegreeInfoContext,
+  SelectedDegreeContext,
+} from "../../../../../core/context/context";
 
 const { Option } = Select;
 
-export const YearSelector: FC<Props> = ({ activeYear, setActiveYear }) => {
-  const [yearList, setYearList] = useState([{ value: 1, name: "Cargando..." }]);
+export const YearSelector = () => {
+  const context = useContext(DegreeInfoContext);
+  const contextSelectedDegree = useContext(SelectedDegreeContext);
+  const yearList = context.store.properties.get(
+    contextSelectedDegree.store.titulacion
+  );
 
-  useEffect(() => {
-    //TODO: get degree years
-    let yearListRes = [
-      { value: 1, name: "Primero" },
-      { value: 2, name: "Segundo" },
-      { value: 3, name: "Tercero" },
-      { value: 4, name: "Cuarto" },
-    ];
-    setYearList(yearListRes);
-  }, []);
+  const onChange = (selectedYear: number) => {
+    const selectedDegree = contextSelectedDegree.store.titulacion;
+    const degreePropsList = context.store.properties.get(selectedDegree);
+    if (degreePropsList == null || degreePropsList.length === 0) return;
+    const degreeProps = degreePropsList[selectedYear - 1];
 
-  const selectDegree = (selectedDegree: number) => {
-    setActiveYear(selectedDegree);
+    contextSelectedDegree.actions.setSelectedDegree({
+      titulacion: selectedDegree,
+      curso: selectedYear,
+      grupo: degreeProps.groups[0],
+    });
   };
 
-  const menu = yearList.map((degree, i) => (
-    <Option
-      key={i}
-      children={<Text>{degree.name}</Text>}
-      value={degree.value}
-    />
+  const menu = yearList?.map((degree, i) => (
+    <Option key={i} children={<Text>{degree.name}</Text>} value={degree.name} />
   ));
 
   return (
-    <Select
-      optionFilterProp="children"
-      placeholder={"Elige el año..."}
-      //value={activeYear}
-      defaultValue={activeYear}
-      onChange={selectDegree}
-      style={{ minWidth: 110 }}
+    <Form.Item
+      name="year"
+      required
+      rules={[
+        {
+          required: true,
+          message: "Elige el curso!",
+        },
+      ]}
     >
-      {menu}
-    </Select>
+      <Select
+        optionFilterProp="children"
+        placeholder={"Elige el curso..."}
+        onChange={onChange}
+        style={{ minWidth: 110 }}
+      >
+        {menu}
+      </Select>
+    </Form.Item>
   );
 };

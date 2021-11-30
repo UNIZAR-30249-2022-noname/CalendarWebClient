@@ -22,9 +22,6 @@ code {
   border: #53799c 2px solid;
 }
 
-.rbc-addons-dnd-drag-preview {
-}
-
 .rbc-event-content {
   color: rgb(39, 39, 39);
   padding-right: 5px;
@@ -38,18 +35,48 @@ code {
 .rbc-header {
   pointer-events: none;
   font-size: 20px !important;
+  display: grid;
+  align-content: center;
 }
 
 .rbc-time-header-cell {
   height: 50px;
 }
 
+.rbc-time-view {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom: 1px solid #b0b0b0;
+}
+
+.rbc-time-header.rbc-overflowing {
+  background: #858b8e3b;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
 .rbc-time-slot {
   min-height: 25px;
+}
+
+.rbc-current-time-indicator {
+  background-color: transparent !important;
+}
+
+.rbc-timeslot-group {
+  border-bottom: 1px solid #b0b0b0 !important;
+}
+
+.rbc-today {
+  background-color: transparent !important;
 }
 
 .rbc-addons-dnd
   .rbc-addons-dnd-resize-ns-anchor
   .rbc-addons-dnd-resize-ns-icon {
   width: 50% !important;
+}
+
+.rbc-time-content > * + * > * {
+  border-left: 1px solid #b0b0b0 !important;
 }

@@ -28,7 +28,7 @@ export const ProfessorLayout: FC<Props> = ({ children, user, theme, path }) => {
     <>
       <Row>
         <Col flex="auto">
-          {!isMobile ? <NavbarWeb path={path} /> : <NavbarMobile path={path} />}
+          {!isMobile ? <NavbarWeb /> : <NavbarMobile />}
           <Row>
             <div
               style={{

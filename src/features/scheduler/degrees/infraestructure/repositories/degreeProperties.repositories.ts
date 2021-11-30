@@ -3,6 +3,7 @@ import DegreeProperties, {
   YearProperties,
 } from "../../domain/models/SubjectDegrees";
 import { degreePropertiesData } from "../data_sources/http/DegreeProperties.data";
+import AvailableHoursParamsDTO from "../dto/AvailableHoursParamsDTO";
 
 export const degreePropertiesRepo = {
   getDegrees: async (): Promise<Result<DegreeProperties>> => {
@@ -45,5 +46,15 @@ export const degreePropertiesRepo = {
         error: Error("parse error"),
       };
     }
+  },
+  getSelectedDegree: (): AvailableHoursParamsDTO => {
+    const degreeInfo = JSON.parse(
+      localStorage.getItem("selectedDegree") ??
+        '{"titulacion": null, "curso": null, "grupo": null}'
+    ) as AvailableHoursParamsDTO;
+    return degreeInfo;
+  },
+  setSelectedDegree: (degreeInfo: AvailableHoursParamsDTO) => {
+    localStorage.setItem("selectedDegree", JSON.stringify(degreeInfo));
   },
 };

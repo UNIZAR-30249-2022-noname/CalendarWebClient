@@ -1,44 +1,24 @@
-import { Badge, Button, Space } from "antd";
-import Text from "antd/lib/typography/Text";
+import Space from "antd/lib/space";
 import Title from "antd/lib/typography/Title";
-import { FC } from "react";
-import { SubjectAvailableHours } from "../../domain/models/SubjectAvailableHours";
-import { degreeAvailableHoursService } from "../../domain/services/AvailableHours.service";
+import { useContext } from "react";
+import { DegreeSubjectsContext } from "../../../../../core/context/context";
+import { degreePropertiesService } from "../../domain/services/DegreeProperties.service";
+import { SubjectBadget } from "./SubjectBadge";
 
 type Props = {
-  degreeInfo: { name: string; subjects: SubjectAvailableHours[] };
   setDraggedEvent: Function;
 };
 
-export const LeftDrawer = ({ degreeInfo, setDraggedEvent }: Props) => {
-  const subjectList = degreeInfo.subjects.map((subject, i) => (
-    // FIXME: add event to Scheduler state
-    <div
-      draggable
+const LeftDrawer = ({ setDraggedEvent }: Props) => {
+  const context = useContext(DegreeSubjectsContext);
+  const degreeName = degreePropertiesService.getSelectedDegree().titulacion;
+
+  const subjectList = context.store.map((subject, i) => (
+    <SubjectBadget
+      setDraggedEvent={setDraggedEvent}
+      subjectB={subject}
       key={i}
-      onDragStart={() =>
-        setDraggedEvent({
-          title: subject.subject,
-          kind: subject.kind,
-        })
-      }
-    >
-      <Badge key={i} showZero count={subject.hours.remaining}>
-        <Button
-          block
-          type="primary"
-          style={{
-            height: "auto",
-            backgroundColor: degreeAvailableHoursService.getSubjectColor(
-              subject.kind
-            ),
-            maxHeight: 150,
-          }}
-        >
-          <Text style={{ whiteSpace: "normal" }}>{subject.subject}</Text>
-        </Button>
-      </Badge>
-    </div>
+    />
   ));
 
   return (
@@ -51,8 +31,12 @@ export const LeftDrawer = ({ degreeInfo, setDraggedEvent }: Props) => {
         padding: 15,
       }}
     >
-      <Title level={4}>{degreeInfo.name}</Title>
+      <Title level={4} ellipsis={{ rows: 2 }}>
+        {degreeName ?? ""}
+      </Title>
       {subjectList}
     </Space>
   );
 };
+
+export default LeftDrawer;

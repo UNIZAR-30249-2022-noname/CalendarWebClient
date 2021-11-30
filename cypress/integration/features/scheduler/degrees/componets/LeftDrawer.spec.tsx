@@ -77,17 +77,12 @@ describe("Left Drawer", () => {
     it("should fetch degree information correctly", () => {
       // Given
       cy.setLocalStorage("leftDrawerState", "closed");
+      cy.setLocalStorage("selectedDegree", JSON.stringify(fixtures.Params));
 
-      cy.intercept(
-        {
-          pathname: "/availableHours",
-          method: "GET",
-        },
-        (req) => {
-          req.reply(fixtures.ResponseGood);
-          req.query = fixtures.Params;
-        }
-      ).as("getDegreeAvailableHours");
+      cy.intercept({ pathname: "/availableHours" }, (req) => {
+        req.reply(fixtures.ResponseGood);
+        req.query = fixtures.Params;
+      }).as("getDegreeAvailableHours");
 
       cy.visit("/");
       cy.waitForReact();
@@ -117,37 +112,29 @@ describe("Left Drawer", () => {
     it("should fetch degree information correctly through [Buscar] button", () => {
       // Given
       cy.setLocalStorage("leftDrawerState", "closed");
+      cy.setLocalStorage("selectedDegree", JSON.stringify(fixtures.Params));
 
-      cy.intercept(
-        {
-          pathname: "/availableHours",
-          method: "GET",
-        },
-        (req) => {
-          req.reply(fixtures.ResponseGood);
-          req.query = fixtures.Params;
-        }
-      );
+      cy.intercept({ pathname: "/availableHours" }, (req) => {
+        req.reply(fixtures.ResponseGood);
+        req.query = fixtures.Params;
+      }).as("getDegreeAvailableHours");
+
+      cy.intercept({ pathname: "/listDegrees" }, (req) => {
+        req.reply(200, fixtures.ResponseDegreesGood);
+      }).as("getDegrees");
 
       cy.visit("/");
       cy.waitForReact();
+      cy.wait(["@getDegreeAvailableHours", "@getDegrees"]);
       // When
       cy.react("DegreesSelector").click();
       cy.get(".ant-select-item-option").contains("Arquitectura").click();
-      cy.intercept(
-        {
-          pathname: "/availableHours",
-          method: "GET",
-        },
-        (req) => {
-          req.reply(fixtures.ResponseGood);
-          req.query = fixtures.Params2;
-        }
-      ).as("getDegreeAvailableHours");
+      cy.intercept({ pathname: "/availableHours" }, (req) => {
+        req.reply(200, fixtures.ResponseGood);
+        req.query = fixtures.Params2;
+      }).as("getDegreeAvailableHours1");
       cy.react("Button").contains("Buscar").click();
-      cy.wait(["@getDegreeAvailableHours"]);
-      cy.clock();
-      cy.tick(1000);
+      cy.wait(["@getDegreeAvailableHours1"]);
       // Then
       cy.react("LeftDrawer").should("be.visible");
       cy.react("LeftDrawer")
@@ -172,32 +159,22 @@ describe("Left Drawer", () => {
     it("should give and error and fetch degree information correctly through [Buscar] button", () => {
       // Given
       cy.setLocalStorage("leftDrawerState", "closed");
+      cy.setLocalStorage("selectedDegree", JSON.stringify(fixtures.Params));
 
-      cy.intercept(
-        {
-          pathname: "/availableHours",
-          method: "GET",
-        },
-        (req) => {
-          req.reply(404, fixtures.ResponseGood);
-          req.query = fixtures.Params;
-        }
-      );
+      cy.intercept({ pathname: "/availableHours" }, (req) => {
+        req.reply(404, fixtures.ResponseGood);
+        req.query = fixtures.Params;
+      });
 
       cy.clock();
       cy.visit("/");
       cy.waitForReact();
       // When
-      cy.intercept(
-        {
-          pathname: "/availableHours",
-          method: "GET",
-        },
-        (req) => {
-          req.reply(fixtures.ResponseGood);
-          req.query = fixtures.Params;
-        }
-      ).as("getDegreeAvailableHours");
+      cy.intercept({ pathname: "/availableHours" }, (req) => {
+        req.reply(200, fixtures.ResponseGood);
+        req.query = fixtures.Params;
+      }).as("getDegreeAvailableHours");
+
       cy.react("Button").contains("Buscar").click();
       cy.wait(["@getDegreeAvailableHours"]);
       cy.tick(1000);
@@ -219,17 +196,12 @@ describe("Left Drawer", () => {
     it("should not fetch degree information", () => {
       // Given
       cy.setLocalStorage("leftDrawerState", "closed");
+      cy.setLocalStorage("selectedDegree", JSON.stringify(fixtures.Params));
 
-      cy.intercept(
-        {
-          pathname: "/availableHours",
-          method: "GET",
-        },
-        (req) => {
-          req.reply(404, fixtures.ResponseGood);
-          req.query = fixtures.Params;
-        }
-      ).as("getDegreeAvailableHours");
+      cy.intercept({ pathname: "/availableHours" }, (req) => {
+        req.reply(404, fixtures.ResponseGood);
+        req.query = fixtures.Params;
+      }).as("getDegreeAvailableHours");
 
       cy.visit("/");
       cy.waitForReact();
