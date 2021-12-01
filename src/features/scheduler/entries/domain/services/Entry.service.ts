@@ -19,6 +19,7 @@ export const entriesService = {
       start.setHours(entry.initTime.hour, entry.initTime.min);
       end.setHours(entry.endTime.hour, entry.endTime.min);
       let event: EntryScheduler = {
+        id: Math.random() * 50,
         title: entry.subject,
         start: start,
         end: end,

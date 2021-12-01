@@ -1,6 +1,7 @@
+import { Spin } from "antd";
 import Space from "antd/lib/space";
 import Title from "antd/lib/typography/Title";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DegreeSubjectsContext } from "../../../../../core/context/context";
 import { degreePropertiesService } from "../../domain/services/DegreeProperties.service";
 import { SubjectBadget } from "./SubjectBadge";
@@ -10,10 +11,15 @@ type Props = {
 };
 
 const LeftDrawer = ({ setDraggedEvent }: Props) => {
-  const context = useContext(DegreeSubjectsContext);
+  const subjectListStore = useContext(DegreeSubjectsContext).store;
   const degreeName = degreePropertiesService.getSelectedDegree().titulacion;
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (subjectListStore.length === 0) setLoading(true);
+    else setLoading(false);
+  }, [subjectListStore]);
 
-  const subjectList = context.store.map((subject, i) => (
+  const subjectList = subjectListStore.map((subject, i) => (
     <SubjectBadget
       setDraggedEvent={setDraggedEvent}
       subjectB={subject}
@@ -34,7 +40,7 @@ const LeftDrawer = ({ setDraggedEvent }: Props) => {
       <Title level={4} ellipsis={{ rows: 2 }}>
         {degreeName ?? ""}
       </Title>
-      {subjectList}
+      {loading ? <Spin size="large" /> : subjectList}
     </Space>
   );
 };

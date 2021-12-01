@@ -9,8 +9,12 @@ import { EntryContent } from "./EntryContent";
 import moment from "moment";
 import dateFormat from "dateformat";
 import { entriesService } from "../../domain/services/Entry.service";
-import { SelectedDegreeContext } from "../../../../../core/context/context";
+import {
+  DegreeSubjectsContext,
+  SelectedDegreeContext,
+} from "../../../../../core/context/context";
 import { notifications } from "../../../../../core/presentation/components/notifications/notifications";
+import { Spin } from "antd";
 require("moment/locale/es.js");
 const DragAndDropCalendar = withDragAndDrop(Calendar as any);
 
@@ -31,16 +35,21 @@ const formats = {
 
 const SchedulerCard = ({ draggedEvent }: Props) => {
   const selectedDegree = useContext(SelectedDegreeContext).store;
+  const subjectLists = useContext(DegreeSubjectsContext).store;
   const [selectedEvent, setselectedEvent] = useState<any>({});
   const [visiblePopup, setvisiblePopup] = useState(false);
   const [events, setevents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (subjectLists.length === 0) return;
     loadEntryList();
-  }, []);
+  }, [subjectLists]);
 
   const loadEntryList = async () => {
+    setLoading(true);
     const entryListRes = await entriesService.getListEntries(selectedDegree);
+    setLoading(false);
     if (entryListRes.isError) {
       notifications.error("No se puedieron cargar las entradas del horario");
       return;
@@ -97,43 +106,47 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
 
   return (
     <>
-      <DragAndDropCalendar
-        selectable
-        formats={formats}
-        step={10}
-        timeslots={6}
-        localizer={localizer}
-        events={events}
-        onEventDrop={moveEvent}
-        resizable
-        onEventResize={resizeEvent}
-        onSelectSlot={newEvent}
-        onSelectEvent={(event) => selectEvent(event)}
-        defaultView={"work_week"}
-        views={["work_week"]}
-        showMultiDayTimes={false}
-        defaultDate={moment().toDate()}
-        min={
-          new Date(today.getFullYear(), today.getMonth(), today.getDate(), 7)
-        }
-        max={
-          new Date(today.getFullYear(), today.getMonth(), today.getDate(), 21)
-        }
-        eventPropGetter={(e: any) => ({
-          style: {
-            backgroundColor:
-              e.kind === SubjectKind.practices ? "#FFE8B8" : "#C0E0FF",
-          },
-        })}
-        onDropFromOutside={({ start, end }) =>
-          onDropFromOutside(start as Date, end as Date)
-        }
-        style={{ height: "80vh", overflowX: "scroll" }}
-        components={{
-          toolbar: () => <></>,
-          event: (e) => <EntryContent event={e.event} />,
-        }}
-      />
+      {loading ? (
+        <Spin size="large" />
+      ) : (
+        <DragAndDropCalendar
+          selectable
+          formats={formats}
+          step={10}
+          timeslots={6}
+          localizer={localizer}
+          events={events}
+          onEventDrop={moveEvent}
+          resizable
+          onEventResize={resizeEvent}
+          onSelectSlot={newEvent}
+          onSelectEvent={(event) => selectEvent(event)}
+          defaultView={"work_week"}
+          views={["work_week"]}
+          showMultiDayTimes={false}
+          defaultDate={moment().toDate()}
+          min={
+            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 7)
+          }
+          max={
+            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 21)
+          }
+          eventPropGetter={(e: any) => ({
+            style: {
+              backgroundColor:
+                e.kind === SubjectKind.practices ? "#FFE8B8" : "#C0E0FF",
+            },
+          })}
+          onDropFromOutside={({ start, end }) =>
+            onDropFromOutside(start as Date, end as Date)
+          }
+          style={{ height: "80vh", overflowX: "scroll" }}
+          components={{
+            toolbar: () => <></>,
+            event: (e) => <EntryContent event={e.event} />,
+          }}
+        />
+      )}
       <PopupAddEntry
         event={selectedEvent}
         visible={visiblePopup}
