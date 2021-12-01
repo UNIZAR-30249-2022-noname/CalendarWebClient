@@ -1,6 +1,7 @@
 import {
   SubjectKind,
   Week,
+  WeekDay,
 } from "../../../../../../../features/scheduler/entries/domain/models/Entry";
 import EntryDTO from "../../../../../../../features/scheduler/entries/infraestructure/dto/EntryDTO";
 
@@ -15,6 +16,7 @@ const postEntriesBody: EntryDTO[] = [
     grupo: "Tardes",
     endMin: 40,
     endHour: 9,
+    weekday: WeekDay.THURSDAY,
   },
 ];
 

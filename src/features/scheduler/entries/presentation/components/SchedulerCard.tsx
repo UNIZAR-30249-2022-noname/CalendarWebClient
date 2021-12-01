@@ -1,15 +1,16 @@
-import { useState } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { useContext, useEffect, useState } from "react";
+import { Calendar, DateRange, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-
 import PopupAddEntry from "./PopUpAddEntry";
 import { SubjectKind } from "../../domain/models/Entry";
 import { EntryContent } from "./EntryContent";
 import moment from "moment";
 import dateFormat from "dateformat";
+import { entriesService } from "../../domain/services/Entry.service";
+import { SelectedDegreeContext } from "../../../../../core/context/context";
+import { notifications } from "../../../../../core/presentation/components/notifications/notifications";
 require("moment/locale/es.js");
 const DragAndDropCalendar = withDragAndDrop(Calendar as any);
 
@@ -18,49 +19,55 @@ const localizer = momentLocalizer(moment);
 type Props = {
   draggedEvent: any;
 };
-
+const today = new Date();
+const formats = {
+  timeGutterFormat: "H:mm",
+  eventTimeRangeFormat: (e: DateRange) => {
+    return dateFormat(e.start, "H:MM") + " - " + dateFormat(e.end, "H:MM");
+  },
+  dayFormat: "dddd",
+};
 // Sources: https://github.com/jquense/react-big-calendar/blob/master/examples/demos/dndOutsideSource.js
-let today = new Date();
-//FIXME: refactor component
+
 const SchedulerCard = ({ draggedEvent }: Props) => {
+  const selectedDegree = useContext(SelectedDegreeContext).store;
   const [selectedEvent, setselectedEvent] = useState<any>({});
   const [visiblePopup, setvisiblePopup] = useState(false);
   const [events, setevents] = useState<any[]>([]);
 
-  const onDropFromOutside = ({ start, end, allDay }: any) => {
+  useEffect(() => {
+    loadEntryList();
+  }, []);
+
+  const loadEntryList = async () => {
+    const entryListRes = await entriesService.getListEntries(selectedDegree);
+    if (entryListRes.isError) {
+      notifications.error("No se puedieron cargar las entradas del horario");
+      return;
+    }
+    setevents(entriesService.loadEntries(entryListRes.value));
+  };
+
+  const onDropFromOutside = (start: Date, end: Date) => {
     newEvent({
       title: draggedEvent.title,
       kind: draggedEvent.kind,
       start,
       end,
-      allDay,
     });
   };
 
-  const moveEvent = ({
-    event,
-    start,
-    end,
-    isAllDay: droppedOnAllDaySlot,
-  }: any) => {
-    let allDay = event.allDay;
-
-    if (!event.allDay && droppedOnAllDaySlot) {
-      allDay = true;
-    } else if (event.allDay && !droppedOnAllDaySlot) {
-      allDay = false;
-    }
-
-    const nextEvents = events!.map((existingEvent) => {
+  const moveEvent = ({ event, start, end }: any) => {
+    const nextEvents = events?.map((existingEvent) => {
       return existingEvent.id === event.id
-        ? { ...existingEvent, start, end, allDay }
+        ? { ...existingEvent, start, end }
         : existingEvent;
     });
     setevents(nextEvents);
   };
 
-  const resizeEvent = ({ event, start, end, isAllDay }: any) => {
-    const nextEvents = events!.map((existingEvent: any) => {
+  const resizeEvent = ({ event, start, end }: any) => {
+    const nextEvents = events?.map((existingEvent: any) => {
       return existingEvent.id === event.id
         ? { ...existingEvent, start, end }
         : existingEvent;
@@ -69,6 +76,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   };
 
   const newEvent = (event: any) => {
+    event.end.setMinutes(event.end.getMinutes() + 40);
     setselectedEvent(event);
     setvisiblePopup(true);
   };
@@ -91,15 +99,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
     <>
       <DragAndDropCalendar
         selectable
-        formats={{
-          timeGutterFormat: "H:mm",
-          eventTimeRangeFormat: (e) => {
-            return (
-              dateFormat(e.start, "H:MM") + " - " + dateFormat(e.end, "H:MM")
-            );
-          },
-          dayFormat: "dddd",
-        }}
+        formats={formats}
         step={10}
         timeslots={6}
         localizer={localizer}
@@ -109,7 +109,6 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
         onEventResize={resizeEvent}
         onSelectSlot={newEvent}
         onSelectEvent={(event) => selectEvent(event)}
-        onDragStart={console.log}
         defaultView={"work_week"}
         views={["work_week"]}
         showMultiDayTimes={false}
@@ -126,7 +125,9 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
               e.kind === SubjectKind.practices ? "#FFE8B8" : "#C0E0FF",
           },
         })}
-        onDropFromOutside={onDropFromOutside}
+        onDropFromOutside={({ start, end }) =>
+          onDropFromOutside(start as Date, end as Date)
+        }
         style={{ height: "80vh", overflowX: "scroll" }}
         components={{
           toolbar: () => <></>,

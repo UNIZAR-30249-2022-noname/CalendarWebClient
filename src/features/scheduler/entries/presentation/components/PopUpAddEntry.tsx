@@ -18,7 +18,6 @@ type Props = {
   onOk: (e: unknown) => void;
 };
 
-//FIXME: refactor
 const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
   const [problemSelectorDisabled, setProblemSelectorDisabled] = useState(true);
   const [form] = Form.useForm();

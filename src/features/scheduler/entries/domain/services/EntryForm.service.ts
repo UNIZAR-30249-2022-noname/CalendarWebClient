@@ -3,10 +3,8 @@ import { SubjectKind } from "../models/Entry";
 
 export const entryForm = {
   createEntry: (event: any, values: any, onOk: Function) => {
-    event.start.setHours(values.time[0].hours());
-    event.start.setMinutes(values.time[0].minutes());
-    event.end.setHours(values.time[1].hours());
-    event.end.setMinutes(values.time[1].minutes());
+    event.start.setHours(values.time[0].hours(), values.time[0].minutes());
+    event.end.setHours(values.time[1].hours(), values.time[1].minutes());
     onOk({
       id: Math.random() * 30,
       title: values.subject,
@@ -17,6 +15,7 @@ export const entryForm = {
       kind: values.kind,
       room: values.room,
       group: values.group,
+      weekDay: event.weekDay,
     });
   },
   loadData: (event: any) => {

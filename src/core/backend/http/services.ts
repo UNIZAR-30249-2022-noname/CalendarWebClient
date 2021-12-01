@@ -5,6 +5,7 @@ const url = {
 const httpServices = {
   degreeAvailableHours: url.baseURL1 + "/availableHours",
   entries: url.baseURL1 + "/newEntry",
+  getEntries: url.baseURL1 + "/getEntries",
   listDegrees: url.baseURL1 + "/listDegrees",
 };
 export { url, httpServices };
