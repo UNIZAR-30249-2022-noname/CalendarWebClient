@@ -140,10 +140,15 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
           onDropFromOutside={({ start, end }) =>
             onDropFromOutside(start as Date, end as Date)
           }
-          style={{ height: "80vh", overflowX: "scroll" }}
           components={{
             toolbar: () => <></>,
             event: (e) => <EntryContent event={e.event} />,
+          }}
+          style={{
+            height: "100%",
+            overflowY: "scroll",
+            backgroundColor: "white",
+            borderRadius: 15,
           }}
         />
       )}

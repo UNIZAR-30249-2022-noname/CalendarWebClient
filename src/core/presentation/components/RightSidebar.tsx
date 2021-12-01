@@ -12,7 +12,7 @@ export const RightSidebar: FC<Props> = ({ openNotesDrawer }) => {
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: "#D6D6D6",
-        height: "100vh",
+        height: "100%",
         borderLeft: "2px solid #1890FF",
       }}
     >

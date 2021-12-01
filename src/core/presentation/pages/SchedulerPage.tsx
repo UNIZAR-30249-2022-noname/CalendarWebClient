@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Row, Space, Col, Layout, Card } from "antd";
-import { lazy, Suspense, useState } from "react";
+import { Row, Layout, Card } from "antd";
 import { useMediaQuery } from "react-responsive";
 import { leftDrawerContext } from "../../context/leftDrawerContext";
 import DegreeForm from "../../../features/scheduler/degrees/presentation/components/DegreeForm";
@@ -9,20 +8,11 @@ import Text from "antd/lib/typography/Text";
 import { DegreeSubjectsContextWrapper } from "../../context/DegreeSubjectsContext";
 import { DegreePropertiesContextWrapper } from "../../context/DegreePropertiesContextWrapper";
 import { SelectedDegreeContextWrapper } from "../../context/DegreeSelectedContext";
+import LeftDrawer from "../../../features/scheduler/degrees/presentation/components/LeftDrawer";
+import SchedulerCard from "../../../features/scheduler/entries/presentation/components/SchedulerCard";
+import { useState } from "react";
 
-const LazyLeftDrawer = lazy(
-  () =>
-    import(
-      "../../../features/scheduler/degrees/presentation/components/LeftDrawer"
-    )
-);
-
-const LazySchedulerCard = lazy(
-  () =>
-    import(
-      "../../../features/scheduler/entries/presentation/components/SchedulerCard"
-    )
-);
+const { Header, Footer, Sider, Content } = Layout;
 
 export const SchedulerPage = () => {
   const isDrawerClosed = useMediaQuery({ query: "(min-width: 600px)" });
@@ -38,50 +28,63 @@ export const SchedulerPage = () => {
     <DegreeSubjectsContextWrapper>
       <DegreePropertiesContextWrapper>
         <SelectedDegreeContextWrapper>
-          <Suspense fallback="Cargando...">
-            <Layout style={{ height: "100%", backgroundColor: "transparent" }}>
-              {isDrawerClosed && (
-                <Layout.Sider
-                  theme="light"
-                  collapsed={visible}
-                  collapsedWidth={0}
-                  width={225}
-                  trigger={null}
+          <Layout style={{ height: "100%" }}>
+            {isDrawerClosed && (
+              <Sider
+                theme="light"
+                collapsed={visible}
+                collapsedWidth={0}
+                width={230}
+                id="leftSider"
+                trigger={null}
+                style={{
+                  height: "100%",
+                  borderRight: "2px solid #1890FF",
+                  overflowY: "scroll",
+                  backgroundColor: "#E6E7EA",
+                }}
+              >
+                <LeftDrawer setDraggedEvent={setDraggedEvent} />
+              </Sider>
+            )}
+            <Layout>
+              <Header
+                style={{
+                  height: "auto",
+                  backgroundColor: "transparent",
+                  paddingRight: 10,
+                  paddingLeft: 10,
+                }}
+              >
+                <Row justify="space-between" align="middle">
+                  <Row align="middle">
+                    {isDrawerClosed && (
+                      <ButtonToggleND
+                        toggleDrawer={toggleVisibility}
+                        visibility={!visible}
+                      />
+                    )}
+                    <Text
+                      style={{ fontSize: 30, color: "#464646", marginLeft: 10 }}
+                    >
+                      Horario
+                    </Text>
+                  </Row>
+                  <DegreeForm />
+                </Row>
+              </Header>
+              <Content>
+                <div
                   style={{
                     height: "100%",
-                    borderRight: "2px solid #1890FF",
+                    padding: 10,
                   }}
                 >
-                  <LazyLeftDrawer setDraggedEvent={setDraggedEvent} />
-                </Layout.Sider>
-              )}
-              <Col flex="auto" style={{ padding: 15 }}>
-                <Row justify="space-between">
-                  <Col>
-                    <Space align="center">
-                      {isDrawerClosed && (
-                        <ButtonToggleND
-                          toggleDrawer={toggleVisibility}
-                          visibility={!visible}
-                        />
-                      )}
-                      <Text style={{ fontSize: 30, color: "#464646" }}>
-                        Horario
-                      </Text>
-                    </Space>
-                  </Col>
-                  <Col>
-                    <DegreeForm />
-                  </Col>
-                </Row>
-                <Row>
-                  <Card style={{ height: "100%", width: "100%" }}>
-                    <LazySchedulerCard draggedEvent={draggedEvent} />
-                  </Card>
-                </Row>
-              </Col>
+                  <SchedulerCard draggedEvent={draggedEvent} />
+                </div>
+              </Content>
             </Layout>
-          </Suspense>
+          </Layout>
         </SelectedDegreeContextWrapper>
       </DegreePropertiesContextWrapper>
     </DegreeSubjectsContextWrapper>

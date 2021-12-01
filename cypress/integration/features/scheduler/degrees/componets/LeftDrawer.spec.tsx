@@ -6,6 +6,14 @@ import { fixtures } from "./fixtures";
 import { degreeAvailableHoursService } from "../../../../../../src/features/scheduler/degrees/domain/services/AvailableHours.service";
 //Change tests timeout
 //Cypress.config('defaultCommandTimeout', 150000)
+const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/;
+Cypress.on("uncaught:exception", (err) => {
+  /* returning false here prevents Cypress from failing the test */
+  if (resizeObserverLoopErrRe.test(err.message)) {
+    return false;
+  }
+});
+
 chai.use(chaiColors);
 describe("Left Drawer", () => {
   var leftDrawerState: string;
@@ -22,7 +30,7 @@ describe("Left Drawer", () => {
   });
 
   describe("Responsive layout", () => {
-    it("should open the left drawer correctly", () => {
+    it.only("should open the left drawer correctly", () => {
       // Given
       cy.setLocalStorage("leftDrawerState", "opened");
       cy.visit("/");
@@ -34,7 +42,7 @@ describe("Left Drawer", () => {
       // Then
       cy.get(".anticon-left-circle").should("exist");
       cy.get(".anticon-right-circle").should("not.exist");
-      cy.react("LeftDrawer").should("exist").and("be.visible");
+      cy.get(".ant-layout-sider-children").should("exist").and("be.visible");
     });
 
     it("should close the left drawer correctly", () => {
@@ -68,7 +76,7 @@ describe("Left Drawer", () => {
         // Then
         cy.get(".anticon-left-circle").should("not.exist");
         cy.get(".anticon-right-circle").should("not.exist");
-        cy.get(".ant-layout-sider").should("not.exist");
+        cy.get("#leftSider").should("not.exist");
       });
     });
   });

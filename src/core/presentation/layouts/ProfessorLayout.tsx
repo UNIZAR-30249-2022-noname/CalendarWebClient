@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Col, Layout, Row } from "antd";
 import { CSSProperties, FC, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { NotesDrawer } from "../components/notes-drawer/NotesDrawer";
@@ -24,28 +24,28 @@ export const ProfessorLayout: FC<Props> = ({ children, user, theme, path }) => {
     setnotesDrawerVisibility(false);
   };
 
+  const { Header, Sider, Content } = Layout;
+
   return (
     <>
-      <Row>
-        <Col flex="auto">
+      <Layout style={{ height: "100vh" }}>
+        <Header
+          style={{
+            backgroundColor: "white",
+            height: "auto",
+            paddingLeft: 20,
+            paddingRight: 20,
+          }}
+        >
           {!isMobile ? <NavbarWeb /> : <NavbarMobile />}
-          <Row>
-            <div
-              style={{
-                ...theme,
-                height: "100vh",
-                width: "100%",
-                paddingRight: 45,
-              }}
-            >
-              {children}
-            </div>
-            <div style={{ position: "absolute", right: 0 }}>
-              <RightSidebar openNotesDrawer={openNotesDrawer} />
-            </div>
-          </Row>
-        </Col>
-      </Row>
+        </Header>
+        <Layout>
+          <Content style={{ ...theme }}>{children}</Content>
+          <Sider width={40}>
+            <RightSidebar openNotesDrawer={openNotesDrawer} />
+          </Sider>
+        </Layout>
+      </Layout>
       <NotesDrawer
         visible={notesDrawerVisibility}
         closeNotesDrawer={closeNotesDrawer}

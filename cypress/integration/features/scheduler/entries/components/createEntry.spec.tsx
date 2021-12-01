@@ -5,16 +5,21 @@ import "cypress-localstorage-commands";
 import { fixtures } from "../../degrees/componets/fixtures";
 import { SubjectKind } from "../../../../../../src/features/scheduler/entries/domain/models/Entry";
 
-describe("create scheduler entry", () => {
-  var leftDrawerState: string;
+const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/;
+Cypress.on("uncaught:exception", (err) => {
+  /* returning false here prevents Cypress from failing the test */
+  if (resizeObserverLoopErrRe.test(err.message)) {
+    return false;
+  }
+});
 
+describe("create scheduler entry", () => {
   before(() => {
     cy.saveLocalStorage();
   });
 
   after(() => {
     cy.restoreLocalStorage();
-    window.localStorage.setItem("leftDrawerState", leftDrawerState);
   });
 
   it("should drag and drop a subject into the scheduler and create a new entry", () => {

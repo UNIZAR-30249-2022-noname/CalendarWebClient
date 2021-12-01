@@ -31,16 +31,17 @@ const LeftDrawer = ({ setDraggedEvent }: Props) => {
     <Space
       direction="vertical"
       style={{
-        height: "100%",
-        backgroundColor: "#E6E7EA",
-        width: "100%",
         padding: 15,
       }}
     >
       <Title level={4} ellipsis={{ rows: 2 }}>
         {degreeName ?? ""}
       </Title>
-      {loading ? <Spin size="large" /> : subjectList}
+      <Spin size="large" spinning={loading}>
+        <Space size={20} direction="vertical">
+          {subjectList}
+        </Space>
+      </Spin>
     </Space>
   );
 };
