@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Row, Layout, Card } from "antd";
+import { Row, Layout } from "antd";
 import { useMediaQuery } from "react-responsive";
 import { leftDrawerContext } from "../../context/leftDrawerContext";
 import DegreeForm from "../../../features/scheduler/degrees/presentation/components/DegreeForm";
@@ -12,7 +12,7 @@ import LeftDrawer from "../../../features/scheduler/degrees/presentation/compone
 import SchedulerCard from "../../../features/scheduler/entries/presentation/components/SchedulerCard";
 import { useState } from "react";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Sider, Content } = Layout;
 
 export const SchedulerPage = () => {
   const isDrawerClosed = useMediaQuery({ query: "(min-width: 600px)" });
@@ -28,7 +28,7 @@ export const SchedulerPage = () => {
     <DegreeSubjectsContextWrapper>
       <DegreePropertiesContextWrapper>
         <SelectedDegreeContextWrapper>
-          <Layout style={{ height: "100%" }}>
+          <Layout style={{ height: "100%", backgroundColor: "#E1E2E3" }}>
             {isDrawerClosed && (
               <Sider
                 theme="light"
@@ -47,7 +47,7 @@ export const SchedulerPage = () => {
                 <LeftDrawer setDraggedEvent={setDraggedEvent} />
               </Sider>
             )}
-            <Layout>
+            <Layout style={{ backgroundColor: "transparent" }}>
               <Header
                 style={{
                   height: "auto",
@@ -74,14 +74,7 @@ export const SchedulerPage = () => {
                 </Row>
               </Header>
               <Content>
-                <div
-                  style={{
-                    height: "100%",
-                    padding: 10,
-                  }}
-                >
-                  <SchedulerCard draggedEvent={draggedEvent} />
-                </div>
+                <SchedulerCard draggedEvent={draggedEvent} />
               </Content>
             </Layout>
           </Layout>

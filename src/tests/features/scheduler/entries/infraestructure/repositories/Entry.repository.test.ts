@@ -15,13 +15,17 @@ describe("Degree available hours repository tests", () => {
         .mockReturnValue(Promise.resolve(fixtures.resEntries));
       jest.spyOn(entriesRepo, "postNewEntries");
       // When
-      const res = await entriesRepo.postNewEntries(fixtures.postEntriesBody);
+      const res = await entriesRepo.postNewEntries(
+        fixtures.postEntriesBody,
+        fixtures.getListEntriesParams
+      );
       // Then
       if (res.isError) {
         throw Error();
       }
       expect(entriesData.postNewEntries).toBeCalledWith(
-        fixtures.postEntriesBodyDTO
+        fixtures.postEntriesBodyDTO,
+        fixtures.getListEntriesParams
       );
       expect(entriesRepo.postNewEntries).toBeCalled();
       expect(res.value).toBe(true);
@@ -34,13 +38,17 @@ describe("Degree available hours repository tests", () => {
         .mockReturnValue(Promise.resolve(fixtures.resEntriesError));
       jest.spyOn(entriesRepo, "postNewEntries");
       // When
-      const res = await entriesRepo.postNewEntries(fixtures.postEntriesBody);
+      const res = await entriesRepo.postNewEntries(
+        fixtures.postEntriesBody,
+        fixtures.getListEntriesParams
+      );
       // Then
       if (!res.isError) {
         throw Error();
       }
       expect(entriesData.postNewEntries).toBeCalledWith(
-        fixtures.postEntriesBodyDTO
+        fixtures.postEntriesBodyDTO,
+        fixtures.getListEntriesParams
       );
       expect(entriesRepo.postNewEntries).toBeCalled();
       expect(res.error).toEqual(Error());

@@ -5,7 +5,10 @@ import { entriesData } from "../data_sources/http/Entry.data";
 import EntryDTO from "../dto/EntryDTO";
 
 export const entriesRepo = {
-  postNewEntries: async (body: Entry[]): Promise<Result<boolean>> => {
+  postNewEntries: async (
+    body: Entry[],
+    params: AvailableHoursParamsDTO
+  ): Promise<Result<boolean>> => {
     try {
       const bodyDto = body.map((entry): EntryDTO => {
         return {
@@ -21,7 +24,7 @@ export const entriesRepo = {
           weekday: entry.weekDay,
         };
       });
-      const res = await entriesData.postNewEntries(bodyDto);
+      const res = await entriesData.postNewEntries(bodyDto, params);
       if (res.isError) {
         return { isError: true, error: res.error };
       }

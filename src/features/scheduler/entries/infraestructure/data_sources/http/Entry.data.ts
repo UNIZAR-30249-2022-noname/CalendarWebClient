@@ -5,10 +5,13 @@ import AvailableHoursParamsDTO from "../../../../degrees/infraestructure/dto/Ava
 import EntryDTO from "../../dto/EntryDTO";
 
 export const entriesData = {
-  postNewEntries: async (body: EntryDTO[]): Promise<Result<true>> => {
+  postNewEntries: async (
+    body: EntryDTO[],
+    params: AvailableHoursParamsDTO
+  ): Promise<Result<true>> => {
     const service = httpServices.entries;
     try {
-      const res = await http.post(service, body);
+      const res = await http.post(service, body, params);
       if (res.status === 200) {
         return { isError: false, value: true };
       } else {

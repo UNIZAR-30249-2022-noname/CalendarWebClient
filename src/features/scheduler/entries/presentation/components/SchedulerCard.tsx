@@ -14,7 +14,8 @@ import {
   SelectedDegreeContext,
 } from "../../../../../core/context/context";
 import { notifications } from "../../../../../core/presentation/components/notifications/notifications";
-import { Spin } from "antd";
+import { Button, Layout, Spin } from "antd";
+import { SaveFilled } from "@ant-design/icons";
 require("moment/locale/es.js");
 const DragAndDropCalendar = withDragAndDrop(Calendar as any);
 
@@ -31,6 +32,8 @@ const formats = {
   },
   dayFormat: "dddd",
 };
+
+const { Footer, Content } = Layout;
 // Sources: https://github.com/jquense/react-big-calendar/blob/master/examples/demos/dndOutsideSource.js
 
 const SchedulerCard = ({ draggedEvent }: Props) => {
@@ -40,6 +43,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   const [visiblePopup, setvisiblePopup] = useState(false);
   const [events, setevents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingPost, setLoadingPost] = useState(false);
 
   useEffect(() => {
     if (subjectLists.length === 0) return;
@@ -55,6 +59,18 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
       return;
     }
     setevents(entriesService.loadEntries(entryListRes.value));
+  };
+
+  const saveEntryList = async () => {
+    setLoadingPost(true);
+    const res = await entriesService.postNewEntries(
+      entriesService.saveEntries(events),
+      selectedDegree
+    );
+    setLoadingPost(false);
+    if (res.isError) {
+      notifications.error("Error al guardar los datos del horario");
+    }
   };
 
   const onDropFromOutside = (start: Date, end: Date) => {
@@ -105,60 +121,85 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   };
 
   return (
-    <>
-      {loading ? (
-        <Spin size="large" />
-      ) : (
-        <DragAndDropCalendar
-          selectable
-          formats={formats}
-          step={10}
-          timeslots={6}
-          localizer={localizer}
-          events={events}
-          onEventDrop={moveEvent}
-          resizable
-          onEventResize={resizeEvent}
-          onSelectSlot={newEvent}
-          onSelectEvent={(event) => selectEvent(event)}
-          defaultView={"work_week"}
-          views={["work_week"]}
-          showMultiDayTimes={false}
-          defaultDate={moment().toDate()}
-          min={
-            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 7)
-          }
-          max={
-            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 21)
-          }
-          eventPropGetter={(e: any) => ({
-            style: {
-              backgroundColor:
-                e.kind === SubjectKind.practices ? "#FFE8B8" : "#C0E0FF",
-            },
-          })}
-          onDropFromOutside={({ start, end }) =>
-            onDropFromOutside(start as Date, end as Date)
-          }
-          components={{
-            toolbar: () => <></>,
-            event: (e) => <EntryContent event={e.event} />,
-          }}
-          style={{
-            height: "100%",
-            overflowY: "scroll",
-            backgroundColor: "white",
-            borderRadius: 15,
-          }}
+    <Layout style={{ height: "100%", padding: 10 }}>
+      <Content>
+        {loading ? (
+          <Spin spinning={loading} size="large" />
+        ) : (
+          <DragAndDropCalendar
+            selectable
+            formats={formats}
+            step={10}
+            timeslots={6}
+            localizer={localizer}
+            events={events}
+            onEventDrop={moveEvent}
+            resizable
+            onEventResize={resizeEvent}
+            onSelectSlot={newEvent}
+            onSelectEvent={(event) => selectEvent(event)}
+            defaultView={"work_week"}
+            views={["work_week"]}
+            showMultiDayTimes={false}
+            defaultDate={moment().toDate()}
+            min={
+              new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                today.getDate(),
+                7
+              )
+            }
+            max={
+              new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                today.getDate(),
+                21
+              )
+            }
+            eventPropGetter={(e: any) => ({
+              style: {
+                backgroundColor:
+                  e.kind === SubjectKind.practices ? "#FFE8B8" : "#C0E0FF",
+              },
+            })}
+            onDropFromOutside={({ start, end }) =>
+              onDropFromOutside(start as Date, end as Date)
+            }
+            components={{
+              toolbar: () => null,
+              event: (e) => <EntryContent event={e.event} />,
+            }}
+            style={{
+              height: "100%",
+              overflowY: "scroll",
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              border: "2px #9b9b9b solid",
+            }}
+          />
+        )}
+
+        <PopupAddEntry
+          event={selectedEvent}
+          visible={visiblePopup}
+          onOk={onCreateEvent}
+          onCancel={onCancelCreateEvent}
         />
-      )}
-      <PopupAddEntry
-        event={selectedEvent}
-        visible={visiblePopup}
-        onOk={onCreateEvent}
-        onCancel={onCancelCreateEvent}
-      />
-    </>
+      </Content>
+      <Footer style={{ padding: 0, paddingTop: 5 }}>
+        <Button
+          type="primary"
+          loading={loadingPost}
+          onClick={saveEntryList}
+          icon={<SaveFilled />}
+          size="small"
+        >
+          Guardar
+        </Button>
+      </Footer>
+    </Layout>
   );
 };
 

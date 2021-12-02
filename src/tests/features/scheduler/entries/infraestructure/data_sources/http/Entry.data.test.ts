@@ -24,7 +24,10 @@ describe("Entries", () => {
         let body = fixtures.postEntriesBody;
         mock.onPost(servicePostEntries, body).reply(200);
         // When
-        let subjectList = await entriesData.postNewEntries(body);
+        let subjectList = await entriesData.postNewEntries(
+          body,
+          fixtures.getListEntriesParams
+        );
         // Then
         if (subjectList.isError) {
           throw Error();
@@ -39,7 +42,10 @@ describe("Entries", () => {
         let body = fixtures.postEntriesBody;
         mock.onPost(servicePostEntries, body).networkErrorOnce();
         // When
-        const res = await entriesData.postNewEntries(body);
+        const res = await entriesData.postNewEntries(
+          body,
+          fixtures.getListEntriesParams
+        );
         // Then
         if (!res.isError) {
           throw Error();
@@ -52,7 +58,10 @@ describe("Entries", () => {
         let body = fixtures.postEntriesBody;
         mock.onPost(servicePostEntries, body).timeoutOnce();
         // When
-        const res = await entriesData.postNewEntries(body);
+        const res = await entriesData.postNewEntries(
+          body,
+          fixtures.getListEntriesParams
+        );
         // Then
         if (!res.isError) {
           throw Error();
@@ -65,7 +74,10 @@ describe("Entries", () => {
         let body = fixtures.postEntriesBody;
         mock.onPost(servicePostEntries, body).reply(500);
         // When
-        const res = await entriesData.postNewEntries(body);
+        const res = await entriesData.postNewEntries(
+          body,
+          fixtures.getListEntriesParams
+        );
         // Then
         if (!res.isError) {
           throw Error();
@@ -78,7 +90,10 @@ describe("Entries", () => {
         let body = fixtures.postEntriesBody;
         mock.onPost(servicePostEntries, body).reply(201);
         // When
-        const res = await entriesData.postNewEntries(body);
+        const res = await entriesData.postNewEntries(
+          body,
+          fixtures.getListEntriesParams
+        );
         // Then
         if (!res.isError) {
           throw Error();

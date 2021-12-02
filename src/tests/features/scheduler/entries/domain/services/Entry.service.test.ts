@@ -14,7 +14,10 @@ describe.only("Entry service tests", () => {
       .mockReturnValue(Promise.resolve(fixtures.postNewEntries));
     jest.spyOn(entriesService, "postNewEntries");
     // When
-    const res = await entriesService.postNewEntries(fixtures.entriesBody.value);
+    const res = await entriesService.postNewEntries(
+      fixtures.entriesBody.value,
+      fixtures.getListEntriesParams
+    );
     // Then
     if (res.isError) {
       throw Error();
@@ -31,7 +34,10 @@ describe.only("Entry service tests", () => {
       .mockReturnValue(Promise.resolve(fixtures.postNewEntriesError));
     jest.spyOn(entriesService, "postNewEntries");
     // When
-    const res = await entriesService.postNewEntries(fixtures.entriesBody.value);
+    const res = await entriesService.postNewEntries(
+      fixtures.entriesBody.value,
+      fixtures.getListEntriesParams
+    );
     // Then
     if (!res.isError) {
       throw Error();
