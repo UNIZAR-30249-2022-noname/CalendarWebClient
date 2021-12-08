@@ -19,9 +19,9 @@ export const DegreesSelector = () => {
 
     const degreeProps = degreePropsList[0];
     contextSelectedDegree.actions.setSelectedDegree({
-      titulacion: selectedDegree,
-      curso: degreeProps.name,
-      grupo: degreeProps.groups[0],
+      degree: selectedDegree,
+      year: degreeProps.name,
+      group: degreeProps.groups[0],
     });
   };
 

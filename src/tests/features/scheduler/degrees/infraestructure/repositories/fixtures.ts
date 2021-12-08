@@ -8,25 +8,29 @@ import DegreePropertiesDTO from "../../../../../../features/scheduler/degrees/in
 import SubjectAvailableHoursDTO from "../../../../../../features/scheduler/degrees/infraestructure/dto/SubjectAvailableHoursDTO";
 
 const DegreeParams: AvailableHoursParamsDTO = {
-  titulacion: "Verificación y validación",
-  curso: 1,
-  grupo: "Mañanas",
+  degree: "Verificación y validación",
+  year: 1,
+  group: "Mañanas",
 };
 
 const getAvailableHoursDTO: Result<SubjectAvailableHoursDTO[]> = {
   isError: false,
   value: [
     {
-      Kind: 2,
-      Subject: "Verificación y validación",
-      Remaining: 10,
-      Max: 20,
+
+      Subject: {Name:"Programación 1",Kind:1},
+      RemainingHours: 10,
+      MaxHours: 20,
+      MaxMin:0,
+      RemainingMin:0
     },
     {
-      Kind: 1,
-      Subject: "Introducción a computadores",
-      Remaining: 23,
-      Max: 60,
+
+      Subject: {Name:"Introducción a computadores",Kind:1},
+      RemainingHours: 10,
+      MaxHours: 20,
+      MaxMin:0,
+      RemainingMin:0
     },
   ],
 };

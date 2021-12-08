@@ -12,7 +12,7 @@ type Props = {
 
 const LeftDrawer = ({ setDraggedEvent }: Props) => {
   const subjectListStore = useContext(DegreeSubjectsContext).store;
-  const degreeName = degreePropertiesService.getSelectedDegree().titulacion;
+  const degreeName = degreePropertiesService.getSelectedDegree().degree;
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (subjectListStore.length === 0) setLoading(true);

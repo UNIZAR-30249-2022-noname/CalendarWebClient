@@ -20,14 +20,14 @@ const DegreeForm = () => {
   const contextSubjects = useContext(DegreeSubjectsContext);
   const constextDegrees = useContext(DegreeInfoContext);
   const contextSelectedDegree = useContext(SelectedDegreeContext);
-  const { titulacion, curso, grupo } = contextSelectedDegree.store;
+  const { degree, year, group } = contextSelectedDegree.store;
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadFields();
     fetchDegrees();
-    if (titulacion == null || curso == null || grupo == null) return;
-    fetchDegreeSubjects({ titulacion, curso, grupo });
+    if (degree == null || year == null || group == null) return;
+    fetchDegreeSubjects({ degree, year, group });
   }, []);
 
   useEffect(() => {
@@ -36,9 +36,9 @@ const DegreeForm = () => {
 
   const loadFields = async () => {
     form.setFieldsValue({
-      degree: titulacion,
-      year: curso,
-      group: grupo,
+      degree: degree,
+      year: year,
+      group: group,
     });
   };
 
@@ -56,7 +56,7 @@ const DegreeForm = () => {
     let degreeInfoRes =
       await degreeAvailableHoursService.getDegreeAvailableHours(degree);
     if (degreeInfoRes.isError) {
-      notifications.error(`Error al cargar los datos de ${degree.titulacion}`);
+      notifications.error(`Error al cargar los datos de ${degree.degree}`);
     } else {
       degreePropertiesService.setSelectedDegree(degree);
       contextSubjects.actions.setDegreeSubjects(degreeInfoRes.value);
@@ -68,9 +68,9 @@ const DegreeForm = () => {
   const onCorrectForm = () => {
     const { degree, year, group } = form.getFieldsValue();
     fetchDegreeSubjects({
-      titulacion: degree,
-      curso: year,
-      grupo: group,
+      degree: degree,
+      year: year,
+      group: group,
     });
   };
 

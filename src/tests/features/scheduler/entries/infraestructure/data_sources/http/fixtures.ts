@@ -22,9 +22,9 @@ const postEntriesBody: EntryDTO[] = [
 ];
 
 const getListEntriesParams: AvailableHoursParamsDTO = {
-  titulacion: "Arquitectura",
-  curso: 3,
-  grupo: "A34",
+  degree: "Arquitectura",
+  year: 3,
+  group: "A34",
 };
 
 const getListEntries: EntryDTO[] = [
