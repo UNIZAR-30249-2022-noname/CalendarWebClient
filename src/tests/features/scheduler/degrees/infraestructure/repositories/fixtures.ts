@@ -17,20 +17,18 @@ const getAvailableHoursDTO: Result<SubjectAvailableHoursDTO[]> = {
   isError: false,
   value: [
     {
-
-      Subject: {Name:"Programación 1",Kind:1},
+      Subject: { Name: "Programación 1", Kind: 2 },
       RemainingHours: 10,
       MaxHours: 20,
-      MaxMin:0,
-      RemainingMin:0
+      MaxMin: 0,
+      RemainingMin: 0,
     },
     {
-
-      Subject: {Name:"Introducción a computadores",Kind:1},
-      RemainingHours: 10,
-      MaxHours: 20,
-      MaxMin:0,
-      RemainingMin:0
+      Subject: { Name: "Introducción a computadores", Kind: 1 },
+      RemainingHours: 23,
+      MaxHours: 60,
+      MaxMin: 0,
+      RemainingMin: 0,
     },
   ],
 };
@@ -40,7 +38,7 @@ const getAvailableHours: Result<SubjectAvailableHours[]> = {
   value: [
     {
       kind: 2,
-      subject: "Verificación y validación",
+      subject: "Programación 1",
       hours: {
         remaining: 10,
         total: 20,

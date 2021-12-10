@@ -46,16 +46,19 @@ describe("create scheduler entry", () => {
     cy.react("LeftDrawer")
       .react("div", { props: { draggable: true } })
       .each((e, i) => {
-        const { Subject, Kind } = fixtures.ResponseGood[i];
+        const { Subject } = fixtures.ResponseGood[i];
         cy.wrap(e).trigger("dragstart");
         cy.get(".rbc-timeslot-group")
           .eq(startSchedulerSlot)
-          .trigger("drop", { force: true });
+          .trigger("drop", { force: true })
+          .wait(2000);
         startSchedulerSlot++;
-        cy.react("Modal").react("SubjectSelector").should("contain", Subject);
+        cy.react("Modal")
+          .react("SubjectSelector")
+          .should("contain", Subject.Name);
         cy.react("Modal")
           .react("KindSelector")
-          .should("contain", parseKind(Kind));
+          .should("contain", parseKind(Subject.Kind));
 
         cy.react("Modal").react("WeekSelector").click();
         cy.react("Modal")
@@ -106,13 +109,13 @@ describe("create scheduler entry", () => {
         startTimeSlot++;
         //cy.get("body").click(0, 0);
       });
-    const { Subject, Kind } = fixtures.ResponseGood[0];
-    cy.get(".rbc-time-content").contains(Subject).click().wait(1000);
-    cy.react("Modal").react("SubjectSelector").contains(Subject);
+    const { Subject } = fixtures.ResponseGood[0];
+    cy.get(".rbc-time-content").contains(Subject.Name).click().wait(1000);
+    cy.react("Modal").react("SubjectSelector").contains(Subject.Name);
     cy.react("Modal")
       .react("KindSelector")
       .get(".ant-radio-button-wrapper-checked")
-      .contains(parseKind(Kind));
+      .contains(parseKind(Subject.Kind));
     cy.react("Modal").react("RoomSelector").contains("1.34");
     cy.react("Modal").react("WeekSelector").contains("A");
     cy.react("Modal")
