@@ -4,5 +4,6 @@
     "runMode": 5,
     "openMode": 0
   },
-  "video": false
+  "video": false,
+  "screenshot": false
 }
