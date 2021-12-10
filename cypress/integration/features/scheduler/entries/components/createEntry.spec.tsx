@@ -50,7 +50,8 @@ describe("create scheduler entry", () => {
         cy.wrap(e).trigger("dragstart");
         cy.get(".rbc-timeslot-group")
           .eq(startSchedulerSlot)
-          .trigger("drop", { force: true });
+          .trigger("drop", { force: true })
+          .wait(2000);
         startSchedulerSlot++;
         cy.react("Modal").react("SubjectSelector").should("contain", Subject);
         cy.react("Modal")
