@@ -5,7 +5,7 @@ import NavTabs from "./Tabs";
 
 export const NavbarWeb = () => {
   return (
-    <Row align="middle" justify="space-between" style={{ padding: 10 }}>
+    <Row align="middle" justify="space-between">
       <Link to="/" id="mainLogo" style={{ cursor: "pointer" }}>
         <MainLogo />
       </Link>

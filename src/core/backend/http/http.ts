@@ -3,12 +3,12 @@ import options from "../../config/axios.config";
 
 //
 const get = async (url: string, params?: Object) => {
-  const response = await axios.get(url, { params: params });
+  const response = await axios.get(url, { params });
   return response;
 };
 
-const post = async (url: string, body: any) => {
-  const response = await axios.post(url, body, options);
+const post = async (url: string, body: any, params?: Object) => {
+  const response = await axios.post(url, body, { params });
   return response;
 };
 

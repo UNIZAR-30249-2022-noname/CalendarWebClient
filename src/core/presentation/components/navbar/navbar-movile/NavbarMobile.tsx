@@ -6,9 +6,11 @@ import { NavLink } from "react-router-dom";
 
 export const NavbarMobile = () => {
   return (
-    <Row align="middle" justify="space-between" style={{ padding: 5 }}>
+    <Row align="middle" justify="space-between">
       <NavLink to="/">
-        <CalendarOutlined style={{ fontSize: 35, color: "#1890FF" }} />
+        <Row>
+          <CalendarOutlined style={{ fontSize: 30, color: "#1890FF" }} />
+        </Row>
       </NavLink>
       <Menu
         triggerSubMenuAction="click"
@@ -17,7 +19,7 @@ export const NavbarMobile = () => {
         }
         mode="vertical"
       >
-        <SubMenu key="submenu" popupOffset={[-50, 50]}>
+        <SubMenu key="submenu" popupOffset={[-60, 50]}>
           {routerManager().map((e) => {
             return (
               e.name && (

@@ -15,7 +15,7 @@ code {
 .rbc-event-label {
   white-space: break-spaces !important;
   color: rgb(65, 65, 65);
-  padding-bottom: 5px;
+  padding-bottom: 2px;
 }
 
 .rbc-event {
@@ -56,7 +56,8 @@ code {
 }
 
 .rbc-time-slot {
-  min-height: 25px;
+  flex: none !important;
+  height: 18px !important;
 }
 
 .rbc-current-time-indicator {

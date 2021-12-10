@@ -8,5 +8,6 @@ type EntryDTO = {
   grupo: string;
   endMin: number;
   endHour: number;
+  weekday: number;
 };
 export default EntryDTO;

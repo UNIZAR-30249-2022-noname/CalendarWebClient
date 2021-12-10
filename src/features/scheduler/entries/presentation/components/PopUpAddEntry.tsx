@@ -18,7 +18,6 @@ type Props = {
   onOk: (e: unknown) => void;
 };
 
-//FIXME: refactor
 const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
   const [problemSelectorDisabled, setProblemSelectorDisabled] = useState(true);
   const [form] = Form.useForm();
@@ -56,6 +55,7 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
       style={{ top: 10, left: 10, position: "absolute", minWidth: 275 }}
       width={"23%"}
       maskStyle={{ backgroundColor: "#E3E3F377" }}
+      destroyOnClose
     >
       <Form
         form={form}

@@ -8,6 +8,14 @@ type Time = {
   min: number;
 };
 
+enum WeekDay {
+  MONDAY,
+  TUESDAY,
+  WEDNESDAY,
+  THURSDAY,
+  FRIDAY,
+}
+
 enum Week {
   A = "A",
   B = "B",
@@ -21,7 +29,8 @@ type Entry = {
   group: string;
   initTime: Time;
   endTime: Time;
+  weekDay: WeekDay;
 };
 export default Entry;
 export type { Time };
-export { SubjectKind, Week };
+export { SubjectKind, Week, WeekDay };
