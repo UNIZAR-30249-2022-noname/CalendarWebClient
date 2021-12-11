@@ -49,9 +49,9 @@ const entriesBody: Result<Entry[]> = {
 };
 
 const getListEntriesParams: AvailableHoursParamsDTO = {
-  titulacion: "Arquitectura",
-  curso: 3,
-  grupo: "A34",
+  degree: "Arquitectura",
+  year: 3,
+  group: "A34",
 };
 
 const postNewEntriesError: Result<Entry[]> = {

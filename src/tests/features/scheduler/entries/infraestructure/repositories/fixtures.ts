@@ -8,9 +8,9 @@ import Entry, {
 import EntryDTO from "../../../../../../features/scheduler/entries/infraestructure/dto/EntryDTO";
 
 const getListEntriesParams: AvailableHoursParamsDTO = {
-  titulacion: "Arquitectura",
-  curso: 3,
-  grupo: "A34",
+  degree: "Arquitectura",
+  year: 3,
+  group: "A34",
 };
 
 const postEntriesBodyDTO: EntryDTO[] = [

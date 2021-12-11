@@ -12,19 +12,19 @@ export const YearSelector = () => {
   const context = useContext(DegreeInfoContext);
   const contextSelectedDegree = useContext(SelectedDegreeContext);
   const yearList = context.store.properties.get(
-    contextSelectedDegree.store.titulacion
+    contextSelectedDegree.store.degree
   );
 
   const onChange = (selectedYear: number) => {
-    const selectedDegree = contextSelectedDegree.store.titulacion;
+    const selectedDegree = contextSelectedDegree.store.degree;
     const degreePropsList = context.store.properties.get(selectedDegree);
     if (degreePropsList == null || degreePropsList.length === 0) return;
     const degreeProps = degreePropsList[selectedYear - 1];
 
     contextSelectedDegree.actions.setSelectedDegree({
-      titulacion: selectedDegree,
-      curso: selectedYear,
-      grupo: degreeProps.groups[0],
+      degree: selectedDegree,
+      year: selectedYear,
+      group: degreeProps.groups[0],
     });
   };
 

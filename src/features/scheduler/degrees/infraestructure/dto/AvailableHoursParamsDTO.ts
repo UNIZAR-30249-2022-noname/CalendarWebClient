@@ -1,7 +1,7 @@
 type AvailableHoursParamsDTO = {
-  titulacion: string;
-  curso: number;
-  grupo: string;
+  degree: string;
+  year: number;
+  group: string;
 };
 
 export default AvailableHoursParamsDTO;

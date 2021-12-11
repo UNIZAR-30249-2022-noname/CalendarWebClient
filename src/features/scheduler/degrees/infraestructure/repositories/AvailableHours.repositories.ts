@@ -16,11 +16,11 @@ export const degreeAvailableHoursRepo = {
       const value = res.value.map(
         (subjectAvailableHoursDto): SubjectAvailableHours => {
           return {
-            kind: subjectAvailableHoursDto.Kind,
-            subject: subjectAvailableHoursDto.Subject,
+            kind: subjectAvailableHoursDto.Subject.Kind,
+            subject: subjectAvailableHoursDto.Subject.Name,
             hours: {
-              remaining: subjectAvailableHoursDto.Remaining,
-              total: subjectAvailableHoursDto.Max,
+              remaining: subjectAvailableHoursDto.RemainingHours,//TODO do min also
+              total: subjectAvailableHoursDto.MaxHours,//TODO do min also
             },
           };
         }

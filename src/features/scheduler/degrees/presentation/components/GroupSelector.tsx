@@ -11,10 +11,10 @@ const { Option } = Select;
 export const GroupSelector = () => {
   const context = useContext(DegreeInfoContext);
   const contextSelectedDegree = useContext(SelectedDegreeContext);
-  const { titulacion, curso } = contextSelectedDegree.store;
+  const { degree, year } = contextSelectedDegree.store;
 
-  const group = context.store.properties.get(titulacion);
-  const groupList = group ? group[curso - 1].groups : [];
+  const group = context.store.properties.get(degree);
+  const groupList = group ? group[year - 1].groups : [];
 
   const menu = groupList.map((group, i) => (
     <Option key={i} children={<Text>{group}</Text>} value={group} />

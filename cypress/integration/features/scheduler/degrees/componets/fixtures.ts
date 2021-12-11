@@ -3,35 +3,47 @@ import SubjectAvailableHoursDTO from "../../../../../../src/features/scheduler/d
 import DegreePropertiesDTO from "../../../../../../src/features/scheduler/degrees/infraestructure/dto/DegreePropertiesDTO";
 import { SubjectKind } from "../../../../../../src/features/scheduler/entries/domain/models/Entry";
 const Params: AvailableHoursParamsDTO = {
-  titulacion: "Ingeniería informática",
-  curso: 1,
-  grupo: "Mañanas",
+  degree: "Ingeniería informática",
+  year: 1,
+  group: "Mañanas",
 };
 
 const Params2: AvailableHoursParamsDTO = {
-  titulacion: "Arquitectura",
-  curso: 1,
-  grupo: "Mañanas",
+  degree: "Arquitectura",
+  year: 1,
+  group: "Mañanas",
 };
 
 const ResponseGood: SubjectAvailableHoursDTO[] = [
   {
-    Subject: "Verificación y validación",
-    Kind: SubjectKind.theory,
-    Remaining: 4,
-    Max: 4,
+    Subject: {
+      Name: "Verificación y validación",
+      Kind: SubjectKind.theory,
+    },
+    RemainingHours: 4,
+    RemainingMin: 0,
+    MaxHours: 4,
+    MaxMin: 0,
   },
   {
-    Subject: "Arquitectura sotfware",
-    Kind: SubjectKind.problems,
-    Remaining: 2,
-    Max: 4,
+    Subject: {
+      Name: "Arquitectura sotfware",
+      Kind: SubjectKind.problems,
+    },
+    RemainingHours: 2,
+    RemainingMin: 0,
+    MaxHours: 4,
+    MaxMin: 0,
   },
   {
-    Subject: "Matemáticas 2",
-    Kind: SubjectKind.practices,
-    Remaining: 3,
-    Max: 4,
+    Subject: {
+      Name: "Matemáticas 2",
+      Kind: SubjectKind.problems,
+    },
+    RemainingHours: 3,
+    RemainingMin: 0,
+    MaxHours: 4,
+    MaxMin: 0,
   },
 ];
 
