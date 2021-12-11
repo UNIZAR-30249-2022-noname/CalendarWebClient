@@ -21,7 +21,7 @@ const EntryContent = ({ event }: Props) => {
               }}
             >
               {event.title}
-              {"\n"}(Aula {event.room})
+              {event.desc && ` - ${event.desc}`} (Aula {event.room})
             </Tag>
           </Space>
         </Space>
@@ -43,7 +43,7 @@ const EntryContent = ({ event }: Props) => {
             style={{ fontSize: 14, whiteSpace: "break-spaces" }}
           >
             {event.title}
-            {"\n"}(Aula {event.room})
+            {event.desc && ` - ${event.desc}`} (Aula {event.room})
           </Tag>
         </Space>
       );
@@ -60,7 +60,8 @@ const EntryContent = ({ event }: Props) => {
               }}
             >
               {event.title}
-              {"\n"}(Aula {event.room}) (Gr. {event.group})
+              {event.desc && ` - ${event.desc}`} (Aula {event.room}) (Gr.{" "}
+              {event.group})
             </Tag>
           </Space>
         </Space>

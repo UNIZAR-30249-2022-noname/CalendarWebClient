@@ -16,6 +16,7 @@ export const entryForm = {
       room: values.room,
       group: values.group,
       weekDay: event.weekDay,
+      desc: values.desc,
     });
   },
   loadData: (event: any) => {
@@ -34,6 +35,7 @@ export const entryForm = {
       week: event.week,
       room: event.room,
       group: event.group,
+      desc: event.desc,
     };
   },
   checkIfProblemsDisabled: (kind: SubjectKind) => {
