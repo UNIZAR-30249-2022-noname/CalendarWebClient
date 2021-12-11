@@ -1,18 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Row, Layout } from "antd";
+import { Layout, Row } from "antd";
 import { useMediaQuery } from "react-responsive";
 import { leftDrawerContext } from "../../context/leftDrawerContext";
-import DegreeForm from "../../../features/scheduler/degrees/presentation/components/DegreeForm";
-import { ButtonToggleND } from "../components/notes-drawer/ButtonToggleND";
-import Text from "antd/lib/typography/Text";
 import { DegreeSubjectsContextWrapper } from "../../context/DegreeSubjectsContext";
 import { DegreePropertiesContextWrapper } from "../../context/DegreePropertiesContextWrapper";
 import { SelectedDegreeContextWrapper } from "../../context/DegreeSelectedContext";
 import LeftDrawer from "../../../features/scheduler/degrees/presentation/components/LeftDrawer";
 import SchedulerCard from "../../../features/scheduler/entries/presentation/components/SchedulerCard";
 import { useState } from "react";
+import { SiderTheme } from "antd/lib/layout/Sider";
+import { ButtonToggleND } from "../components/notes-drawer/ButtonToggleND";
+import Text from "antd/lib/typography/Text";
+import DegreeForm from "../../../features/scheduler/degrees/presentation/components/DegreeForm";
+import { Header } from "antd/lib/layout/layout";
 
-const { Header, Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 
 export const SchedulerPage = () => {
   const isDrawerClosed = useMediaQuery({ query: "(min-width: 600px)" });
@@ -24,6 +26,16 @@ export const SchedulerPage = () => {
     leftDrawerContext.setVisibility(!visible);
   };
 
+  const siderProps = {
+    theme: "light" as SiderTheme,
+    collapsed: visible,
+    hidden: !isDrawerClosed,
+    collapsedWidth: 0,
+    width: 230,
+    id: "leftSider",
+    trigger: null,
+  };
+
   return (
     <DegreeSubjectsContextWrapper>
       <DegreePropertiesContextWrapper>
@@ -31,12 +43,7 @@ export const SchedulerPage = () => {
           <Layout style={{ height: "100%", backgroundColor: "#E1E2E3" }}>
             {isDrawerClosed && (
               <Sider
-                theme="light"
-                collapsed={visible}
-                collapsedWidth={0}
-                width={230}
-                id="leftSider"
-                trigger={null}
+                {...siderProps}
                 style={{
                   height: "100%",
                   borderRight: "2px solid #1890FF",

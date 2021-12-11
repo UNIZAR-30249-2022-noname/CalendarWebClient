@@ -1,12 +1,13 @@
 import { Space, Tag } from "antd";
 import Text from "antd/lib/typography/Text";
+import React from "react";
 import { SubjectKind, Week } from "../../domain/models/Entry";
 
 type Props = {
   event: any;
 };
 
-export const EntryContent = ({ event }: Props) => {
+const EntryContent = ({ event }: Props) => {
   switch (event.kind as SubjectKind) {
     case SubjectKind.theory:
       return (
@@ -66,3 +67,5 @@ export const EntryContent = ({ event }: Props) => {
       );
   }
 };
+
+export default React.memo(EntryContent);

@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import { Calendar, DateRange, momentLocalizer } from "react-big-calendar";
+import React, { useContext, useEffect, useState } from "react";
+import { Calendar, DateRange, momentLocalizer, View } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import PopupAddEntry from "./PopUpAddEntry";
 import { SubjectKind } from "../../domain/models/Entry";
-import { EntryContent } from "./EntryContent";
+import EntryContent from "./EntryContent";
 import moment from "moment";
 import dateFormat from "dateformat";
 import { entriesService } from "../../domain/services/Entry.service";
@@ -14,26 +14,14 @@ import {
   SelectedDegreeContext,
 } from "../../../../../core/context/context";
 import { notifications } from "../../../../../core/presentation/components/notifications/notifications";
-import { Button, Layout, Spin } from "antd";
+import { Button, Row, Spin } from "antd";
 import { SaveFilled } from "@ant-design/icons";
 require("moment/locale/es.js");
 const DragAndDropCalendar = withDragAndDrop(Calendar as any);
 
-const localizer = momentLocalizer(moment);
-
 type Props = {
   draggedEvent: any;
 };
-const today = new Date();
-const formats = {
-  timeGutterFormat: "H:mm",
-  eventTimeRangeFormat: (e: DateRange) => {
-    return dateFormat(e.start, "H:MM") + " - " + dateFormat(e.end, "H:MM");
-  },
-  dayFormat: "dddd",
-};
-
-const { Footer, Content } = Layout;
 // Sources: https://github.com/jquense/react-big-calendar/blob/master/examples/demos/dndOutsideSource.js
 
 const SchedulerCard = ({ draggedEvent }: Props) => {
@@ -42,7 +30,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   const [selectedEvent, setselectedEvent] = useState<any>({});
   const [visiblePopup, setvisiblePopup] = useState(false);
   const [events, setevents] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(selectedDegree.curso != null);
   const [loadingPost, setLoadingPost] = useState(false);
 
   useEffect(() => {
@@ -73,6 +61,15 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
     }
   };
 
+  const onCreateEvent = (event: any) => {
+    setvisiblePopup(false);
+    setevents([...events, event]);
+  };
+
+  const onCancelCreateEvent = () => {
+    setvisiblePopup(false);
+  };
+
   const onDropFromOutside = (start: Date, end: Date) => {
     newEvent({
       title: draggedEvent.title,
@@ -80,6 +77,17 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
       start,
       end,
     });
+  };
+
+  const newEvent = (event: any) => {
+    event.end.setMinutes(event.end.getMinutes() + 40);
+    setselectedEvent(event);
+    setvisiblePopup(true);
+  };
+
+  const selectEvent = (event: any) => {
+    setvisiblePopup(true);
+    setselectedEvent(event);
   };
 
   const moveEvent = ({ event, start, end }: any) => {
@@ -100,95 +108,24 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
     setevents(nextEvents);
   };
 
-  const newEvent = (event: any) => {
-    event.end.setMinutes(event.end.getMinutes() + 40);
-    setselectedEvent(event);
-    setvisiblePopup(true);
-  };
-
-  const selectEvent = (event: any) => {
-    setvisiblePopup(true);
-    setselectedEvent(event);
-  };
-
-  const onCreateEvent = (event: any) => {
-    setvisiblePopup(false);
-    setevents([...events, event]);
-  };
-
-  const onCancelCreateEvent = () => {
-    setvisiblePopup(false);
-  };
-
   return (
-    <Layout style={{ height: "100%", padding: 10 }}>
-      <Content>
-        {loading ? (
-          <Spin spinning={loading} size="large" />
-        ) : (
-          <DragAndDropCalendar
-            selectable
-            formats={formats}
-            step={10}
-            timeslots={6}
-            localizer={localizer}
-            events={events}
-            onEventDrop={moveEvent}
-            resizable
-            onEventResize={resizeEvent}
-            onSelectSlot={newEvent}
-            onSelectEvent={(event) => selectEvent(event)}
-            defaultView={"work_week"}
-            views={["work_week"]}
-            showMultiDayTimes={false}
-            defaultDate={moment().toDate()}
-            min={
-              new Date(
-                today.getFullYear(),
-                today.getMonth(),
-                today.getDate(),
-                7
-              )
-            }
-            max={
-              new Date(
-                today.getFullYear(),
-                today.getMonth(),
-                today.getDate(),
-                21
-              )
-            }
-            eventPropGetter={(e: any) => ({
-              style: {
-                backgroundColor:
-                  e.kind === SubjectKind.practices ? "#FFE8B8" : "#C0E0FF",
-              },
-            })}
-            onDropFromOutside={({ start, end }) =>
-              onDropFromOutside(start as Date, end as Date)
-            }
-            components={{
-              toolbar: () => null,
-              event: (e) => <EntryContent event={e.event} />,
-            }}
-            style={{
-              height: "100%",
-              overflowY: "scroll",
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              border: "2px #9b9b9b solid",
-            }}
-          />
-        )}
-
-        <PopupAddEntry
-          event={selectedEvent}
-          visible={visiblePopup}
-          onOk={onCreateEvent}
-          onCancel={onCancelCreateEvent}
+    <div style={{ padding: 10, paddingTop: 0, height: "calc(100% - 25px)" }}>
+      {loading ? (
+        <Spin spinning={loading} size="large" />
+      ) : (
+        <DragAndDropCalendar
+          {...schedulerProps}
+          events={events}
+          onEventDrop={moveEvent}
+          onEventResize={resizeEvent}
+          onSelectSlot={newEvent}
+          onSelectEvent={(event) => selectEvent(event)}
+          onDropFromOutside={({ start, end }) =>
+            onDropFromOutside(start as Date, end as Date)
+          }
         />
-      </Content>
-      <Footer style={{ padding: 0, paddingTop: 5 }}>
+      )}
+      <Row style={{ paddingTop: 5 }}>
         <Button
           type="primary"
           loading={loadingPost}
@@ -198,9 +135,57 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
         >
           Guardar
         </Button>
-      </Footer>
-    </Layout>
+      </Row>
+      <PopupAddEntry
+        event={selectedEvent}
+        visible={visiblePopup}
+        onOk={onCreateEvent}
+        onCancel={onCancelCreateEvent}
+      />
+    </div>
   );
 };
 
 export default SchedulerCard;
+
+/** --- Scheduler props **/
+
+const localizer = momentLocalizer(moment);
+const today = new Date();
+const formats = {
+  timeGutterFormat: "H:mm",
+  eventTimeRangeFormat: (e: DateRange) => {
+    return dateFormat(e.start, "H:MM") + " - " + dateFormat(e.end, "H:MM");
+  },
+  dayFormat: "dddd",
+};
+
+const schedulerProps = {
+  selectable: true,
+  formats: formats,
+  step: 10,
+  timeslots: 6,
+  localizer: localizer,
+  resizable: true,
+  defaultView: "work_week" as View,
+  views: ["work_week"] as View[],
+  showMultiDayTimes: false,
+  defaultDate: moment().toDate(),
+  min: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 7),
+  max: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 21),
+  components: {
+    toolbar: () => null,
+    event: (e: any) => <EntryContent event={e.event} />,
+  },
+  eventPropGetter: (e: any) => ({
+    style: {
+      backgroundColor: e.kind === SubjectKind.practices ? "#FFE8B8" : "#C0E0FF",
+    },
+  }),
+  style: {
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    border: "2px #9b9b9b solid",
+    backgroundColor: "white",
+  },
+};
