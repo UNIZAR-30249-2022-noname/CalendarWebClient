@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Calendar, DateRange, momentLocalizer, View } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
@@ -30,7 +30,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   const [selectedEvent, setselectedEvent] = useState<any>({});
   const [visiblePopup, setvisiblePopup] = useState(false);
   const [events, setevents] = useState<any[]>([]);
-  const [loading, setLoading] = useState(selectedDegree.curso != null);
+  const [loading, setLoading] = useState(selectedDegree.degree != null);
   const [loadingPost, setLoadingPost] = useState(false);
 
   useEffect(() => {
