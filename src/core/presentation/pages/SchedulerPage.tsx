@@ -12,9 +12,8 @@ import { SiderTheme } from "antd/lib/layout/Sider";
 import { ButtonToggleND } from "../components/notes-drawer/ButtonToggleND";
 import Text from "antd/lib/typography/Text";
 import DegreeForm from "../../../features/scheduler/degrees/presentation/components/DegreeForm";
-import { Header } from "antd/lib/layout/layout";
 
-const { Sider, Content } = Layout;
+const { Sider, Content, Header } = Layout;
 
 export const SchedulerPage = () => {
   const isDrawerClosed = useMediaQuery({ query: "(min-width: 600px)" });
