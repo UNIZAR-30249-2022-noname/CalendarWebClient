@@ -41,4 +41,7 @@ export const entryForm = {
   checkIfProblemsDisabled: (kind: SubjectKind) => {
     return kind == null || kind === SubjectKind.theory;
   },
+  checkIfNotPractices: (kind: SubjectKind) => {
+    return kind == null || kind !== SubjectKind.practices;
+  },
 };
