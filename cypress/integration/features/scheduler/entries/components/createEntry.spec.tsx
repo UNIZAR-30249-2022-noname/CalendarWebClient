@@ -105,7 +105,10 @@ describe("create scheduler entry", () => {
                 .should("exist");
             }
           });
-        cy.react("Button").contains("Crear").click().wait(1000);
+        cy.react("Button")
+          .contains(/^Crear$/, { matchCase: true })
+          .click()
+          .wait(1000);
         startTimeSlot++;
         //cy.get("body").click(0, 0);
       });
