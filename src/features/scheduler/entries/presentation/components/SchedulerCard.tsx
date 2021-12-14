@@ -80,7 +80,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   };
 
   const newEvent = (event: any) => {
-    event.end.setMinutes(event.end.getMinutes() + 40);
+    event.end.setMinutes(event.end.getMinutes());
     setselectedEvent(event);
     setvisiblePopup(true);
   };
@@ -179,7 +179,7 @@ const schedulerProps = {
   },
   eventPropGetter: (e: any) => ({
     style: {
-      backgroundColor: e.kind === SubjectKind.practices ? "#FFE8B8" : "#C0E0FF",
+      backgroundColor: getBackGroundColor(e.kind),
     },
   }),
   style: {
@@ -188,4 +188,16 @@ const schedulerProps = {
     border: "2px #9b9b9b solid",
     backgroundColor: "white",
   },
+};
+
+const getBackGroundColor = (kind: SubjectKind) => {
+  switch (kind) {
+    case SubjectKind.theory:
+    case SubjectKind.problems:
+      return "#C0E0FF";
+    case SubjectKind.practices:
+      return "#FFE8B8";
+    default:
+      return "#626262";
+  }
 };

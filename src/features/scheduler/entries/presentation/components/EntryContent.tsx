@@ -65,6 +65,9 @@ const EntryContent = ({ event }: Props) => {
           </Space>
         </Space>
       );
+    case SubjectKind.seminar:
+      // Seminar hours
+      return <Text style={{ color: "white" }}>Seminario</Text>;
   }
 };
 

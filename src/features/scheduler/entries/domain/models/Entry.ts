@@ -2,6 +2,7 @@ enum SubjectKind {
   theory,
   practices,
   problems,
+  seminar,
 }
 type Time = {
   hour: number;
