@@ -59,12 +59,13 @@ describe("create scheduler entry", () => {
         cy.react("Modal")
           .react("KindSelector")
           .should("contain", parseKind(Subject.Kind));
-
-        cy.react("Modal").react("WeekSelector").click();
-        cy.react("Modal")
-          .get(".ant-select-item-option-content")
-          .contains("A")
-          .click();
+        if (Subject.Kind === SubjectKind.practices) {
+          cy.react("Modal").react("WeekSelector").click();
+          cy.react("Modal")
+            .get(".ant-select-item-option-content")
+            .contains("A")
+            .click();
+        }
         cy.react("Modal").react("RoomSelector").click();
         cy.react("Modal")
           .get(".ant-select-item-option-content")
@@ -92,7 +93,6 @@ describe("create scheduler entry", () => {
           .get(".ant-radio-button-wrapper-checked")
           .then(($btn) => {
             if ($btn.text() !== "Teoría") {
-              cy.log("Dentro");
               cy.react("Modal").react("ProblemsGroupSelector").click();
               cy.react("Modal")
                 .get(".ant-select-item-option-content")
@@ -106,7 +106,7 @@ describe("create scheduler entry", () => {
             }
           });
         cy.react("Button")
-          .contains(/^Crear$/, { matchCase: true })
+          .contains(/^Crear$/)
           .click()
           .wait(1000);
         startTimeSlot++;
@@ -120,12 +120,11 @@ describe("create scheduler entry", () => {
       .get(".ant-radio-button-wrapper-checked")
       .contains(parseKind(Subject.Kind));
     cy.react("Modal").react("RoomSelector").contains("1.34");
-    cy.react("Modal").react("WeekSelector").contains("A");
+    //cy.react("Modal").react("WeekSelector").contains("A");
     cy.react("Modal")
       .react("ProblemsGroupSelector")
       .get(".ant-select-disabled")
       .should("exist");
-    //cy.get("Modal").react("")
   });
 
   it("should create a new entry by clicking in the scheduler", () => {

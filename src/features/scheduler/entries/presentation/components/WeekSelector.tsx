@@ -16,7 +16,7 @@ export const WeekSelector = ({ disabled }: Props) => {
       required
       rules={[
         {
-          required: true,
+          required: !disabled,
           message: "Elige semana!",
         },
       ]}
