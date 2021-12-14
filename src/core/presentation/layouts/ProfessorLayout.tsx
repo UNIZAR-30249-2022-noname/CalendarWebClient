@@ -41,7 +41,7 @@ export const ProfessorLayout: FC<Props> = ({ children, user, theme, path }) => {
         </Header>
         <Layout>
           <Content style={{ ...theme }}>{children}</Content>
-          <Sider width={40}>
+          <Sider width="auto">
             <RightSidebar openNotesDrawer={openNotesDrawer} />
           </Sider>
         </Layout>

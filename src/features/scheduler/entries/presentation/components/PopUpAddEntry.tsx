@@ -4,6 +4,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { SubjectKind } from "../../domain/models/Entry";
 import { entryForm } from "../../domain/services/EntryForm.service";
+import { Description } from "./Description";
 import { KindSelector } from "./KindSelector";
 import { ProblemsGroupSelector } from "./ProblemsGroupSelector";
 import { RoomSelector } from "./RoomSelector";
@@ -75,6 +76,7 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
         <TimeSelector />
         <KindSelector check={checkProblemSelector} />
         <ProblemsGroupSelector disabled={problemSelectorDisabled} />
+        <Description />
         <Form.Item>
           <Row justify="end">
             <Button type="primary" htmlType="submit" size="large">
