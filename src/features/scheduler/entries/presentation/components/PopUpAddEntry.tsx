@@ -1,6 +1,7 @@
 import { Modal, Form, Button, Row, Col } from "antd";
 import Title from "antd/lib/typography/Title";
-import React from "react";
+import { values } from "cypress/types/lodash";
+import React, { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { SubjectKind } from "../../domain/models/Entry";
 import { entryForm } from "../../domain/services/EntryForm.service";
@@ -44,19 +45,20 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
     form.resetFields();
   };
 
+  const onCreateSeminar = () => {
+    const values = form.getFieldsValue();
+    values.kind = SubjectKind.seminar;
+    entryForm.createEntry(event, values, onOk);
+    form.resetFields();
+  };
+
   return (
     <Modal
-      title={<Title level={3}>Crear entrada</Title>}
       visible={visible}
       onCancel={(e) => {
         onCancel(e);
         form.resetFields();
       }}
-      footer={null}
-      style={{ top: 10, left: 10, position: "absolute", minWidth: 275 }}
-      width={"23%"}
-      maskStyle={{ backgroundColor: "#E3E3F377" }}
-      destroyOnClose
     >
       <Form
         form={form}
@@ -78,7 +80,15 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
         <ProblemsGroupSelector disabled={problemSelectorDisabled} />
         <Description />
         <Form.Item>
-          <Row justify="end">
+          <Row justify="space-between">
+            <Button
+              type="link"
+              onClick={onCreateSeminar}
+              size="large"
+              style={{ padding: 0 }}
+            >
+              Crear seminario
+            </Button>
             <Button type="primary" htmlType="submit" size="large">
               Crear
             </Button>
@@ -87,6 +97,22 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
       </Form>
     </Modal>
   );
+};
+
+/** - Modal props - **/
+
+Modal.defaultProps = {
+  title: <Title level={3}>Crear entrada</Title>,
+  footer: null,
+  style: {
+    top: 10,
+    left: 10,
+    position: "absolute",
+    minWidth: 275,
+  } as CSSProperties,
+  width: "23%",
+  maskStyle: { backgroundColor: "#E3E3F377" } as CSSProperties,
+  destroyOnClose: true,
 };
 
 export default React.memo(PopupAddEntry);
