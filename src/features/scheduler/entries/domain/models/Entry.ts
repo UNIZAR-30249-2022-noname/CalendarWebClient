@@ -20,6 +20,7 @@ enum WeekDay {
 enum Week {
   A = "A",
   B = "B",
+  UNIQUE = "Unico",
 }
 
 type Entry = {

@@ -1,6 +1,5 @@
 import { Modal, Form, Button, Row, Col } from "antd";
 import Title from "antd/lib/typography/Title";
-import { values } from "cypress/types/lodash";
 import React, { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { SubjectKind } from "../../domain/models/Entry";
@@ -22,6 +21,7 @@ type Props = {
 
 const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
   const [problemSelectorDisabled, setProblemSelectorDisabled] = useState(true);
+  const [weekSelectorDisabled, setWeekSelectorDisabled] = useState(true);
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -34,6 +34,7 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
    */
   const checkProblemSelector = (kind: SubjectKind) => {
     setProblemSelectorDisabled(entryForm.checkIfProblemsDisabled(kind));
+    setWeekSelectorDisabled(entryForm.checkIfNotPractices(kind));
   };
 
   /**
@@ -69,7 +70,7 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
         <SubjectSelector />
         <Row gutter={20}>
           <Col flex="auto">
-            <WeekSelector />
+            <WeekSelector disabled={weekSelectorDisabled} />
           </Col>
           <Col flex={1}>
             <RoomSelector />
