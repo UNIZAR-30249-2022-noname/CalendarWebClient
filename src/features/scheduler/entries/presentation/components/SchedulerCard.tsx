@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { CSSProperties, useContext, useEffect, useState } from "react";
 import { Calendar, DateRange, momentLocalizer, View } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
@@ -85,6 +85,10 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
     setvisiblePopup(true);
   };
 
+  const removeEvent = (event: any) => {
+    setevents(events.filter((e) => e.id !== event.id));
+  };
+
   const selectEvent = (event: any) => {
     setvisiblePopup(true);
     setselectedEvent(event);
@@ -109,7 +113,13 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   };
 
   return (
-    <div style={{ padding: 10, paddingTop: 0, height: "calc(100% - 25px)" }}>
+    <div
+      style={{
+        padding: 10,
+        paddingTop: 0,
+        height: "calc(100% - 25px)",
+      }}
+    >
       {loading ? (
         <Spin spinning={loading} size="large" />
       ) : (
@@ -187,7 +197,8 @@ const schedulerProps = {
     borderTopRightRadius: 20,
     border: "2px #9b9b9b solid",
     backgroundColor: "white",
-  },
+    minWidth: 1000,
+  } as CSSProperties,
 };
 
 const getBackGroundColor = (kind: SubjectKind) => {
