@@ -88,8 +88,8 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   const removeEvent = (event: any) => {
     console.log(events);
     // FIXME: Drag and Drop calendar bug when removing events
-    // const nextEvents = events?.filter((e) => e.id !== event.id);
-    // setEvents(nextEvents);
+    const nextEvents = events?.filter((e) => e.id !== event.id);
+    setEvents(nextEvents);
   };
 
   const selectEvent = (event: any) => {

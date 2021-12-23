@@ -12,6 +12,7 @@ const EntryContent = ({ event, removeEvent }: Props) => {
   const ButtonDelete = () => {
     return (
       <button
+        id="delete-entry-button"
         onClick={function (e) {
           e.stopPropagation();
           removeEvent(event);

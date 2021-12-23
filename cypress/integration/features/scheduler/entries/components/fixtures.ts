@@ -55,6 +55,34 @@ const fetchEntriesListDTO: EntryDTO[] = [
     weekday: WeekDay.WEDNESDAY,
   },
 ];
+
+const fetchEntriesListDTOD_Delete: EntryDTO[] = [
+  {
+    subject: "Verificación y validación",
+    semana: Week.A,
+    room: "A.32",
+    kind: SubjectKind.theory,
+    initHour: 7,
+    initMin: 0,
+    grupo: "2",
+    endHour: 7,
+    endMin: 50,
+    weekday: WeekDay.MONDAY,
+  },
+  {
+    subject: "Ingeniería del software",
+    semana: Week.B,
+    room: "A.22",
+    kind: SubjectKind.problems,
+    initHour: 8,
+    initMin: 0,
+    grupo: "3",
+    endHour: 8,
+    endMin: 50,
+    weekday: WeekDay.MONDAY,
+  },
+];
 export const fixtures1 = {
   fetchEntriesListDTO,
+  fetchEntriesListDTOD_Delete,
 };
