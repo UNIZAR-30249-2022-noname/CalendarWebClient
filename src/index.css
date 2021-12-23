@@ -29,8 +29,7 @@ code {
 
 .rbc-event-content {
   color: rgb(39, 39, 39);
-  padding-right: 5px;
-  padding-left: 5px;
+  padding: 0px !important;
 }
 
 .rbc-allday-cell {
