@@ -1,30 +1,49 @@
-import { Space, Tag } from "antd";
+import { Row, Space, Tag } from "antd";
 import Text from "antd/lib/typography/Text";
 import React from "react";
 import { SubjectKind, Week } from "../../domain/models/Entry";
 
 type Props = {
   event: any;
+  removeEvent: Function;
 };
 
-const EntryContent = ({ event }: Props) => {
+const EntryContent = ({ event, removeEvent }: Props) => {
+  const ButtonDelete = () => {
+    return (
+      <button
+        onClick={function (e) {
+          e.stopPropagation();
+          removeEvent(event);
+        }}
+        style={{ cursor: "pointer" }}
+      >
+        x
+      </button>
+    );
+  };
+
   switch (event.kind as SubjectKind) {
     case SubjectKind.theory:
       return (
-        <Space direction="horizontal">
-          <Text style={{ color: "#046ccc", fontWeight: "bold" }}>[T]</Text>
-          <Space direction="vertical" size={2}>
-            <Tag
-              style={{
-                fontSize: 14,
-                whiteSpace: "break-spaces",
-              }}
-            >
-              {event.title}
-              {event.desc && ` - ${event.desc}`} (Aula {event.room})
-            </Tag>
-          </Space>
-        </Space>
+        <Row justify="space-between" align="middle" wrap={false}>
+          <Text
+            style={{ color: "#046ccc", fontWeight: "bold", paddingRight: 5 }}
+          >
+            [T]{" "}
+          </Text>
+          <Tag
+            style={{
+              fontSize: 14,
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-all",
+            }}
+          >
+            {event.title}
+            {event.desc && ` - ${event.desc}`} (Aula {event.room})
+          </Tag>
+          {ButtonDelete()}
+        </Row>
       );
     case SubjectKind.practices:
       let color = "green";
@@ -37,39 +56,52 @@ const EntryContent = ({ event }: Props) => {
           break;
       }
       return (
-        <Space direction="vertical" size={2}>
+        <Row justify="space-between" align="middle" wrap={false}>
           <Tag
             color={color}
-            style={{ fontSize: 14, whiteSpace: "break-spaces" }}
+            style={{
+              fontSize: 14,
+              whiteSpace: "break-spaces",
+              wordBreak: "break-all",
+            }}
           >
             {event.title}
             {event.desc && ` - ${event.desc}`} (Aula {event.room})
           </Tag>
-        </Space>
+          {ButtonDelete()}
+        </Row>
       );
     case SubjectKind.problems:
       return (
-        <Space direction="horizontal">
-          <Text style={{ color: "purple", fontWeight: "bold" }}>[P]</Text>
-          <Space direction="vertical" size={2}>
-            <Tag
-              style={{
-                fontSize: 14,
-                whiteSpace: "break-spaces",
-                display: "inline-block",
-              }}
-            >
-              {event.title}
-              {event.desc && ` - ${event.desc}`} (Aula {event.room}) (Gr.{" "}
-              {event.group})
-            </Tag>
-          </Space>
-        </Space>
+        <Row justify="space-between" align="middle" wrap={false}>
+          <Text
+            style={{ color: "purple", fontWeight: "bold", paddingRight: 5 }}
+          >
+            [P]
+          </Text>
+          <Tag
+            style={{
+              fontSize: 14,
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-all",
+            }}
+          >
+            {event.title}
+            {event.desc && ` - ${event.desc}`} (Aula {event.room}) (Gr.{" "}
+            {event.group})
+          </Tag>
+          {ButtonDelete()}
+        </Row>
       );
     case SubjectKind.seminar:
       // Seminar hours
-      return <Text style={{ color: "white" }}>Seminario</Text>;
+      return (
+        <Row justify="space-between" align="middle" wrap={false}>
+          <Text style={{ color: "white" }}>Seminario</Text>
+          {ButtonDelete()}
+        </Row>
+      );
   }
 };
 
-export default React.memo(EntryContent);
+export default EntryContent;

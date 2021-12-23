@@ -22,6 +22,11 @@ code {
   border: #53799c 2px solid;
 }
 
+.rbc-event:hover {
+  opacity: 0.85;
+  animation: ease-in-out 0.2s !important;
+}
+
 .rbc-event-content {
   color: rgb(39, 39, 39);
   padding-right: 5px;
@@ -57,7 +62,7 @@ code {
 
 .rbc-time-slot {
   flex: none !important;
-  height: 18px !important;
+  height: 25px !important;
 }
 
 .rbc-current-time-indicator {
