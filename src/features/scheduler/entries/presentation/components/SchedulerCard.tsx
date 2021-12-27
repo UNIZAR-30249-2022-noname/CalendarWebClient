@@ -26,7 +26,7 @@ type Props = {
 
 const SchedulerCard = ({ draggedEvent }: Props) => {
   const selectedDegree = useContext(SelectedDegreeContext).store;
-  const subjectLists = useContext(DegreeSubjectsContext).store;
+  const subjectList = useContext(DegreeSubjectsContext).store;
   const [selectedEvent, setSelectedEved] = useState<any>({});
   const [visiblePopup, setVisiblePopup] = useState(false);
   const [events, setEvents] = useState<any[]>([]);
@@ -34,15 +34,18 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   const [loadingPost, setLoadingPost] = useState(false);
 
   useEffect(() => {
-    if (subjectLists.length === 0) return;
+    console.log(subjectList);
+    if (!subjectList) return;
     loadEntryList();
-  }, [subjectLists]);
+  }, [subjectList]);
 
   const loadEntryList = async () => {
     setLoading(true);
     const entryListRes = await entriesService.getListEntries(selectedDegree);
     if (entryListRes.isError) {
+      setEvents([]);
       notifications.error("No se puedieron cargar las entradas del horario");
+      setLoading(false);
       return;
     }
     setEvents(entriesService.loadEntries(entryListRes.value));
