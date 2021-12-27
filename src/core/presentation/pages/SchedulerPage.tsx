@@ -39,7 +39,12 @@ export const SchedulerPage = () => {
     <DegreeSubjectsContextWrapper>
       <DegreePropertiesContextWrapper>
         <SelectedDegreeContextWrapper>
-          <Layout style={{ height: "100%", backgroundColor: "#E1E2E3" }}>
+          <Layout
+            style={{
+              height: "100%",
+              backgroundColor: "#E1E2E3",
+            }}
+          >
             {isDrawerClosed && (
               <Sider
                 {...siderProps}
@@ -79,7 +84,7 @@ export const SchedulerPage = () => {
                   <DegreeForm />
                 </Row>
               </Header>
-              <Content>
+              <Content style={{ overflowX: "scroll" }}>
                 <SchedulerCard draggedEvent={draggedEvent} />
               </Content>
             </Layout>

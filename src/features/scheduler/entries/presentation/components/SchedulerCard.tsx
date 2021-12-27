@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { CSSProperties, useContext, useEffect, useState } from "react";
 import { Calendar, DateRange, momentLocalizer, View } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
@@ -27,9 +27,9 @@ type Props = {
 const SchedulerCard = ({ draggedEvent }: Props) => {
   const selectedDegree = useContext(SelectedDegreeContext).store;
   const subjectLists = useContext(DegreeSubjectsContext).store;
-  const [selectedEvent, setselectedEvent] = useState<any>({});
-  const [visiblePopup, setvisiblePopup] = useState(false);
-  const [events, setevents] = useState<any[]>([]);
+  const [selectedEvent, setSelectedEved] = useState<any>({});
+  const [visiblePopup, setVisiblePopup] = useState(false);
+  const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(selectedDegree.degree != null);
   const [loadingPost, setLoadingPost] = useState(false);
 
@@ -41,12 +41,12 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   const loadEntryList = async () => {
     setLoading(true);
     const entryListRes = await entriesService.getListEntries(selectedDegree);
-    setLoading(false);
     if (entryListRes.isError) {
       notifications.error("No se puedieron cargar las entradas del horario");
       return;
     }
-    setevents(entriesService.loadEntries(entryListRes.value));
+    setEvents(entriesService.loadEntries(entryListRes.value));
+    setLoading(false);
   };
 
   const saveEntryList = async () => {
@@ -62,12 +62,12 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   };
 
   const onCreateEvent = (event: any) => {
-    setvisiblePopup(false);
-    setevents([...events, event]);
+    setVisiblePopup(false);
+    setEvents([...events, event]);
   };
 
   const onCancelCreateEvent = () => {
-    setvisiblePopup(false);
+    setVisiblePopup(false);
   };
 
   const onDropFromOutside = (start: Date, end: Date) => {
@@ -81,13 +81,20 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
 
   const newEvent = (event: any) => {
     event.end.setMinutes(event.end.getMinutes());
-    setselectedEvent(event);
-    setvisiblePopup(true);
+    setSelectedEved(event);
+    setVisiblePopup(true);
+  };
+
+  const removeEvent = (event: any) => {
+    console.log(events);
+    // FIXME: Drag and Drop calendar bug when removing events
+    const nextEvents = events?.filter((e) => e.id !== event.id);
+    setEvents(nextEvents);
   };
 
   const selectEvent = (event: any) => {
-    setvisiblePopup(true);
-    setselectedEvent(event);
+    setVisiblePopup(true);
+    setSelectedEved(event);
   };
 
   const moveEvent = ({ event, start, end }: any) => {
@@ -96,7 +103,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
         ? { ...existingEvent, start, end }
         : existingEvent;
     });
-    setevents(nextEvents);
+    setEvents(nextEvents);
   };
 
   const resizeEvent = ({ event, start, end }: any) => {
@@ -105,11 +112,17 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
         ? { ...existingEvent, start, end }
         : existingEvent;
     });
-    setevents(nextEvents);
+    setEvents(nextEvents);
   };
 
   return (
-    <div style={{ padding: 10, paddingTop: 0, height: "calc(100% - 25px)" }}>
+    <div
+      style={{
+        padding: 10,
+        paddingTop: 0,
+        height: "calc(100% - 25px)",
+      }}
+    >
       {loading ? (
         <Spin spinning={loading} size="large" />
       ) : (
@@ -119,10 +132,16 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
           onEventDrop={moveEvent}
           onEventResize={resizeEvent}
           onSelectSlot={newEvent}
-          onSelectEvent={(event) => selectEvent(event)}
+          onSelectEvent={selectEvent}
           onDropFromOutside={({ start, end }) =>
             onDropFromOutside(start as Date, end as Date)
           }
+          components={{
+            toolbar: () => null,
+            event: (e) => (
+              <EntryContent event={e.event} removeEvent={removeEvent} />
+            ),
+          }}
         />
       )}
       <Row style={{ paddingTop: 5 }}>
@@ -173,10 +192,6 @@ const schedulerProps = {
   defaultDate: moment().toDate(),
   min: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 7),
   max: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 21),
-  components: {
-    toolbar: () => null,
-    event: (e: any) => <EntryContent event={e.event} />,
-  },
   eventPropGetter: (e: any) => ({
     style: {
       backgroundColor: getBackGroundColor(e.kind),
@@ -187,7 +202,8 @@ const schedulerProps = {
     borderTopRightRadius: 20,
     border: "2px #9b9b9b solid",
     backgroundColor: "white",
-  },
+    minWidth: 1000,
+  } as CSSProperties,
 };
 
 const getBackGroundColor = (kind: SubjectKind) => {
