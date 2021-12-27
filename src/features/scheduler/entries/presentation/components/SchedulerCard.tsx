@@ -32,9 +32,9 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(selectedDegree.degree != null);
   const [loadingPost, setLoadingPost] = useState(false);
+  const [edittedEvent, setEdittedEvent] = useState(false);
 
   useEffect(() => {
-    console.log(subjectList);
     if (!subjectList) return;
     loadEntryList();
   }, [subjectList]);
@@ -64,9 +64,9 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
     }
   };
 
-  const onCreateEvent = (event: any) => {
+  const onCreateEvent = (event: any, edit: boolean) => {
     setVisiblePopup(false);
-    setEvents([...events, event]);
+    edit ? editEvent(event) : setEvents([...events, event]);
   };
 
   const onCancelCreateEvent = () => {
@@ -85,6 +85,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   const newEvent = (event: any) => {
     event.end.setMinutes(event.end.getMinutes());
     setSelectedEved(event);
+    setEdittedEvent(false);
     setVisiblePopup(true);
   };
 
@@ -96,8 +97,9 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   };
 
   const selectEvent = (event: any) => {
-    setVisiblePopup(true);
     setSelectedEved(event);
+    setEdittedEvent(true);
+    setVisiblePopup(true);
   };
 
   const moveEvent = ({ event, start, end }: any) => {
@@ -117,6 +119,15 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
     });
     setEvents(nextEvents);
   };
+
+  const editEvent = (event: any) => {
+    const nextEvents = events?.map((existingEvent) => {
+      return existingEvent.id === event.id ? event : existingEvent;
+    });
+    setEvents(nextEvents);
+  };
+
+  const joinedEvents = (event: Event) => {};
 
   return (
     <div
@@ -163,6 +174,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
         visible={visiblePopup}
         onOk={onCreateEvent}
         onCancel={onCancelCreateEvent}
+        edit={edittedEvent}
       />
     </div>
   );
@@ -177,7 +189,7 @@ const today = new Date();
 const formats = {
   timeGutterFormat: "H:mm",
   eventTimeRangeFormat: (e: DateRange) => {
-    return dateFormat(e.start, "H:MM") + " - " + dateFormat(e.end, "H:MM");
+    return "";
   },
   dayFormat: "dddd",
 };

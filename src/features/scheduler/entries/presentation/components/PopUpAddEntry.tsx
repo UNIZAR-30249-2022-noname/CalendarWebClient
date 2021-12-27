@@ -16,10 +16,11 @@ type Props = {
   event: any;
   visible: boolean;
   onCancel: (e: unknown) => void;
-  onOk: (e: unknown) => void;
+  onOk: (e: unknown, edit: boolean) => void;
+  edit: boolean;
 };
 
-const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
+const PopupAddEntry = ({ event, visible, onCancel, onOk, edit }: Props) => {
   const [problemSelectorDisabled, setProblemSelectorDisabled] = useState(true);
   const [weekSelectorDisabled, setWeekSelectorDisabled] = useState(true);
   const [form] = Form.useForm();
@@ -42,14 +43,14 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
    */
   const onCorrectForm = () => {
     const values = form.getFieldsValue();
-    entryForm.createEntry(event, values, onOk);
+    entryForm.createEntry(event, values, onOk, edit);
     form.resetFields();
   };
 
   const onCreateSeminar = () => {
     const values = form.getFieldsValue();
     values.kind = SubjectKind.seminar;
-    entryForm.createEntry(event, values, onOk);
+    entryForm.createEntry(event, values, onOk, edit);
     form.resetFields();
   };
 
@@ -80,21 +81,31 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
         <KindSelector check={checkProblemSelector} />
         <ProblemsGroupSelector disabled={problemSelectorDisabled} />
         <Description />
-        <Form.Item>
-          <Row justify="space-between">
-            <Button
-              type="link"
-              onClick={onCreateSeminar}
-              size="large"
-              style={{ padding: 0 }}
-            >
-              Crear seminario
-            </Button>
-            <Button type="primary" htmlType="submit" size="large">
-              Crear
-            </Button>
-          </Row>
-        </Form.Item>
+        {edit ? (
+          <Form.Item>
+            <Row justify="end">
+              <Button type="primary" htmlType="submit" size="large">
+                Editar
+              </Button>
+            </Row>
+          </Form.Item>
+        ) : (
+          <Form.Item>
+            <Row justify="space-between">
+              <Button
+                type="link"
+                onClick={onCreateSeminar}
+                size="large"
+                style={{ padding: 0 }}
+              >
+                Crear seminario
+              </Button>
+              <Button type="primary" htmlType="submit" size="large">
+                Crear
+              </Button>
+            </Row>
+          </Form.Item>
+        )}
       </Form>
     </Modal>
   );

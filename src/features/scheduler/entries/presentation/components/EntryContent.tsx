@@ -1,5 +1,6 @@
 import { Row, Space, Tag } from "antd";
 import Text from "antd/lib/typography/Text";
+import dateFormat from "dateformat";
 import React from "react";
 import { SubjectKind, Week } from "../../domain/models/Entry";
 
@@ -27,24 +28,31 @@ const EntryContent = ({ event, removeEvent }: Props) => {
   switch (event.kind as SubjectKind) {
     case SubjectKind.theory:
       return (
-        <Row justify="space-between" align="middle" wrap={false}>
-          <Text
-            style={{ color: "#046ccc", fontWeight: "bold", paddingRight: 5 }}
-          >
-            [T]{" "}
-          </Text>
-          <Tag
-            style={{
-              fontSize: 14,
-              whiteSpace: "pre-wrap",
-              wordBreak: "break-all",
-            }}
-          >
-            {event.title}
-            {event.desc && ` - ${event.desc}`} (Aula {event.room})
-          </Tag>
-          {ButtonDelete()}
-        </Row>
+        <div>
+          <span>
+            {dateFormat(event.start, "H:MM") +
+              " - " +
+              dateFormat(event.end, "H:MM")}
+          </span>
+          <Row justify="space-between" align="middle" wrap={false}>
+            <Text
+              style={{ color: "#046ccc", fontWeight: "bold", paddingRight: 5 }}
+            >
+              [T]{" "}
+            </Text>
+            <Tag
+              style={{
+                fontSize: 14,
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-all",
+              }}
+            >
+              {event.title}
+              {event.desc && ` - ${event.desc}`} (Aula {event.room})
+            </Tag>
+            {ButtonDelete()}
+          </Row>
+        </div>
       );
     case SubjectKind.practices:
       let color = "green";
@@ -57,50 +65,71 @@ const EntryContent = ({ event, removeEvent }: Props) => {
           break;
       }
       return (
-        <Row justify="space-between" align="middle" wrap={false}>
-          <Tag
-            color={color}
-            style={{
-              fontSize: 14,
-              whiteSpace: "break-spaces",
-              wordBreak: "break-all",
-            }}
-          >
-            {event.title}
-            {event.desc && ` - ${event.desc}`} (Aula {event.room})
-          </Tag>
-          {ButtonDelete()}
-        </Row>
+        <div>
+          <span>
+            {dateFormat(event.start, "H:MM") +
+              " - " +
+              dateFormat(event.end, "H:MM")}
+          </span>
+          <Row justify="space-between" align="middle" wrap={false}>
+            <Tag
+              color={color}
+              style={{
+                fontSize: 14,
+                whiteSpace: "break-spaces",
+                wordBreak: "break-all",
+              }}
+            >
+              {event.title}
+              {event.desc && ` - ${event.desc}`} (Aula {event.room})
+            </Tag>
+            {ButtonDelete()}
+          </Row>
+        </div>
       );
     case SubjectKind.problems:
       return (
-        <Row justify="space-between" align="middle" wrap={false}>
-          <Text
-            style={{ color: "purple", fontWeight: "bold", paddingRight: 5 }}
-          >
-            [P]
-          </Text>
-          <Tag
-            style={{
-              fontSize: 14,
-              whiteSpace: "pre-wrap",
-              wordBreak: "break-all",
-            }}
-          >
-            {event.title}
-            {event.desc && ` - ${event.desc}`} (Aula {event.room}) (Gr.{" "}
-            {event.group})
-          </Tag>
-          {ButtonDelete()}
-        </Row>
+        <div>
+          <span>
+            {dateFormat(event.start, "H:MM") +
+              " - " +
+              dateFormat(event.end, "H:MM")}
+          </span>
+          <Row justify="space-between" align="middle" wrap={false}>
+            <Text
+              style={{ color: "purple", fontWeight: "bold", paddingRight: 5 }}
+            >
+              [P]
+            </Text>
+            <Tag
+              style={{
+                fontSize: 14,
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-all",
+              }}
+            >
+              {event.title}
+              {event.desc && ` - ${event.desc}`} (Aula {event.room}) (Gr.{" "}
+              {event.group})
+            </Tag>
+            {ButtonDelete()}
+          </Row>
+        </div>
       );
     case SubjectKind.seminar:
       // Seminar hours
       return (
-        <Row justify="space-between" align="middle" wrap={false}>
-          <Text style={{ color: "white" }}>Seminario</Text>
-          {ButtonDelete()}
-        </Row>
+        <div>
+          <Text style={{ fontSize: 5 }}>
+            {dateFormat(event.start, "H:MM") +
+              " - " +
+              dateFormat(event.end, "H:MM")}
+          </Text>
+          <Row justify="space-between" align="middle" wrap={false}>
+            <Text style={{ color: "white" }}>Seminario</Text>
+            {ButtonDelete()}
+          </Row>
+        </div>
       );
   }
 };
