@@ -11,8 +11,8 @@ export const icalData = {
     getIcal: async (
     params: IcalParamsDTO
   ): Promise<Result<String>> => {
-    return { isError: false, value: "Jorge wapo" }
-    /*
+    
+    
     try {
       const res = await http.get(service, params);
       if (res.status === 200) {
@@ -23,6 +23,6 @@ export const icalData = {
     } catch (e) {
       console.error((e as Error).message);
       return { isError: true, error: e as Error };
-    }*/
+    }
   },
 };
