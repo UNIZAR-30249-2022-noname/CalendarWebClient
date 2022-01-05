@@ -20,12 +20,8 @@ const LeftDrawer = ({ setDraggedEvent }: Props) => {
     else setLoading(false);
   }, [subjectListStore]);
 
-  const subjectList = subjectListStore?.map((subject, i) => (
-    <SubjectBadget
-      setDraggedEvent={setDraggedEvent}
-      subjectB={subject}
-      key={i}
-    />
+  const subjectList = subjectListStore?.map((subject) => (
+    <SubjectBadget setDraggedEvent={setDraggedEvent} subjectB={subject} />
   ));
 
   return (

@@ -18,13 +18,26 @@ export const entriesService = {
       end.setHours(entry.endTime.hour, entry.endTime.min);
       return {
         id: Math.random() * 50,
-        title: entry.subject,
-        start: start,
-        end: end,
-        week: entry.week,
-        kind: entry.kind,
-        room: entry.room,
-        group: entry.group,
+        start,
+        end,
+        events: [
+          {
+            subject: entry.subject,
+            initTime: {
+              hour: start.getHours(),
+              min: start.getMinutes(),
+            },
+            endTime: {
+              hour: end.getHours(),
+              min: end.getMinutes(),
+            },
+            weekDay: entry.weekDay,
+            week: entry.week,
+            kind: entry.kind,
+            room: entry.room,
+            group: entry.group,
+          },
+        ],
       };
     });
   },
@@ -32,7 +45,7 @@ export const entriesService = {
   saveEntries: (entryList: EntryScheduler[]) => {
     return entryList.map((entry): Entry => {
       return {
-        subject: entry.title,
+        subject: entry.events[0].subject,
         initTime: {
           hour: entry.start.getHours(),
           min: entry.start.getMinutes(),
@@ -42,10 +55,10 @@ export const entriesService = {
           min: entry.end.getMinutes(),
         },
         weekDay: entry.start.getDay() - 1,
-        week: entry.week as Week,
-        kind: entry.kind,
-        room: entry.room!,
-        group: entry.group!,
+        week: entry.events[0].week as Week,
+        kind: entry.events[0].kind,
+        room: entry.events[0].room!,
+        group: entry.events[0].group!,
       };
     });
   },

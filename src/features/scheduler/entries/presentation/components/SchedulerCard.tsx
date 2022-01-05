@@ -4,7 +4,7 @@ import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import PopupAddEntry from "./PopUpAddEntry";
-import { SubjectKind } from "../../domain/models/Entry";
+import Entry, { SubjectKind, Week } from "../../domain/models/Entry";
 import EntryContent from "./EntryContent";
 import moment from "moment";
 import dateFormat from "dateformat";
@@ -16,20 +16,23 @@ import {
 import { notifications } from "../../../../../core/presentation/components/notifications/notifications";
 import { Button, Row, Spin } from "antd";
 import { SaveFilled } from "@ant-design/icons";
+import { EntryScheduler } from "../../domain/models/EntryScheduler";
 require("moment/locale/es.js");
 const DragAndDropCalendar = withDragAndDrop(Calendar as any);
 
 type Props = {
-  draggedEvent: any;
+  draggedEvent: any | null;
 };
 // Sources: https://github.com/jquense/react-big-calendar/blob/master/examples/demos/dndOutsideSource.js
 
 const SchedulerCard = ({ draggedEvent }: Props) => {
   const selectedDegree = useContext(SelectedDegreeContext).store;
   const subjectList = useContext(DegreeSubjectsContext).store;
-  const [selectedEvent, setSelectedEved] = useState<any>({});
+  const [selectedEvent, setSelectedEved] = useState<
+    EntryScheduler | undefined
+  >();
   const [visiblePopup, setVisiblePopup] = useState(false);
-  const [events, setEvents] = useState<any[]>([]);
+  const [events, setEvents] = useState<EntryScheduler[]>([]);
   const [loading, setLoading] = useState(selectedDegree.degree != null);
   const [loadingPost, setLoadingPost] = useState(false);
   const [edittedEvent, setEdittedEvent] = useState(false);
@@ -64,7 +67,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
     }
   };
 
-  const onCreateEvent = (event: any, edit: boolean) => {
+  const onCreateEvent = (event: EntryScheduler, edit: boolean) => {
     setVisiblePopup(false);
     edit ? editEvent(event) : setEvents([...events, event]);
   };
@@ -74,11 +77,16 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   };
 
   const onDropFromOutside = (start: Date, end: Date) => {
+    if (draggedEvent == null) return;
     newEvent({
-      title: draggedEvent.title,
-      kind: draggedEvent.kind,
       start,
       end,
+      events: [
+        {
+          subject: draggedEvent.title,
+          kind: draggedEvent.kind,
+        },
+      ],
     });
   };
 
@@ -89,45 +97,94 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
     setVisiblePopup(true);
   };
 
-  const removeEvent = (event: any) => {
-    console.log(events);
-    // FIXME: Drag and Drop calendar bug when removing events
-    const nextEvents = events?.filter((e) => e.id !== event.id);
-    setEvents(nextEvents);
+  const removeEvent = (event: EntryScheduler, eventToRemove: Entry) => {
+    let nextEvents: EntryScheduler[] = [];
+    if (event.events.length === 1) {
+      nextEvents = events?.filter((e) => e.id !== event.id);
+      setEvents(nextEvents);
+    } else {
+      nextEvents = events.map((e) => {
+        if (e.id === event.id) {
+          e.events.filter((e) => e !== eventToRemove);
+        }
+        return e;
+      });
+      setEvents([...nextEvents, setNewDates(event, eventToRemove)]);
+    }
   };
 
-  const selectEvent = (event: any) => {
+  const selectEvent = (event: EntryScheduler) => {
     setSelectedEved(event);
     setEdittedEvent(true);
     setVisiblePopup(true);
   };
 
   const moveEvent = ({ event, start, end }: any) => {
-    const nextEvents = events?.map((existingEvent) => {
-      return existingEvent.id === event.id
-        ? { ...existingEvent, start, end }
-        : existingEvent;
+    let joined = false;
+    let nextEvents = events.map((e) => {
+      if (e.id !== event.id && checkJoinEvents(start, end, e)) {
+        joined = true;
+        return joinEvents(event, e);
+      }
+      if (e.id === event.id) return { ...e, start, end };
+      return e;
     });
+    if (joined) nextEvents = nextEvents.filter((e) => e.id !== event.id);
     setEvents(nextEvents);
   };
 
-  const resizeEvent = ({ event, start, end }: any) => {
-    const nextEvents = events?.map((existingEvent: any) => {
-      return existingEvent.id === event.id
-        ? { ...existingEvent, start, end }
-        : existingEvent;
-    });
-    setEvents(nextEvents);
-  };
-
-  const editEvent = (event: any) => {
+  const editEvent = (event: EntryScheduler) => {
     const nextEvents = events?.map((existingEvent) => {
       return existingEvent.id === event.id ? event : existingEvent;
     });
     setEvents(nextEvents);
   };
 
-  const joinedEvents = (event: Event) => {};
+  const joinEvents = (
+    event1: EntryScheduler,
+    event2: EntryScheduler
+  ): EntryScheduler => {
+    return {
+      id: event2.id,
+      start: event2.start,
+      end: event2.end,
+      events: [...event2.events, ...event1.events],
+    };
+  };
+
+  const checkJoinEvents = (
+    start: Date,
+    end: Date,
+    event2: EntryScheduler
+  ): boolean => {
+    if (start.getDay() !== event2.start.getDay()) return false;
+    if (
+      dateFormat(end, "H:MM") === dateFormat(event2.end, "H:MM") &&
+      dateFormat(start, "H:MM") === dateFormat(event2.start, "H:MM")
+    )
+      return true;
+    return false;
+  };
+
+  const setNewDates = (
+    event: EntryScheduler,
+    eventToRemove: Entry
+  ): EntryScheduler => {
+    let start, end;
+    // Friday
+    if (event.start.getDay() === 4) {
+      start = new Date(event.start.getDay() - 1);
+    }
+    start = new Date(event.start.getDay() + 1);
+    end = new Date(event.start.getDay() + 1);
+    end.setMinutes(start.getMinutes() + 20);
+    return {
+      id: Math.random() * 30,
+      start,
+      end,
+      events: [eventToRemove],
+    };
+  };
 
   return (
     <div
@@ -142,18 +199,27 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
       ) : (
         <DragAndDropCalendar
           {...schedulerProps}
-          events={events}
+          events={events as any}
           onEventDrop={moveEvent}
-          onEventResize={resizeEvent}
-          onSelectSlot={newEvent}
-          onSelectEvent={selectEvent}
+          onEventResize={moveEvent}
+          onSelectSlot={(e) =>
+            newEvent({
+              start: e.start as Date,
+              end: e.end as Date,
+              events: [],
+            })
+          }
+          onSelectEvent={(e) => selectEvent(e as EntryScheduler)}
           onDropFromOutside={({ start, end }) =>
             onDropFromOutside(start as Date, end as Date)
           }
           components={{
             toolbar: () => null,
             event: (e) => (
-              <EntryContent event={e.event} removeEvent={removeEvent} />
+              <EntryContent
+                entry={e.event as EntryScheduler}
+                removeEvent={removeEvent}
+              />
             ),
           }}
         />
@@ -189,7 +255,7 @@ const today = new Date();
 const formats = {
   timeGutterFormat: "H:mm",
   eventTimeRangeFormat: (e: DateRange) => {
-    return "";
+    return dateFormat(e.start, "H:MM") + " - " + dateFormat(e.end, "H:MM");
   },
   dayFormat: "dddd",
 };
@@ -209,7 +275,7 @@ const schedulerProps = {
   max: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 21),
   eventPropGetter: (e: any) => ({
     style: {
-      backgroundColor: getBackGroundColor(e.kind),
+      backgroundColor: getBackGroundColor(e.events[0].kind),
     },
   }),
   style: {

@@ -10,15 +10,13 @@ import { degreeAvailableHoursService } from "../../domain/services/AvailableHour
 type Props = {
   setDraggedEvent: Function;
   subjectB: SubjectAvailableHours;
-  key: number;
 };
 
-export const SubjectBadget = ({ setDraggedEvent, subjectB, key }: Props) => {
+export const SubjectBadget = ({ setDraggedEvent, subjectB }: Props) => {
   const { subject, kind, hours } = subjectB;
   return (
     <div
       draggable
-      key={key}
       onDragStart={() =>
         setDraggedEvent({
           title: subject,
