@@ -43,10 +43,11 @@ describe("create scheduler entry", () => {
     /* WHEN */
     let startSchedulerSlot = 14;
     let startTimeSlot = 0;
+    const { Subject } = fixtures.ResponseGood[0];
     cy.react("LeftDrawer")
+      .contains(Subject.Name)
       .react("div", { props: { draggable: true } })
       .each((e, i) => {
-        const { Subject } = fixtures.ResponseGood[i];
         cy.wrap(e).trigger("dragstart");
         cy.get(".rbc-timeslot-group")
           .eq(startSchedulerSlot)
@@ -110,9 +111,8 @@ describe("create scheduler entry", () => {
           .click()
           .wait(1000);
         startTimeSlot++;
-        //cy.get("body").click(0, 0);
+        cy.get("body").click(0, 0);
       });
-    const { Subject } = fixtures.ResponseGood[0];
     cy.get(".rbc-time-content").contains(Subject.Name).click().wait(1000);
     cy.react("Modal").react("SubjectSelector").contains(Subject.Name);
     cy.react("Modal")

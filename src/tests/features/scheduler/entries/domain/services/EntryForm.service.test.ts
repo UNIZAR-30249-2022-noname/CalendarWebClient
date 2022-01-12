@@ -1,17 +1,34 @@
 import {
   SubjectKind,
   Week,
+  WeekDay,
 } from "../../../../../../features/scheduler/entries/domain/models/Entry";
+import { EntryScheduler } from "../../../../../../features/scheduler/entries/domain/models/EntryScheduler";
 import { entryForm } from "../../../../../../features/scheduler/entries/domain/services/EntryForm.service";
 
 describe("Entry form", () => {
-  const event = {
+  const event: EntryScheduler = {
+    id: Math.random() * 30,
     start: new Date(),
     end: new Date(),
-    title: "Gestión de proyecto software",
-    kind: SubjectKind.theory,
-    week: Week.A,
-    room: "0.01",
+    events: [
+      {
+        subject: "Tecnología de la programación",
+        week: Week.B,
+        weekDay: WeekDay.MONDAY,
+        room: "A.12",
+        kind: SubjectKind.problems,
+        group: "1",
+        initTime: {
+          hour: 8,
+          min: 30,
+        },
+        endTime: {
+          hour: 9,
+          min: 30,
+        },
+      },
+    ],
   };
   let loadedEvent: any;
   let newEntry: any;
@@ -48,10 +65,15 @@ describe("Entry form", () => {
         kind: loadedEvent.kind,
         room: loadedEvent.room,
       };
-      entryForm.createEntry(event, loadedEvent, (newEvent: any) => {
-        newEvent["id"] = 0;
-        expect(newEvent).toEqual(newEntry);
-      });
+      entryForm.createEntry(
+        event,
+        loadedEvent,
+        (newEvent: any) => {
+          newEvent["id"] = 0;
+          expect(newEvent).toEqual(newEntry);
+        },
+        true
+      );
     });
   });
 });

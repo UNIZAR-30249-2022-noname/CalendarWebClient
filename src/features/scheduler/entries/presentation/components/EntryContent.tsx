@@ -1,8 +1,6 @@
 import { Row, Space, Tag } from "antd";
 import Text from "antd/lib/typography/Text";
-import dateFormat from "dateformat";
-import React, { useEffect } from "react";
-import Entry, { SubjectKind, Time, Week } from "../../domain/models/Entry";
+import Entry, { SubjectKind, Week } from "../../domain/models/Entry";
 import { EntryScheduler } from "../../domain/models/EntryScheduler";
 
 type Props = {
