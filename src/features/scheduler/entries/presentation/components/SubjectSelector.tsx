@@ -1,18 +1,19 @@
 import { Form, Select } from "antd";
 import Text from "antd/lib/typography/Text";
+import { useContext } from "react";
+import { DegreeSubjectsContext } from "../../../../../core/context/context";
 
 const { Option } = Select;
 
 export const SubjectSelector = () => {
-  // TODO: use redux to recover the info
-  const subjectList = [
-    "Arquitectura de Computadores",
-    "Verificación y validación",
-    "Matemáticas 2",
-  ];
+  const subjectList = useContext(DegreeSubjectsContext).store;
 
-  const menu = subjectList.map((room, i) => (
-    <Option key={i} children={<Text>{room}</Text>} value={room} />
+  const menu = subjectList?.map((subject, i) => (
+    <Option
+      key={i}
+      children={<Text>{subject.subject}</Text>}
+      value={subject.subject}
+    />
   ));
 
   return (
