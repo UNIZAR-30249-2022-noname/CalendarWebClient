@@ -1,7 +1,8 @@
 enum SubjectKind {
+  error,
   theory,
-  practices,
   problems,
+  practices,
   seminar,
 }
 type Time = {

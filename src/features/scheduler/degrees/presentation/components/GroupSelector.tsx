@@ -20,6 +20,14 @@ export const GroupSelector = () => {
     <Option key={i} children={<Text>{group}</Text>} value={group} />
   ));
 
+  const onChange = (selectedGroup: string) => {
+    contextSelectedDegree.actions.setSelectedDegree({
+      degree,
+      year,
+      group: selectedGroup,
+    });
+  };
+
   return (
     <Form.Item
       name="group"
@@ -34,6 +42,7 @@ export const GroupSelector = () => {
       <Select
         optionFilterProp="children"
         placeholder="Elige grupo..."
+        onChange={onChange}
         style={{ minWidth: 110 }}
       >
         {menu}
