@@ -10,6 +10,7 @@ export const IcalButton = () => {
   const selectedDegree = useContext(SelectedDegreeContext).store;
 
   const handleError = async () => {
+    if (!selectedDegree) return;
     const res = await IcalService.getIcal(selectedDegree);
     if (res.isError) {
       notifications.error("No se pudo descargar el calendario");
@@ -25,7 +26,7 @@ export const IcalButton = () => {
           Descargar iCal
         </Button>
       }
-      filename={`horario_${selectedDegree.year}_${selectedDegree.degree}.ics`}
+      filename={`horario_21/22_${selectedDegree.degree}_${selectedDegree.year}.ics`}
       exportFile={handleError}
     />
   );
