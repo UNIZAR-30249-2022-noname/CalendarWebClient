@@ -1,3 +1,4 @@
+import { Space } from "antd";
 import Badge from "antd/lib/badge";
 import Button from "antd/lib/button";
 import Row from "antd/lib/grid/row";
@@ -5,7 +6,6 @@ import Tag from "antd/lib/tag";
 import Text from "antd/lib/typography/Text";
 import { SubjectKind } from "../../../entries/domain/models/Entry";
 import { SubjectAvailableHours } from "../../domain/models/SubjectAvailableHours";
-import { degreeAvailableHoursService } from "../../domain/services/AvailableHours.service";
 
 type Props = {
   setDraggedEvent: Function;
@@ -13,44 +13,70 @@ type Props = {
 };
 
 export const SubjectBadget = ({ setDraggedEvent, subjectB }: Props) => {
-  const { subject, kind, hours } = subjectB;
+  const { subject, hours } = subjectB;
   return (
-    <div
-      draggable
-      onDragStart={() =>
-        setDraggedEvent({
-          title: subject,
-          kind,
-        })
-      }
+    <Button
+      type="primary"
+      style={{
+        height: "auto",
+        backgroundColor: "#f9f9f9",
+        padding: 5,
+        width: 190,
+        maxHeight: 150,
+      }}
     >
-      <Badge showZero count={hours.remaining}>
-        <Button
-          type="primary"
-          style={{
-            height: "auto",
-            backgroundColor: degreeAvailableHoursService.getSubjectColor(kind),
-            padding: 5,
-            width: 190,
-            maxHeight: 150,
-          }}
+      <Text style={{ whiteSpace: "normal" }}>{subject}</Text>
+      <br />
+      <Row justify="space-between">
+        <div
+          draggable
+          onDragStart={() =>
+            setDraggedEvent({
+              title: subject,
+              kind: SubjectKind.theory,
+            })
+          }
         >
-          <Text style={{ whiteSpace: "normal" }}>{subject}</Text>
-          <br />
-          <Row justify="end">{getSubjectTag(kind)}</Row>
-        </Button>
-      </Badge>
-    </div>
+          <Tag color="blue" style={{ paddingBottom: 5 }}>
+            <Space direction="vertical" size={1}>
+              <Text>Teo.</Text>
+              <Badge count={hours.remaining} />
+            </Space>
+          </Tag>
+        </div>
+        <div
+          draggable
+          onDragStart={() =>
+            setDraggedEvent({
+              title: subject,
+              kind: SubjectKind.practices,
+            })
+          }
+        >
+          <Tag color="magenta" style={{ paddingBottom: 5 }}>
+            <Space direction="vertical" size={1}>
+              <Text>Prac.</Text>
+              <Badge count={hours.remaining} />
+            </Space>
+          </Tag>
+        </div>
+        <div
+          draggable
+          onDragStart={() =>
+            setDraggedEvent({
+              title: subject,
+              kind: SubjectKind.problems,
+            })
+          }
+        >
+          <Tag color="green" style={{ paddingBottom: 5 }}>
+            <Space direction="vertical" size={1}>
+              <Text>Prob.</Text>
+              <Badge count={hours.remaining} />
+            </Space>
+          </Tag>
+        </div>
+      </Row>
+    </Button>
   );
-};
-
-const getSubjectTag = (kind: SubjectKind) => {
-  switch (kind) {
-    case SubjectKind.theory:
-      return <Tag color="blue">Teo.</Tag>;
-    case SubjectKind.practices:
-      return <Tag color="magenta">Prac.</Tag>;
-    case SubjectKind.problems:
-      return <Tag color="green">Prob.</Tag>;
-  }
 };

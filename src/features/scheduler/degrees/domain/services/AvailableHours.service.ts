@@ -13,19 +13,4 @@ export const degreeAvailableHoursService = {
     // return it to component
     return titleList;
   },
-  getSubjectColor: (kind: SubjectKind): string => {
-    switch (kind) {
-      case SubjectKind.theory:
-        return colors.subjectType.theory;
-
-      case SubjectKind.practices:
-        return colors.subjectType.practices;
-
-      case SubjectKind.problems:
-        return colors.subjectType.exercices;
-
-      default:
-        return colors.subjectType.theory;
-    }
-  },
 };

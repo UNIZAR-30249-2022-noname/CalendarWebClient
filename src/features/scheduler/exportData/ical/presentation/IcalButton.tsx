@@ -21,6 +21,7 @@ export const IcalButton = () => {
 
   return (
     <DownloadLink
+      style={{ padding: 0 }}
       label={
         <Button type="primary" icon={<SaveFilled />} size="small">
           Descargar iCal
