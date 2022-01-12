@@ -7,5 +7,6 @@ const httpServices = {
   entries: url.baseURL1 + "/updateScheduler",
   getEntries: url.baseURL1 + "/getEntries",
   listDegrees: url.baseURL1 + "/listDegrees",
+  ical:url.baseURL1 + "/getICS"
 };
 export { url, httpServices };

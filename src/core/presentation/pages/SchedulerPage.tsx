@@ -12,6 +12,7 @@ import { SiderTheme } from "antd/lib/layout/Sider";
 import { ButtonToggleND } from "../components/notes-drawer/ButtonToggleND";
 import Text from "antd/lib/typography/Text";
 import DegreeForm from "../../../features/scheduler/degrees/presentation/components/DegreeForm";
+import { IcalButton } from "../../../features/scheduler/exportData/ical/presentation/IcalButton";
 import { EntryScheduler } from "../../../features/scheduler/entries/domain/models/EntryScheduler";
 
 const { Sider, Content, Header } = Layout;
@@ -81,6 +82,7 @@ export const SchedulerPage = () => {
                     >
                       Horario
                     </Text>
+                    <IcalButton></IcalButton>
                   </Row>
                   <DegreeForm />
                 </Row>
