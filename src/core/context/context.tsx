@@ -13,7 +13,7 @@ const NotesDrawerContext = createContext({
 });
 
 interface IContextDegreeSubjects {
-  store: SubjectAvailableHours[];
+  store: SubjectAvailableHours[] | undefined;
   actions: { setDegreeSubjects: (subject: SubjectAvailableHours[]) => void };
 }
 

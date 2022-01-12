@@ -56,6 +56,7 @@ const DegreeForm = () => {
     let degreeInfoRes =
       await degreeAvailableHoursService.getDegreeAvailableHours(degree);
     if (degreeInfoRes.isError) {
+      contextSubjects.actions.setDegreeSubjects([]);
       notifications.error(`Error al cargar los datos de ${degree.degree}`);
     } else {
       degreePropertiesService.setSelectedDegree(degree);

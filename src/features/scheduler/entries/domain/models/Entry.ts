@@ -32,6 +32,7 @@ type Entry = {
   initTime: Time;
   endTime: Time;
   weekDay: WeekDay;
+  desc?: string;
 };
 export default Entry;
 export type { Time };
