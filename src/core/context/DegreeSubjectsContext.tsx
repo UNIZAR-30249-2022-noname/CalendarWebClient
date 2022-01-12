@@ -3,7 +3,7 @@ import { SubjectAvailableHours } from "../../features/scheduler/degrees/domain/m
 import { DegreeSubjectsContext } from "./context";
 
 export const DegreeSubjectsContextWrapper: FC = ({ children }) => {
-  const [store, setStore] = useState<SubjectAvailableHours[]>([]);
+  const [store, setStore] = useState<SubjectAvailableHours[] | undefined>();
   const actions = {
     setDegreeSubjects: (subject: SubjectAvailableHours[]) => setStore(subject),
   };

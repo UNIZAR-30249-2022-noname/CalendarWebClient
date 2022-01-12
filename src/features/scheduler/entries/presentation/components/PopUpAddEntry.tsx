@@ -3,6 +3,7 @@ import Title from "antd/lib/typography/Title";
 import React, { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { SubjectKind } from "../../domain/models/Entry";
+import { EntryScheduler } from "../../domain/models/EntryScheduler";
 import { entryForm } from "../../domain/services/EntryForm.service";
 import { Description } from "./Description";
 import { KindSelector } from "./KindSelector";
@@ -13,20 +14,22 @@ import { TimeSelector } from "./TimeSelector";
 import { WeekSelector } from "./WeekSelector";
 
 type Props = {
-  event: any;
+  event?: EntryScheduler;
   visible: boolean;
   onCancel: (e: unknown) => void;
-  onOk: (e: unknown) => void;
+  onOk: (e: EntryScheduler, edit: boolean) => void;
+  edit: boolean;
 };
 
-const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
+const PopupAddEntry = ({ event, visible, onCancel, onOk, edit }: Props) => {
   const [problemSelectorDisabled, setProblemSelectorDisabled] = useState(true);
   const [weekSelectorDisabled, setWeekSelectorDisabled] = useState(true);
   const [form] = Form.useForm();
 
   useEffect(() => {
+    if (!event) return;
     form.setFieldsValue(entryForm.loadData(event));
-    checkProblemSelector(event.kind);
+    checkProblemSelector(event.events[0]?.kind);
   }, [visible]);
 
   /**
@@ -42,14 +45,14 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
    */
   const onCorrectForm = () => {
     const values = form.getFieldsValue();
-    entryForm.createEntry(event, values, onOk);
+    entryForm.createEntry(event!, values, onOk, edit);
     form.resetFields();
   };
 
   const onCreateSeminar = () => {
     const values = form.getFieldsValue();
     values.kind = SubjectKind.seminar;
-    entryForm.createEntry(event, values, onOk);
+    entryForm.createEntry(event!, values, onOk, edit);
     form.resetFields();
   };
 
@@ -80,21 +83,31 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk }: Props) => {
         <KindSelector check={checkProblemSelector} />
         <ProblemsGroupSelector disabled={problemSelectorDisabled} />
         <Description />
-        <Form.Item>
-          <Row justify="space-between">
-            <Button
-              type="link"
-              onClick={onCreateSeminar}
-              size="large"
-              style={{ padding: 0 }}
-            >
-              Crear seminario
-            </Button>
-            <Button type="primary" htmlType="submit" size="large">
-              Crear
-            </Button>
-          </Row>
-        </Form.Item>
+        {edit ? (
+          <Form.Item>
+            <Row justify="end">
+              <Button type="primary" htmlType="submit" size="large">
+                Editar
+              </Button>
+            </Row>
+          </Form.Item>
+        ) : (
+          <Form.Item>
+            <Row justify="space-between">
+              <Button
+                type="link"
+                onClick={onCreateSeminar}
+                size="large"
+                style={{ padding: 0 }}
+              >
+                Crear seminario
+              </Button>
+              <Button type="primary" htmlType="submit" size="large">
+                Crear
+              </Button>
+            </Row>
+          </Form.Item>
+        )}
       </Form>
     </Modal>
   );

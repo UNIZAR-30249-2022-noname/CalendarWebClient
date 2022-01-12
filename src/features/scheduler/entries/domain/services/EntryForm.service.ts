@@ -1,25 +1,45 @@
 import moment from "moment";
 import { SubjectKind } from "../models/Entry";
+import { EntryScheduler } from "../models/EntryScheduler";
 
 export const entryForm = {
-  createEntry: (event: any, values: any, onOk: Function) => {
+  createEntry: (
+    event: EntryScheduler,
+    values: any,
+    onOk: (e: EntryScheduler, edit: boolean) => void,
+    edit: boolean
+  ) => {
     event.start.setHours(values.time[0].hours(), values.time[0].minutes());
     event.end.setHours(values.time[1].hours(), values.time[1].minutes());
-    onOk({
-      id: Math.random() * 30,
-      title: values.subject,
-      slots: "addas",
-      start: event.start,
-      end: event.end,
-      week: values.week,
-      kind: values.kind,
-      room: values.room,
-      group: values.group,
-      weekDay: event.weekDay,
-      desc: values.desc,
-    });
+    onOk(
+      {
+        id: Math.random() * 30,
+        start: event.start,
+        end: event.end,
+        events: [
+          {
+            subject: values.subject,
+            week: values.week,
+            kind: values.kind,
+            room: values.room,
+            group: values.group,
+            weekDay: event.events[0]?.weekDay ?? 1,
+            desc: values.desc,
+            initTime: {
+              hour: values.time[0].hours(),
+              min: values.time[0].minutes(),
+            },
+            endTime: {
+              hour: values.time[1].hours(),
+              min: values.time[1].minutes(),
+            },
+          },
+        ],
+      },
+      edit
+    );
   },
-  loadData: (event: any) => {
+  loadData: (event: EntryScheduler) => {
     return {
       time: [
         event.start &&
@@ -30,12 +50,12 @@ export const entryForm = {
         event.end &&
           moment(`${event.end.getHours()}:${event.end.getMinutes()}`, "HH:mm"),
       ],
-      subject: event.title,
-      kind: event.kind ?? SubjectKind.theory,
-      week: event.week,
-      room: event.room,
-      group: event.group,
-      desc: event.desc,
+      subject: event.events[0]?.subject,
+      kind: event.events[0]?.kind ?? SubjectKind.theory,
+      week: event.events[0]?.week,
+      room: event.events[0]?.room,
+      group: event.events[0]?.group,
+      desc: event.events[0]?.desc,
     };
   },
   checkIfProblemsDisabled: (kind: SubjectKind) => {

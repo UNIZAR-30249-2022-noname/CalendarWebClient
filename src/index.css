@@ -23,7 +23,10 @@ code {
 }
 
 .rbc-event:hover {
-  opacity: 0.85;
+  opacity: 0.9;
+  z-index: 10;
+  left: 0% !important;
+  width: 100% !important;
   animation: ease-in-out 0.2s !important;
 }
 
