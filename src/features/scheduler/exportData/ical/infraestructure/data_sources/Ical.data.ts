@@ -6,13 +6,7 @@ import IcalParamsDTO from "../dto/IcalParamsDTO";
 let service = httpServices.ical;
 
 export const icalData = {
-
-  
-    getIcal: async (
-    params: IcalParamsDTO
-  ): Promise<Result<String>> => {
-    
-    
+  getIcal: async (params: IcalParamsDTO): Promise<Result<String>> => {
     try {
       const res = await http.get(service, params);
       if (res.status === 200) {

@@ -17,6 +17,7 @@ import { notifications } from "../../../../../core/presentation/components/notif
 import { Button, Row, Spin } from "antd";
 import { SaveFilled } from "@ant-design/icons";
 import { EntryScheduler } from "../../domain/models/EntryScheduler";
+import { IcalButton } from "../../../exportData/ical/presentation/IcalButton";
 require("moment/locale/es.js");
 const DragAndDropCalendar = withDragAndDrop(Calendar as any);
 
@@ -224,7 +225,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
           }}
         />
       )}
-      <Row style={{ paddingTop: 5 }}>
+      <Row style={{ paddingTop: 5 }} justify="space-between">
         <Button
           type="primary"
           loading={loadingPost}
@@ -234,6 +235,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
         >
           Guardar
         </Button>
+        <IcalButton />
       </Row>
       <PopupAddEntry
         event={selectedEvent}

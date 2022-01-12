@@ -82,7 +82,6 @@ export const SchedulerPage = () => {
                     >
                       Horario
                     </Text>
-                    <IcalButton></IcalButton>
                   </Row>
                   <DegreeForm />
                 </Row>
