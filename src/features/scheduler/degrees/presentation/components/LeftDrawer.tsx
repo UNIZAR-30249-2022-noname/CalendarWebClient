@@ -14,17 +14,14 @@ const LeftDrawer = ({ setDraggedEvent }: Props) => {
   const subjectListStore = useContext(DegreeSubjectsContext).store;
   const degreeName = degreePropertiesService.getSelectedDegree().degree;
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    if (subjectListStore.length === 0) setLoading(degreeName != null);
+    if (!subjectListStore) setLoading(degreeName != null);
     else setLoading(false);
   }, [subjectListStore]);
 
-  const subjectList = subjectListStore.map((subject, i) => (
-    <SubjectBadget
-      setDraggedEvent={setDraggedEvent}
-      subjectB={subject}
-      key={i}
-    />
+  const subjectList = subjectListStore?.map((subject) => (
+    <SubjectBadget setDraggedEvent={setDraggedEvent} subjectB={subject} />
   ));
 
   return (

@@ -8,5 +8,6 @@ const httpServices = {
   getEntries: url.baseURL1 + "/getEntries",
   listDegrees: url.baseURL1 + "/listDegrees",
   uploadData: url.baseURL1 +"/updateByCSV",
+  ical:url.baseURL1 + "/getICS"
 };
 export { url, httpServices };
