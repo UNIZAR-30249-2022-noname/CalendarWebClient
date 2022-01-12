@@ -4,7 +4,7 @@ import Text from "antd/lib/typography/Text";
 const { Option } = Select;
 
 export const RoomSelector = () => {
-  const roomList = ["0.23", "1.34", "A.34", "20.0"];
+  const roomList = ["1", "2", "3"];
 
   const menu = roomList.map((room, i) => (
     <Option key={i} children={<Text>{room}</Text>} value={room} />
