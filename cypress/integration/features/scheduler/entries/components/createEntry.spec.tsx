@@ -70,7 +70,7 @@ describe("create scheduler entry", () => {
         cy.react("Modal").react("RoomSelector").click();
         cy.react("Modal")
           .get(".ant-select-item-option-content")
-          .contains("1.34")
+          .contains("1")
           .click();
         let initTimeSlot = startTimeSlot;
         cy.react("Modal")
@@ -105,6 +105,13 @@ describe("create scheduler entry", () => {
                 .get(".ant-select-disabled")
                 .should("exist");
             }
+            if ($btn.text() === "Práctica") {
+              cy.react("Modal").react("WeekSelector").click();
+              cy.react("Modal")
+                .get(".ant-select-item-option-content")
+                .contains("A")
+                .click();
+            }
           });
         cy.react("Button")
           .contains(/^Crear$/)
@@ -119,7 +126,7 @@ describe("create scheduler entry", () => {
       .react("KindSelector")
       .get(".ant-radio-button-wrapper-checked")
       .contains(parseKind(Subject.Kind));
-    cy.react("Modal").react("RoomSelector").contains("1.34");
+    cy.react("Modal").react("RoomSelector").contains("1");
     //cy.react("Modal").react("WeekSelector").contains("A");
     cy.react("Modal")
       .react("ProblemsGroupSelector")
