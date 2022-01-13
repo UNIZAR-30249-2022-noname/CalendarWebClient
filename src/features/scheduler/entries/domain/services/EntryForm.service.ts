@@ -13,7 +13,7 @@ export const entryForm = {
     event.end.setHours(values.time[1].hours(), values.time[1].minutes());
     onOk(
       {
-        id: Math.random() * 30,
+        id: edit ? event.id : Math.random() * 30,
         start: event.start,
         end: event.end,
         events: [
