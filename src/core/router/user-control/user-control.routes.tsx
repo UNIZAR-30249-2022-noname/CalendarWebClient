@@ -8,6 +8,9 @@ export const userControlRoutes = {
       routes.scheduler,
       routes.calendar,
       routes.data,
+      routes.book,
+      routes.issues,
+      routes.map,
       routes.error,
     ];
   },
@@ -17,6 +20,9 @@ export const userControlRoutes = {
       routes.scheduler,
       routes.calendar,
       routes.data,
+      routes.book,
+      routes.issues,
+      routes.map,
       routes.error,
     ];
   },
