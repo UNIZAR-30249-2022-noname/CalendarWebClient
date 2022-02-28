@@ -23,5 +23,5 @@ jobs:
  
       
       - name: Build and push Docker image
-        run: docker build -t arejula27/calendarwebclientunizar${{steps.version_tag.output.tags}} -f docker/Dockerfile . && docker push arejula27/calendarunizar
+        run: docker build -t arejula27/calendarwebclientunizar${{steps.version_tag.output.tags}} -f docker/Dockerfile . && docker push arejula27/calendarwebclientunizar
     
