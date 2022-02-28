@@ -1,13 +1,12 @@
-const url = {
-  baseURL1: "http://localhost:8080",
-};
-
+const ip = typeof(process.env.REACT_APP_GATEWAY) === 'undefined'?"localhost":process.env.REACT_APP_GATEWAY
+const port ="8080"
+const url = "https://"+ ip +":" +port 
 const httpServices = {
-  degreeAvailableHours: url.baseURL1 + "/availableHours",
-  entries: url.baseURL1 + "/updateScheduler",
-  getEntries: url.baseURL1 + "/getEntries",
-  listDegrees: url.baseURL1 + "/listDegrees",
-  uploadData: url.baseURL1 +"/updateByCSV",
-  ical:url.baseURL1 + "/getICS"
+  degreeAvailableHours: url + "/availableHours",
+  entries: url + "/updateScheduler",
+  getEntries: url + "/getEntries",
+  listDegrees: url + "/listDegrees",
+  uploadData: url +"/updateByCSV",
+  ical:url + "/getICS"
 };
 export { url, httpServices };
