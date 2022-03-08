@@ -22,7 +22,7 @@ const NavTabs = () => {
           )
         );
       })}
-      <AuthButton logged= {true}/>
+      <AuthButton logged= {false}/>
     </Space>
   );
 };

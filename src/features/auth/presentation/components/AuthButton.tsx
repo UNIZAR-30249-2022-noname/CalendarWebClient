@@ -12,6 +12,7 @@ export const AuthButton = ({logged}: Props) => {
   const history = useHistory();
   
   const routeChange = () =>{ 
+    session.login({name: "pepe",privileges:"none"})
     let path = `/login`; 
     history.push(path);
   }
