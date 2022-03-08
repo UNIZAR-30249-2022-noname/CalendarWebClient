@@ -25,7 +25,6 @@ export const userControlRoutes = {
       routes.book,
       routes.issues,
       routes.map,
-      routes.login,
       routes.error,
      
     ];
