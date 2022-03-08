@@ -11,8 +11,9 @@ export const userControlRoutes = {
       routes.book,
       routes.issues,
       routes.map,
+      routes.login,
       routes.error,
-      routes.login
+     
     ];
   },
   professorRoutes: (): RouteType[] => {
@@ -24,8 +25,9 @@ export const userControlRoutes = {
       routes.book,
       routes.issues,
       routes.map,
+      routes.login,
       routes.error,
-      routes.login
+     
     ];
   },
   coordinatorRoutes: (): RouteType[] => {

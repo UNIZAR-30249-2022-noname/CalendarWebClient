@@ -52,6 +52,7 @@ const book: RouteType = {
   component: BookPage,
 };
 
+
 const map: RouteType = {
   name: "Mapa",
   path: "/map",
@@ -59,25 +60,14 @@ const map: RouteType = {
   component: MapPage,
 };
 
+
 const login: RouteType = {
   name: "Login",
   path: "/login",
   layout: ProfessorLayout,
-  component: () => (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text type="danger" strong>
-        ERROR
-      </Text>
-    </div>
-  ),
+  component: LoginPage
 };
+
 
 const error: RouteType = {
   path: "",
