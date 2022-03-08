@@ -1,4 +1,5 @@
 import { Button } from "antd";
+import { useHistory } from "react-router-dom";
 
 
 type Props = {
@@ -6,6 +7,13 @@ type Props = {
 }
 
 export const AuthButton = ({logged}: Props) => {
+  const history = useHistory();
+  
+  const routeChange = () =>{ 
+    let path = `/login`; 
+    history.push(path);
+  }
+
   if (logged)
     return (
       <Button type="primary" danger size="large" style={{ fontSize: 20 }}>
@@ -14,7 +22,11 @@ export const AuthButton = ({logged}: Props) => {
     );
 
     return (
-      <Button type="primary"  size="large" style={{ fontSize: 20 }}>
+      <Button 
+      type="primary" 
+      style={{ fontSize: 20 }}
+      onClick={routeChange}
+      >
         Login
       </Button>
     );
