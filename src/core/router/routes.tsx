@@ -1,5 +1,6 @@
 import Text from "antd/lib/typography/Text";
 import { Redirect } from "react-router-dom";
+import { EmptyLayout } from "../presentation/layouts/EmptyLayout ";
 import { ProfessorLayout } from "../presentation/layouts/ProfessorLayout";
 import { BookPage } from "../presentation/pages/BookPage";
 import { CalendarPage } from "../presentation/pages/CalendarPage";
@@ -62,9 +63,8 @@ const map: RouteType = {
 
 
 const login: RouteType = {
-  name: "Login",
   path: "/login",
-  layout: ProfessorLayout,
+layout: EmptyLayout,
   component: LoginPage
 };
 
