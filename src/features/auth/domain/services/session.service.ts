@@ -8,4 +8,12 @@ export const session = {
       privileges: "none",
     };
   },
+
+  logout:()=>{
+    console.log("logut")
+  },
+
+  login:()=>{
+    console.log("login")
+  }
 };

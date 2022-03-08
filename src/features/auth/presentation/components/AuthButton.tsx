@@ -1,5 +1,7 @@
+import { LogoutOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { useHistory } from "react-router-dom";
+import { session } from "../../domain/services/session.service";
 
 
 type Props = {
@@ -14,20 +16,28 @@ export const AuthButton = ({logged}: Props) => {
     history.push(path);
   }
 
-  if (logged)
-    return (
-      <Button type="primary" danger size="large" style={{ fontSize: 20 }}>
-        Salir
-      </Button>
-    );
-
+  if (logged){
+    
     return (
       <Button 
       type="primary" 
+      danger size="large" 
       style={{ fontSize: 20 }}
-      onClick={routeChange}
+      onClick={session.logout}
       >
-        Login
+        Salir
       </Button>
     );
+  }
+
+  return (
+    <Button 
+    type="primary" 
+    size= "large"
+    style={{ fontSize: 20 }}
+    onClick={routeChange}
+    >
+      Login
+    </Button>
+  );
 };
