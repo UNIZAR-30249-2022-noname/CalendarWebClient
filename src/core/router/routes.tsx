@@ -5,6 +5,7 @@ import { BookPage } from "../presentation/pages/BookPage";
 import { CalendarPage } from "../presentation/pages/CalendarPage";
 import { DataPage } from "../presentation/pages/DataPage";
 import { IssuesPage } from "../presentation/pages/IssuesPage";
+import { LoginPage } from "../presentation/pages/LoginPage";
 import { MapPage } from "../presentation/pages/MapPage";
 
 import { SchedulerPage } from "../presentation/pages/SchedulerPage";
@@ -58,6 +59,26 @@ const map: RouteType = {
   component: MapPage,
 };
 
+const login: RouteType = {
+  name: "Login",
+  path: "/login",
+  layout: ProfessorLayout,
+  component: () => (
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text type="danger" strong>
+        ERROR
+      </Text>
+    </div>
+  ),
+};
+
 const error: RouteType = {
   path: "",
   layout: () => <div></div>,
@@ -77,4 +98,4 @@ const error: RouteType = {
   ),
 };
 
-export const routes = { index, scheduler, calendar, data, error, issues,map, book, };
+export const routes = { index, scheduler, calendar, data, error, issues,map, book,login };

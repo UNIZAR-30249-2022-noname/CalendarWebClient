@@ -12,6 +12,7 @@ export const userControlRoutes = {
       routes.issues,
       routes.map,
       routes.error,
+      routes.login
     ];
   },
   professorRoutes: (): RouteType[] => {
@@ -24,9 +25,10 @@ export const userControlRoutes = {
       routes.issues,
       routes.map,
       routes.error,
+      routes.login
     ];
   },
   coordinatorRoutes: (): RouteType[] => {
-    return [routes.index, routes.error];
+    return [routes.index, routes.error,];
   },
 };

@@ -1,4 +1,4 @@
-import { LogoutButton } from "../../../../../features/auth/presentation/components/LogoutButton";
+import { AuthButton } from "../../../../../features/auth/presentation/components/AuthButton";
 import { routerManager } from "../../../../router/user-control/router-manager";
 import { NavLink } from "react-router-dom";
 import { Space } from "antd";
@@ -22,7 +22,7 @@ const NavTabs = () => {
           )
         );
       })}
-      <LogoutButton />
+      <AuthButton logged= {false}/>
     </Space>
   );
 };
