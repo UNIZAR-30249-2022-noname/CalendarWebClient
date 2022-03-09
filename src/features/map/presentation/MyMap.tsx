@@ -14,7 +14,7 @@ export const MyMap = () => {
   return (
     <MapContainer center={[41.65, -0.88]} zoom={13.2} scrollWheelZoom={true}>
       <LayersControl>
-        <BaseLayer checked name="OpenStreetMap">
+        <BaseLayer name="OpenStreetMap">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -26,14 +26,20 @@ export const MyMap = () => {
             </Popup>
           </Marker>
           </LayersControl.Overlay>
+          <LayersControl.Overlay name= "ESPAÑA">
+          <WMSTileLayer
+                layers={'OI.OrthoimageCoverage'}
+                attribution='&copy; <a href="https://pnoa.ign.es/">IGN</a>'
+                url="http://www.ign.es/wms-inspire/pnoa-ma?"
+              />
+          </LayersControl.Overlay>
         </BaseLayer>
-        <BaseLayer name="NASA Blue Marble">
-          <TileLayer
-            url="https://gibs-{s}.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default//EPSG3857_500m/{z}/{y}/{x}.jpeg"
-            attribution="&copy; NASA Blue Marble, image service by OpenGeo"
-            maxNativeZoom={8}
+        <LayersControl.Overlay name= "ESPAÑA">
+          <WMSTileLayer
+            layers="topp:states"
+            url="http://172.18.0.5:8080/geoserver/topp/wms?"
           />
-        </BaseLayer>
+        </LayersControl.Overlay>
       </LayersControl>
     </MapContainer>
   );
