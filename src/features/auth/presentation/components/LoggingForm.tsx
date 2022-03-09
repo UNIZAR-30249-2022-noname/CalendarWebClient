@@ -1,6 +1,9 @@
 import { Form, Input, Button, Checkbox, Row } from 'antd';
+import { useHistory } from 'react-router-dom';
+
 import {session} from "../../domain/services/session.service"
 export const LoggingForm = () =>{
+  const history = useHistory();
 
   const onFinish = (values: any) => {
     console.log('Success:', values);
@@ -32,7 +35,7 @@ return (
     <Row align="top">
     <div style={{ width: "40px"}}></div>
       <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
-        <Button   type="primary" danger>
+        <Button   type="primary" danger onClick={()=> history.goBack() } >
           Cancel
         </Button>
       </Form.Item>
