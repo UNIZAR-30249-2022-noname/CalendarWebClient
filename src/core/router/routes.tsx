@@ -1,10 +1,12 @@
 import Text from "antd/lib/typography/Text";
 import { Redirect } from "react-router-dom";
+import { EmptyLayout } from "../presentation/layouts/EmptyLayout ";
 import { ProfessorLayout } from "../presentation/layouts/ProfessorLayout";
 import { BookPage } from "../presentation/pages/BookPage";
 import { CalendarPage } from "../presentation/pages/CalendarPage";
 import { DataPage } from "../presentation/pages/DataPage";
 import { IssuesPage } from "../presentation/pages/IssuesPage";
+import { LoginPage } from "../presentation/pages/LoginPage";
 import { MapPage } from "../presentation/pages/MapPage";
 
 import { SchedulerPage } from "../presentation/pages/SchedulerPage";
@@ -51,12 +53,21 @@ const book: RouteType = {
   component: BookPage,
 };
 
+
 const map: RouteType = {
   name: "Mapa",
   path: "/map",
   layout: ProfessorLayout,
   component: MapPage,
 };
+
+
+const login: RouteType = {
+  path: "/login",
+layout: EmptyLayout,
+  component: LoginPage
+};
+
 
 const error: RouteType = {
   path: "",
@@ -77,4 +88,4 @@ const error: RouteType = {
   ),
 };
 
-export const routes = { index, scheduler, calendar, data, error, issues,map, book, };
+export const routes = { index, scheduler, calendar, data, error, issues,map, book,login };
