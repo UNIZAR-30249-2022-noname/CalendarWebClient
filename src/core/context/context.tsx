@@ -1,6 +1,5 @@
 import { createContext } from "react";
 import User from "../../features/auth/domain/models/User";
-import { session } from "../../features/auth/domain/services/user.service";
 import { SubjectAvailableHours } from "../../features/scheduler/degrees/domain/models/SubjectAvailableHours";
 import DegreeProperties from "../../features/scheduler/degrees/domain/models/SubjectDegrees";
 import AvailableHoursParamsDTO from "../../features/scheduler/degrees/infraestructure/dto/AvailableHoursParamsDTO";

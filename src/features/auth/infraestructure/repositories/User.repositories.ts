@@ -19,9 +19,9 @@ const setPrivileges = (privilegeName: String):Privileges=>{
 
 }
 
-export const LoginRepo = {
+export const UserRepo = {
   
-    login: async(username: String):  Promise<Result<User>> =>{
+    getCredentials: async(username: String):  Promise<Result<User>> =>{
         const res = await loginData.login(username);
         if (res.isError) 
             return { isError: true, error: res.error };

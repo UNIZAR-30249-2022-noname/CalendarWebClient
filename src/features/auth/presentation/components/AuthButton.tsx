@@ -3,7 +3,6 @@ import { Button } from "antd";
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../../../core/context/context";
-import { session } from "../../domain/services/user.service";
 
 
 type Props = {
@@ -46,7 +45,6 @@ export const AuthButton = () => {
       type="primary" 
       size="large" 
       style={{ fontSize: 20 }}
-     
       >
         {contextUser.usr.name} 
       </Button>)

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { session } from "../../features/auth/domain/services/user.service";
 import { AppTheme } from "../config/themes";
 import { ThemeContext, UserContext } from "../context/context";
 import { RoutesApp } from "../router/Routes-App";

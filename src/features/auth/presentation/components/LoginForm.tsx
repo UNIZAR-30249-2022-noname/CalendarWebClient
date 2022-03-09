@@ -1,18 +1,24 @@
-import { Form, Input, Button, Checkbox, Row } from 'antd';
+import { Form, Input, Button, Checkbox, Row, message } from 'antd';
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../../../core/context/context';
-
-import {session} from "../../domain/services/user.service"
+import { userService } from '../../domain/services/user.service';
 export const LoginForm = () =>{
   const contextUser = useContext(UserContext);
   const history = useHistory();
 
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     console.log('Success:', values);
-    console.log(contextUser.usr)
-    contextUser.actions.login({name:values.username,privileges:"none"}) //TODO hacerlo bien ejeje
-    history.goBack() 
+    const credentials = await userService.getCredentials(values.username)
+    if (!credentials.isError){
+      contextUser.actions.login(credentials.value) 
+      history.goBack()
+    }
+    else
+    {
+      message.error("Error al iniciar sesión")
+    }
+     
   };
 
   const onFinishFailed = (errorInfo: any) => {
