@@ -7,7 +7,7 @@ let service = httpServices.login
 export const loginData = {
     login: async (username: String):Promise<Result<UserDTO>>=>{
         try {
-            const res = await http.get(service, username);
+            const res = await http.get(service, {username: username});
             if (res.status === 200) {
               return { isError: false, value: res.data };
             } else {
