@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../../../core/context/context';
 
-import {session} from "../../domain/services/session.service"
+import {session} from "../../domain/services/user.service"
 export const LoginForm = () =>{
   const contextUser = useContext(UserContext);
   const history = useHistory();

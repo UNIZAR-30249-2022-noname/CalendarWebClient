@@ -1,9 +1,9 @@
 import { LogoutOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../../../core/context/context";
-import { session } from "../../domain/services/session.service";
+import { session } from "../../domain/services/user.service";
 
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
 
 export const AuthButton = () => {
   const contextUser = useContext(UserContext);
+  const [hover,setHover] = useState(false)
 
   const history = useHistory();
   
@@ -24,18 +25,44 @@ export const AuthButton = () => {
     contextUser.actions.logout()
   }
 
+  const loggedButton=()=>{
+
+    if (hover){
+      return(
+      <Button 
+      
+        type="primary" 
+        danger size="large" 
+        style={{ fontSize: 20 }}
+        onClick={logout}
+        >
+          Salir
+        </Button>)
+
+    }
+    return (
+    <Button 
+      
+      type="primary" 
+      size="large" 
+      style={{ fontSize: 20 }}
+     
+      >
+        {contextUser.usr.name} 
+      </Button>)
+  }
 
   if (contextUser.usr.name!=""){
     
     return (
-      <Button 
-      type="primary" 
-      danger size="large" 
-      style={{ fontSize: 20 }}
-      onClick={logout}
-      >
-        {contextUser.usr.name}
-      </Button>
+
+      <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() =>  setHover(false)}>
+      {loggedButton()}
+    
+     
+      </div>
     );
   }
 
@@ -50,3 +77,4 @@ export const AuthButton = () => {
     </Button>
   );
 };
+
