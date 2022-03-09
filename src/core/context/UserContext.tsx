@@ -7,10 +7,10 @@ export const UserContextWrapper: FC = ({ children }) => {
   const [usr, setUsr] = useState<User>(DefaultUser);
   const actions = {
     login: (newUsr: User) => {
-      console.log(usr)
       setUsr(newUsr);
       console.log("login")
-      console.log(usr)
+      console.log(newUsr)
+    
     },
     logout: () => {
       console.log(usr)

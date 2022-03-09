@@ -2,11 +2,14 @@ import { AuthButton } from "../../../../../features/auth/presentation/components
 import { routerManager } from "../../../../router/user-control/router-manager";
 import { NavLink } from "react-router-dom";
 import { Space } from "antd";
+import { UserContext } from "../../../../context/context";
+import { useContext } from "react";
 
 const NavTabs = () => {
+  const contextUser = useContext(UserContext);
   return (
     <Space size={30}>
-      {routerManager().map((e) => {
+      {routerManager(contextUser.usr).map((e) => {
         return (
           e.name && (
             <NavLink

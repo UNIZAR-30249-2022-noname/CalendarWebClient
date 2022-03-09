@@ -8,8 +8,9 @@ export const LoginForm = () =>{
   const history = useHistory();
 
   const onFinish = async (values: any) => {
-    console.log('Success:', values);
     const credentials = await userService.getCredentials(values.username)
+
+    
     if (!credentials.isError){
       contextUser.actions.login(credentials.value) 
       history.goBack()
