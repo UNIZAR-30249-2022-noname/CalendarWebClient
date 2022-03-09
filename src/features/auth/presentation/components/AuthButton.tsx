@@ -1,6 +1,8 @@
 import { LogoutOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+import { useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../../../../core/context/context";
 import { session } from "../../domain/services/session.service";
 
 
@@ -8,25 +10,31 @@ type Props = {
   logged: boolean
 }
 
-export const AuthButton = ({logged}: Props) => {
+export const AuthButton = () => {
+  const contextUser = useContext(UserContext);
+
   const history = useHistory();
   
   const routeChange = () =>{ 
-    session.login({name: "pepe",privileges:"none"})
     let path = `/login`; 
     history.push(path);
   }
 
-  if (logged){
+  const logout = ()=>{
+    contextUser.actions.logout()
+  }
+
+
+  if (contextUser.usr.name!=""){
     
     return (
       <Button 
       type="primary" 
       danger size="large" 
       style={{ fontSize: 20 }}
-      onClick={session.logout}
+      onClick={logout}
       >
-        Salir
+        {contextUser.usr.name}
       </Button>
     );
   }

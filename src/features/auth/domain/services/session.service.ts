@@ -8,13 +8,8 @@ const noUser: User = {
 
 export const session = {
   // TODO: just mocked the user session, you have to do it by yourself
-
-  getUser: (): User => {
-    return currentUser;
-  },
-
+/*
   logout:()=>{
-    currentUser = noUser;
     console.log("logut")
     console.log(currentUser)
   },
@@ -23,5 +18,5 @@ export const session = {
     currentUser = usr;
     console.log("login")
     console.log(currentUser)
-  }
+  }*/
 };

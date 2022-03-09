@@ -3,21 +3,20 @@ import { session } from "../../features/auth/domain/services/session.service";
 import { AppTheme } from "../config/themes";
 import { ThemeContext, UserContext } from "../context/context";
 import { RoutesApp } from "../router/Routes-App";
+import { UserContextWrapper } from "./UserContext";
 
 export const AppWrapper = () => {
-  const [user, setUser] = useState(session.getUser());
   const [theme, setTheme] = useState(AppTheme.getTheme());
 
   useEffect(() => {
-    setUser(session.getUser());
     setTheme(AppTheme.getTheme());
   }, []);
 
   return (
-    <UserContext.Provider value={user}>
+    <UserContextWrapper >
       <ThemeContext.Provider value={theme}>
-        <RoutesApp user={user} theme={theme} />
+        <RoutesApp  theme={theme} />
       </ThemeContext.Provider>
-    </UserContext.Provider>
+    </UserContextWrapper>
   );
 };

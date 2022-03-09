@@ -1,11 +1,13 @@
 import { createContext } from "react";
+import User from "../../features/auth/domain/models/User";
 import { session } from "../../features/auth/domain/services/session.service";
 import { SubjectAvailableHours } from "../../features/scheduler/degrees/domain/models/SubjectAvailableHours";
 import DegreeProperties from "../../features/scheduler/degrees/domain/models/SubjectDegrees";
 import AvailableHoursParamsDTO from "../../features/scheduler/degrees/infraestructure/dto/AvailableHoursParamsDTO";
 import { AppTheme } from "../config/themes";
+import { DefaultUser } from "./UserContext";
 
-const UserContext = createContext(session.getUser());
+const UserContext = createContext({} as IContextUser);
 const ThemeContext = createContext(AppTheme.getTheme());
 const NotesDrawerContext = createContext({
   visibleDrawer: false,
@@ -30,6 +32,12 @@ interface IContextSelectedDegree {
   store: AvailableHoursParamsDTO;
   actions: { setSelectedDegree: (subject: AvailableHoursParamsDTO) => void };
 }
+
+interface IContextUser {
+  usr: User;
+  actions: { login: (usr: User) => void, logout: ()=> void  };
+}
+
 
 const SelectedDegreeContext = createContext({} as IContextSelectedDegree);
 

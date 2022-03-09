@@ -1,16 +1,22 @@
 import { Form, Input, Button, Checkbox, Row } from 'antd';
+import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../../../core/context/context';
 
 import {session} from "../../domain/services/session.service"
 export const LoginForm = () =>{
+  const contextUser = useContext(UserContext);
   const history = useHistory();
 
   const onFinish = (values: any) => {
     console.log('Success:', values);
-    session.login(values.username)
+    console.log(contextUser.usr)
+    contextUser.actions.login({name:values.username,privileges:"none"}) //TODO hacerlo bien ejeje
+    history.goBack() 
   };
 
   const onFinishFailed = (errorInfo: any) => {
+    
     console.log('Failed:', errorInfo);
   };
 
