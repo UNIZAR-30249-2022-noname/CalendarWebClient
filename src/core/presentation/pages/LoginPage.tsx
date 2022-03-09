@@ -1,5 +1,5 @@
 import Text from "antd/lib/typography/Text";
-import { LoggingForm } from "../../../features/auth/presentation/components/LoggingForm";
+import { LoginForm } from "../../../features/auth/presentation/components/LoginForm";
 
 export const LoginPage = () => {
   return (
@@ -11,7 +11,7 @@ export const LoginPage = () => {
         justifyContent: "center",
       }}
     >
-      <LoggingForm />
+      <LoginForm />
     </div>
   );
 };

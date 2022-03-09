@@ -2,7 +2,7 @@ import { Form, Input, Button, Checkbox, Row } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 import {session} from "../../domain/services/session.service"
-export const LoggingForm = () =>{
+export const LoginForm = () =>{
   const history = useHistory();
 
   const onFinish = (values: any) => {

@@ -1,4 +1,4 @@
-type Privileges = "none" | "professor" | "coordinator";
+export type Privileges = "none" | "professor" | "coordinator";
 
 type User = {
   name: string;
