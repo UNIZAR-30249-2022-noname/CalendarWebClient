@@ -1,3 +1,4 @@
+import { LatLng } from "leaflet";
 import {
   MapContainer,
   TileLayer,
@@ -9,24 +10,38 @@ import {
 
 const { BaseLayer } = LayersControl;
 
+const  coordAda = new LatLng(41.6835, -0.8886)
+const coordQuevedo = new LatLng(41.6835, -0.8874)
+const coordBetan = new LatLng(41.6835, -0.8845)
+
 type MapProps = {
   height: string;
   width: string;
+  zoom: number
 };
 
-export function MyMap({ height, width }: MapProps) {
+export function MyMap({ height, width, zoom }: MapProps) {
   var scope = {
-    splitterStyle: {
+    sStyle: {
       height: height,
       width: width,
+      zoom: zoom
     },
   };
+  var center
+  if(scope.sStyle.zoom == 1){
+    center = coordAda
+  } else if (scope.sStyle.zoom == 3){
+    center = coordBetan
+  } else {
+    center = coordQuevedo
+  }
   return (
     <MapContainer
-      center={[41.65, -0.88]}
-      zoom={13.2}
+      center={center}
+      zoom={18}
       scrollWheelZoom={true}
-      style={scope.splitterStyle}
+      style={scope.sStyle}
     >
       <LayersControl>
         <BaseLayer checked name="OpenStreetMap">
@@ -34,8 +49,22 @@ export function MyMap({ height, width }: MapProps) {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <LayersControl.Overlay name="marker">
-            <Marker position={[41.65, -0.88]}>
+          <LayersControl.Overlay name="Ada" checked={scope.sStyle.zoom == 1}>
+            <Marker position={coordAda}>
+              <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Popup>
+            </Marker>
+          </LayersControl.Overlay>
+          <LayersControl.Overlay name="Quevedo" checked={scope.sStyle.zoom == 2}>
+            <Marker position={coordQuevedo}>
+              <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Popup>
+            </Marker>
+          </LayersControl.Overlay>
+          <LayersControl.Overlay name="Betan" checked={scope.sStyle.zoom == 3}>
+            <Marker position={coordBetan}>
               <Popup>
                 A pretty CSS3 popup. <br /> Easily customizable.
               </Popup>
