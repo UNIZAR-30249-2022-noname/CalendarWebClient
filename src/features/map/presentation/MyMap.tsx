@@ -9,10 +9,25 @@ import {
 
 const { BaseLayer } = LayersControl;
 
-export const MyMap = () => {
-  //return (<Text>Map</Text>);
+type MapProps = {
+  height: string;
+  width: string;
+};
+
+export function MyMap({ height, width }: MapProps) {
+  var scope = {
+    splitterStyle: {
+      height: height,
+      width: width,
+    },
+  };
   return (
-    <MapContainer center={[41.65, -0.88]} zoom={13.2} scrollWheelZoom={true}>
+    <MapContainer
+      center={[41.65, -0.88]}
+      zoom={13.2}
+      scrollWheelZoom={true}
+      style={scope.splitterStyle}
+    >
       <LayersControl>
         <BaseLayer checked name="OpenStreetMap">
           <TileLayer
@@ -47,4 +62,4 @@ export const MyMap = () => {
       </LayersControl>
     </MapContainer>
   );
-};
+}

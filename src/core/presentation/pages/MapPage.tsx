@@ -4,6 +4,6 @@ import { MyMap } from "../../../features/map/presentation/MyMap";
 
 export const MapPage = () => {
   return (
-  <MyMap/>
+  <MyMap height="100%" width="100%"/>
   );
 };
