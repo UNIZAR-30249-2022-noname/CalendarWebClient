@@ -1,5 +1,5 @@
 import { Button, Space, Table } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 import { Slots } from "../../domain/models/Slots";
 
@@ -9,7 +9,14 @@ type Props ={
   
 
 
+
  const TableSlots = ({slots}:Props)=>{
+    const [slotsData,setSlots] = useState<Slots[]>([])
+
+    useEffect(()=>{  
+      setSlots(slots)
+      
+  },[]);
 
     const columns = [
         {

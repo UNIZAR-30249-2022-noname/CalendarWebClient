@@ -13,23 +13,27 @@ type Props ={
 
 const SlotsFrom = ({updateSlots}:Props)=>{
 
-  const history = useHistory();
   const [bookEnabled, setBookEnabled] = useState(false);
 
   const onFinish = async (values: any) => {
+    const formDate = bookEnabled?values.date.format("DD-mm-yyyy") : undefined
+    const formHour = bookEnabled? {
+      hour: values.hour.hours(),
+      min: values.hour.minutes(),
+    }: undefined
     const params:SlotsFilterForm = {
-      day: values.date.format("DD-mm-yyyy") ,
-      hour:{
-        hour: values.hour.hours(),
-        min: values.hour.minutes(),
-      },
+      day: formDate ,
+      hour:formHour,
       floor: values.floor,
       capacity: values.capacity,
       building:values.building
 
     }
     const slots = await searchSlotsService.filterBy(params)
-    updateSlots(slots)
+    if(slots.isError)
+      message.error("Error al obtener los espacios")
+    else
+      updateSlots(slots.value)
      
   };
 

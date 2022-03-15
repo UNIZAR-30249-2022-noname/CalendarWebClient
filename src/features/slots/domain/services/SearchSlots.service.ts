@@ -16,6 +16,6 @@ const fakeData:Slots[]=[{
 export const searchSlotsService = {
   filterBy: async (params: SlotsFilterForm) => {
     const data = await SlotsRepo.filterBy(params);
-    return fakeData;
+    return data;
   },
 };
