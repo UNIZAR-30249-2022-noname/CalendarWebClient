@@ -45,8 +45,8 @@ const SlotsFrom = ({updateSlots}:Props)=>{
   return (
     
     <Form
-      style={{margin:"50px", alignSelf:"self-start"}}
-      labelCol={{ span: 4 }}
+      style={{marginTop :"50px", marginLeft:"60px"}}
+      //labelCol={{ span: 4 }}
       wrapperCol={{ span: 8 }}
       layout="horizontal"
       onFinish={onFinish}
