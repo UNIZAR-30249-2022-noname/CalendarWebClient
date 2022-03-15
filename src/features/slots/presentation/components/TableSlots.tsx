@@ -1,6 +1,6 @@
 import { Button, Space, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import { render } from "react-dom";
+import { useHistory } from "react-router-dom";
 import { Slots } from "../../domain/models/Slots";
 
 type Props ={
@@ -11,12 +11,21 @@ type Props ={
 
 
  const TableSlots = ({slots}:Props)=>{
+  const history = useHistory();
+   
     const [slotsData,setSlots] = useState<Slots[]>([])
 
     useEffect(()=>{  
       setSlots(slots)
       
   },[]);
+
+    const openSlotInfo = (slot:String)=>{
+      let path = `/infoSlot`+"?slot="+slot; 
+      history.push(path);
+
+
+    }
 
     const columns = [
         {
@@ -48,7 +57,7 @@ type Props ={
              <Button type="primary" onClick={()=> console.log(record)}>
                {"Ver en mapa"}
              </Button>
-             <Button type="primary" onClick={()=> console.log(record)}>
+             <Button type="primary" onClick={()=>openSlotInfo(record.name)}>
                {"Abrir info"}
              </Button>
              </Space>
@@ -58,14 +67,16 @@ type Props ={
 
 
 
-
+      
 
     return(
+      <div style={{margin:"10px", width:"800px"}}>
         <Table
-        style={{margin:"10px", width:"50%"}}
+        
           dataSource={slots}
           columns={columns} 
          />
+         </div>
     )
 
 

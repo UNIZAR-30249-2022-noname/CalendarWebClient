@@ -47,12 +47,12 @@ const SlotsFrom = ({updateSlots}:Props)=>{
     <Form
       style={{marginTop :"50px", marginLeft:"60px"}}
       //labelCol={{ span: 4 }}
-      wrapperCol={{ span: 8 }}
+     //wrapperCol={{ span: 8 }}
       layout="horizontal"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
-      <Form.Item label="Planta" name="floor">
+      <Form.Item label="Planta" name="floor" style={{width:"500px"}}>
         <Radio.Group>
           <Radio.Button value="zero">Baja</Radio.Button>
           <Radio.Button value="first">Primera</Radio.Button>
@@ -60,18 +60,18 @@ const SlotsFrom = ({updateSlots}:Props)=>{
           <Radio.Button value="third">Tercera</Radio.Button>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="Afóro mínimo" name="capacity">
+      <Form.Item label="Afóro mínimo" name="capacity" style={{width:"500px"}}>
         <InputNumber/>
       </Form.Item>
       
-      <Form.Item label="Edificio" name ="building">
+      <Form.Item label="Edificio" name ="building" style={{width:"500px"}}>
         <Select>
           <Select.Option value="Ada Byron">Ada Byron</Select.Option>
           <Select.Option value="El otro">El otro</Select.Option>
           <Select.Option value="TorresQuevedo">Torres Quevedo</Select.Option>
         </Select>
       </Form.Item>
-      <Form.Item label="Solo disponibles" valuePropName="checked">
+      <Form.Item label="Solo disponibles" valuePropName="checked" style={{width:"500px"}}>
         <Switch onChange={(value)=>{setBookEnabled(value)}}/>
       </Form.Item>
       <Form.Item label="Fecha" name="date">
@@ -79,7 +79,7 @@ const SlotsFrom = ({updateSlots}:Props)=>{
         <DatePicker locale={locale} disabled={!bookEnabled} />
    
       </Form.Item>
-      <Form.Item label="Fecha" name="hour">
+      <Form.Item label="Fecha" name="hour" style={{width:"500px"}}>
         <TimePicker
          format={"HH:mm"}
         disabled={!bookEnabled}

@@ -10,6 +10,7 @@ export const userControlRoutes = {
       routes.map,
       routes.login,
       routes.slots,
+      routes.infoSlot,
       routes.error,
      
     ];
@@ -23,6 +24,7 @@ export const userControlRoutes = {
       routes.slots,
       routes.issues,
       routes.map,
+      routes.infoSlot,
       routes.error,
      
     ];

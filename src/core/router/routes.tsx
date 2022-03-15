@@ -11,6 +11,7 @@ import { MapPage } from "../presentation/pages/MapPage";
 
 import { SchedulerPage } from "../presentation/pages/SchedulerPage";
 import RouteType from "./models/RouteType";
+import { InfoSlotPage } from "../presentation/pages/InfoSlotsPage";
 
 const index: RouteType = {
   path: "/",
@@ -61,6 +62,12 @@ const map: RouteType = {
   component: MapPage,
 };
 
+const infoSlot: RouteType = {
+  path: "/infoSlot",
+  layout: ProfessorLayout,
+  component: InfoSlotPage,
+};
+
 
 const login: RouteType = {
   path: "/login",
@@ -88,4 +95,4 @@ const error: RouteType = {
   ),
 };
 
-export const routes = { index, scheduler, calendar, data, error, issues,map, slots,login };
+export const routes = { index, scheduler, calendar, data, error, issues,map, slots,login ,infoSlot};
