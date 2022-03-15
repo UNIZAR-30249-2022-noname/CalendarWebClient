@@ -9,13 +9,13 @@ import TableSlots from "../../../features/slots/presentation/components/TableSlo
 export const SlotsPage = () => {
   const [slots,setSlots] = useState<Slots[]>([])
   return (
-    <Row>
+
     <div>
       
   <SlotsForm updateSlots={setSlots}/>
   <TableSlots slots={slots}/>
   </div>
-  </Row>
+
   )
 
 
