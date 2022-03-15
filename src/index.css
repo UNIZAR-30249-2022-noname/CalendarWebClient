@@ -88,3 +88,8 @@ code {
 .rbc-time-content > * + * > * {
   border-left: 1px solid #b0b0b0 !important;
 }
+
+.leaflet-container {
+  width: 100vw;
+  height: 100vh;
+}
