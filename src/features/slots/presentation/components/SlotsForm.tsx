@@ -11,7 +11,7 @@ const SlotsFrom = ()=>{
 
   const onFinish = async (values: any) => {
     console.log(values.date.toString())
-    console.log(values.date.format("kk-mm-yyyy"))
+    console.log(values.date.format("DD-mm-yyyy"))
    
     console.log({
       hour: values.hour.hours(),
