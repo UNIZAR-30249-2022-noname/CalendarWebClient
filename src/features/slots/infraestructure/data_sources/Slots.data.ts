@@ -2,11 +2,12 @@
 import { http } from "../../../../core/backend/http/http";
 import { httpServices } from "../../../../core/backend/http/services";
 import { Result } from "../../../../core/config/result";
+import { Slots } from "../../domain/models/Slots";
 
-let service = httpServices.test ;
+let service = httpServices.filterSlots ;
 
 export const testData = {
-  get: async (): Promise<Result<String>> => {
+  get: async (): Promise<Result<Slots[]>> => {
     try {
       const res = await http.get(service);
       if (res.status === 200) {

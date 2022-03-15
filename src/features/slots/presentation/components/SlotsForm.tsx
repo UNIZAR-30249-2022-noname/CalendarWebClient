@@ -2,23 +2,34 @@ import React, { useEffect, useState } from "react";
 import { Form, Input, Button, Checkbox, Row, message, Select, InputNumber, Cascader, DatePicker, Switch, TreeSelect, Radio, TimePicker, ConfigProvider } from 'antd';
 import { useHistory } from "react-router-dom";
 import locale from 'antd/es/date-picker/locale/es_ES'
+import { floor } from "cypress/types/lodash";
+import { searchSlotsService } from "../../domain/services/SearchSlots.service";
+import { SlotsFilterForm } from "../../domain/models/SlotsFilterForm";
+
+type Props ={
+  updateSlots: Function
+}
 
 
-const SlotsFrom = ()=>{
+const SlotsFrom = ({updateSlots}:Props)=>{
 
   const history = useHistory();
   const [bookEnabled, setBookEnabled] = useState(false);
 
   const onFinish = async (values: any) => {
-    console.log(values.date.toString())
-    console.log(values.date.format("DD-mm-yyyy"))
-   
-    console.log({
-      hour: values.hour.hours(),
-      min: values.hour.minutes(),
-    })
-    
-    //console.log(values.date._d)
+    const params:SlotsFilterForm = {
+      day: values.date.format("DD-mm-yyyy") ,
+      hour:{
+        hour: values.hour.hours(),
+        min: values.hour.minutes(),
+      },
+      floor: values.floor,
+      capacity: values.capacity,
+      building:values.building
+
+    }
+    const slots = await searchSlotsService.filterBy(params)
+    updateSlots(slots)
      
   };
 

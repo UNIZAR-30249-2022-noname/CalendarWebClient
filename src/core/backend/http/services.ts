@@ -9,6 +9,7 @@ const httpServices = {
   uploadData: url +"/updateByCSV",
   ical:url + "/getICS",
   test: url + "/ping",
-  login: url + "/login"
+  login: url + "/login",
+  filterSlots: url + "/filterSlots",
 };
 export { url, httpServices };
