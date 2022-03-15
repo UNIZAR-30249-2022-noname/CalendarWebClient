@@ -1,3 +1,4 @@
+import { Row } from "antd";
 import Text from "antd/lib/typography/Text";
 import { useState } from "react";
 import { Slots } from "../../../features/slots/domain/models/Slots";
@@ -8,10 +9,13 @@ import TableSlots from "../../../features/slots/presentation/components/TableSlo
 export const SlotsPage = () => {
   const [slots,setSlots] = useState<Slots[]>([])
   return (
+    <Row>
     <div>
+      
   <SlotsForm updateSlots={setSlots}/>
   <TableSlots slots={slots}/>
   </div>
+  </Row>
   )
 
 

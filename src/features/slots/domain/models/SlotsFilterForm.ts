@@ -8,6 +8,4 @@ export type SlotsFilterForm= {
     floor: string
     capacity: number
     building: string
-
-    
 }

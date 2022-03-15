@@ -7,7 +7,7 @@ import { testData } from "../data_sources/Slots.data";
 
 export const SlotsRepo = {
   filterBy: async (params: SlotsFilterForm): Promise<Result<Slots[]>> => {
-    const res = await testData.get();
+    const res = await testData.filterBy(params);
     if (res.isError) {
       return { isError: true, error: res.error };
     }
