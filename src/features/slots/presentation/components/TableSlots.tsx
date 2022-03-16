@@ -27,6 +27,13 @@ type Props ={
 
     }
 
+    const openCreateIssue = (slot:String)=>{
+      let path = `/createIssue`+"?slot="+slot; 
+      history.push(path);
+
+
+    }
+
     const columns = [
         {
           title: 'Nombre',
@@ -59,6 +66,9 @@ type Props ={
              </Button>
              <Button type="primary" onClick={()=>openSlotInfo(record.name)}>
                {"Abrir info"}
+             </Button>
+             <Button type="primary" onClick={()=>openCreateIssue(record.name)}>
+               {"Crear issue"}
              </Button>
              </Space>
             ),

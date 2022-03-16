@@ -11,6 +11,7 @@ export const userControlRoutes = {
       routes.login,
       routes.slots,
       routes.infoSlot,
+      routes.crateIssue,
       routes.error,
      
     ];
@@ -25,6 +26,7 @@ export const userControlRoutes = {
       routes.issues,
       routes.map,
       routes.infoSlot,
+      routes.crateIssue,
       routes.error,
      
     ];
