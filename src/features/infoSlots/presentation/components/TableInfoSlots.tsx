@@ -22,6 +22,59 @@ const TableInfoSlots = () => {
       hour: 10,
       occupied: false,
     },
+    {
+      key: 11,
+      hour: 11,
+      occupied: false,
+    },
+    {
+      key: 12,
+      hour: 12,
+      occupied: true,
+      person: "Urriku",
+    },
+    {
+      key: 13,
+      hour: 13,
+      occupied: false,
+    },
+    {
+      key: 14,
+      hour: 14,
+      occupied: false,
+    },
+    {
+      key: 15,
+      hour: 15,
+      occupied: true,
+      person: "Urriku",
+    },
+    {
+      key: 16,
+      hour: 16,
+      occupied: false,
+    },
+    {
+      key: 17,
+      hour: 17,
+      occupied: false,
+    },
+    {
+      key: 18,
+      hour: 18,
+      occupied: true,
+      person: "Urriku",
+    },
+    {
+      key: 19,
+      hour: 19,
+      occupied: false,
+    },
+    {
+      key: 20,
+      hour: 20,
+      occupied: false,
+    },
   ];
   const columns = [
     {
