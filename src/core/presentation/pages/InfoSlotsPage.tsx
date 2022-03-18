@@ -20,7 +20,12 @@ export const InfoSlotPage = () => {
     >
       <Box
         component="span"
-        sx={{ p: 2, border: "1px dashed grey", width: "18%" }}
+        sx={{
+          p: 2,
+          border: "1px dashed grey",
+          width: "18%",
+          backgroundColor: "white",
+        }}
       >
         <Row>
           <Text strong style={{ fontSize: 15, color: "#1890FF" }}>
