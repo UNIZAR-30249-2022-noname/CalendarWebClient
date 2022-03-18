@@ -59,6 +59,7 @@ const TableInfoSlots = () => {
       name: HourglassTwoTone.toString(),
     }),
   };
+
   const [selectionType] = useState<"checkbox">("checkbox");
   return (
     <div style={{ margin: "10px", width: "800px" }}>
