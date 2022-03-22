@@ -117,6 +117,7 @@ const TableInfoSlots = () => {
   return (
     <div style={{ margin: "10px", width: "800px" }}>
       <Table
+        pagination={{ pageSize: 7 }}
         dataSource={slots}
         columns={columns}
         rowSelection={{
@@ -124,6 +125,12 @@ const TableInfoSlots = () => {
           ...rowSelection,
         }}
       />
+      <div style={{ flexDirection: "row" }}>
+        <Button type="primary">Reservar selección</Button>
+        <Button type="primary" danger style={{ marginLeft: "1%" }}>
+          Cancelar
+        </Button>
+      </div>
     </div>
   );
 };
