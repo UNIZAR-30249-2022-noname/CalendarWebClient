@@ -1,7 +1,7 @@
 import { HourglassTwoTone } from "@ant-design/icons";
 import { Button, Space, Table, Tag } from "antd";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { InfoSlots } from "../../domain/models/InfoSlots";
 
 const TableInfoSlots = () => {
@@ -99,6 +99,8 @@ const TableInfoSlots = () => {
     },
   ];
 
+  const [rows, setRows] = useState<React.Key[]>([""]);
+
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: InfoSlots[]) => {
       console.log(
@@ -106,11 +108,21 @@ const TableInfoSlots = () => {
         "selectedRows: ",
         selectedRows
       );
+      setRows(selectedRowKeys);
     },
     getCheckboxProps: (record: InfoSlots) => ({
       disabled: record.occupied, // Column configuration not to be checked
       name: HourglassTwoTone.toString(),
     }),
+  };
+
+  const [clickedButton, setClickedButton] = useState("");
+
+  const reserveHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    const button: HTMLButtonElement = event.currentTarget;
+    setClickedButton("HOLA");
   };
 
   const [selectionType] = useState<"checkbox">("checkbox");
@@ -126,10 +138,19 @@ const TableInfoSlots = () => {
         }}
       />
       <div style={{ flexDirection: "row" }}>
-        <Button type="primary">Reservar selección</Button>
-        <Button type="primary" danger style={{ marginLeft: "1%" }}>
-          Cancelar
+        <Button type="primary" onClick={reserveHandler}>
+          Reservar selección
         </Button>
+        <Link to="/slots" id="mainLogo" style={{ cursor: "pointer" }}>
+          <Button type="primary" danger style={{ marginLeft: "1%" }}>
+            Cancelar
+          </Button>
+        </Link>
+        <h1>
+          {clickedButton !== ""
+            ? `You have clicked "${rows}"`
+            : "No button clicked yet"}
+        </h1>
       </div>
     </div>
   );
