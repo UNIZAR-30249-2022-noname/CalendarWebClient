@@ -11,3 +11,10 @@ export type InfoSlotsKey = {
   key: React.Key;
   infoSlot: InfoSlots;
 };
+
+export type Reserve = {
+  space: string;
+  hour: number;
+  date: string;
+  person: string;
+};

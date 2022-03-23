@@ -1,16 +1,18 @@
 import { Result } from "../../../../core/config/result";
-import { InfoSlots } from "../../domain/models/InfoSlots";
-/*
-import { SlotsFilterForm } from "../../domain/models/SlotsFilterForm";
-import { testData } from "../data_sources/Slots.data";
+import {
+  InfoSlots,
+  InfoSlotsKey,
+  Reserve,
+} from "../../domain/models/InfoSlots";
 
-export const SlotsRepo = {
-  filterBy: async (params: SlotsFilterForm): Promise<Result<Slots[]>> => {
-    const res = await testData.filterBy(params);
+import { testData } from "../data_sources/InfoSlots.data";
+
+export const InfoSlotsRepo = {
+  reserve: async (params: Reserve[]): Promise<Result<Reserve[]>> => {
+    const res = await testData.reserve(params);
     if (res.isError) {
       return { isError: true, error: res.error };
     }
     return res;
   },
 };
-*/

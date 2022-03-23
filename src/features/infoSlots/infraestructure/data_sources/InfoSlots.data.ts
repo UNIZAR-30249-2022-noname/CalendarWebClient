@@ -1,16 +1,20 @@
 import { http } from "../../../../core/backend/http/http";
 import { httpServices } from "../../../../core/backend/http/services";
 import { Result } from "../../../../core/config/result";
-import { InfoSlots } from "../../domain/models/InfoSlots";
-/*
-import { SlotsFilterForm } from "../../domain/models/SlotsFilterForm";
+import { Reserve } from "../../domain/models/InfoSlots";
 
-let service = httpServices.filterSlots;
+let service = httpServices.reserve;
+let service2 = httpServices.reserveArray;
 
 export const testData = {
-  filterBy: async (params: SlotsFilterForm): Promise<Result<Slots[]>> => {
+  reserve: async (params: Reserve[]): Promise<Result<Reserve[]>> => {
     try {
-      const res = await http.get(service, params);
+      let res;
+      if (params.length === 1) {
+        res = await http.get(service, params);
+      } else {
+        res = await http.get(service2, params);
+      }
       if (res.status === 200) {
         return { isError: false, value: res.data };
       } else {
@@ -22,4 +26,3 @@ export const testData = {
     }
   },
 };
-*/
