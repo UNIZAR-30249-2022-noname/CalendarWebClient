@@ -1,5 +1,5 @@
 import { HourglassTwoTone } from "@ant-design/icons";
-import { Button, Space, Table, Tag } from "antd";
+import { Button, Table, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { InfoSlots, InfoSlotsKey } from "../../domain/models/InfoSlots";

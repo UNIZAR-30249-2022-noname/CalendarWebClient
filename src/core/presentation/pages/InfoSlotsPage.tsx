@@ -1,5 +1,7 @@
 import Text from "antd/lib/typography/Text";
-import { Row, Space } from "antd";
+import React, { useEffect, useState } from "react";
+import { Row, DatePicker } from "antd";
+import locale from "antd/es/date-picker/locale/es_ES";
 import { useLocation } from "react-router-dom";
 import TableInfoSlots from "../../../features/infoSlots/presentation/components/TableInfoSlots";
 import Box from "@mui/material/Box";
@@ -7,7 +9,7 @@ import Box from "@mui/material/Box";
 export const InfoSlotPage = () => {
   const search = useLocation().search;
   const name = new URLSearchParams(search).get("slot");
-
+  const [date, setDate] = useState<string>("");
   return (
     <div
       style={{
@@ -27,6 +29,15 @@ export const InfoSlotPage = () => {
           backgroundColor: "white",
         }}
       >
+        <DatePicker
+          locale={locale}
+          onChange={(_, dateString) => {
+            setDate(dateString);
+          }}
+        />
+        <h1>
+          {date !== "" ? `You have clicked "${date}"` : "No button clicked yet"}
+        </h1>
         <Row>
           <Text strong style={{ fontSize: 15, color: "#1890FF" }}>
             Info Slots of {name}
