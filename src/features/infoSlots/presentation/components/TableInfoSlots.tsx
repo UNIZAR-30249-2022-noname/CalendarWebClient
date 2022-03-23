@@ -8,98 +8,73 @@ const TableInfoSlots = () => {
   const slots: InfoSlotsKey[] = [
     {
       key: 8,
-      infoSlot: {
-        hour: 8,
-        occupied: false,
-      },
+      hour: 8,
+      occupied: false,
     },
     {
       key: 9,
-      infoSlot: {
-        hour: 9,
-        occupied: true,
-        person: "Urriku",
-      },
+      hour: 9,
+      occupied: true,
+      person: "Urriku",
     },
     {
       key: 10,
-      infoSlot: {
-        hour: 10,
-        occupied: false,
-      },
+
+      hour: 10,
+      occupied: false,
     },
     {
       key: 11,
-      infoSlot: {
-        hour: 11,
-        occupied: false,
-      },
+      hour: 11,
+      occupied: false,
     },
     {
       key: 12,
-      infoSlot: {
-        hour: 12,
-        occupied: true,
-        person: "Urriku",
-      },
+      hour: 12,
+      occupied: true,
+      person: "Urriku",
     },
     {
       key: 13,
-      infoSlot: {
-        hour: 13,
-        occupied: false,
-      },
+      hour: 13,
+      occupied: false,
     },
     {
       key: 14,
-      infoSlot: {
-        hour: 14,
-        occupied: false,
-      },
+      hour: 14,
+      occupied: false,
     },
     {
       key: 15,
-      infoSlot: {
-        hour: 15,
-        occupied: true,
-        person: "Urriku",
-      },
+      hour: 15,
+      occupied: true,
+      person: "Urriku",
     },
     {
       key: 16,
-      infoSlot: {
-        hour: 16,
-        occupied: false,
-      },
+      hour: 16,
+      occupied: false,
     },
     {
       key: 17,
-      infoSlot: {
-        hour: 17,
-        occupied: false,
-      },
+      hour: 17,
+      occupied: false,
     },
     {
       key: 18,
-      infoSlot: {
-        hour: 18,
-        occupied: true,
-        person: "Urriku",
-      },
+      hour: 18,
+      occupied: true,
+      person: "Urriku",
     },
     {
       key: 19,
-      infoSlot: {
-        hour: 19,
-        occupied: false,
-      },
+      hour: 19,
+      occupied: false,
     },
     {
       key: 20,
-      infoSlot: {
-        hour: 20,
-        occupied: false,
-      },
+      hour: 20,
+      occupied: false,
     },
   ];
   const columns = [
@@ -137,7 +112,7 @@ const TableInfoSlots = () => {
       setRows(selectedRowKeys);
     },
     getCheckboxProps: (record: InfoSlotsKey) => ({
-      disabled: record.infoSlot.occupied, // Column configuration not to be checked
+      disabled: record.occupied, // Column configuration not to be checked
       name: HourglassTwoTone.toString(),
     }),
   };

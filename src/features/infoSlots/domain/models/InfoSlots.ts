@@ -9,7 +9,9 @@ export type InfoSlots = {
 
 export type InfoSlotsKey = {
   key: React.Key;
-  infoSlot: InfoSlots;
+  hour: number;
+  occupied: boolean;
+  person?: String;
 };
 
 export type Reserve = {
