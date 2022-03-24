@@ -27,6 +27,7 @@ export type ReqInfoSlot = {
 };
 
 export type SlotData = {
+  name: string | null;
   capacity: number;
   description: string;
   building: string;

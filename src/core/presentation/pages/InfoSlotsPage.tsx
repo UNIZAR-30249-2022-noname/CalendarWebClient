@@ -6,7 +6,11 @@ import { useLocation } from "react-router-dom";
 import TableInfoSlots from "../../../features/infoSlots/presentation/components/TableInfoSlots";
 import Box from "@mui/material/Box";
 import moment from "moment";
-import { InfoSlotsKey } from "../../../features/infoSlots/domain/models/InfoSlots";
+import {
+  InfoSlotsKey,
+  SlotData,
+} from "../../../features/infoSlots/domain/models/InfoSlots";
+import SlotDataInBox from "../../../features/infoSlots/presentation/components/SlotDataInBox";
 
 export const InfoSlotPage = () => {
   const search = useLocation().search;
@@ -86,6 +90,14 @@ export const InfoSlotPage = () => {
     },
   ];
 
+  const slotData: SlotData = {
+    name: name,
+    capacity: 5,
+    description: "Lorem ipsum no leas mas porque esto es dummy text",
+    building: "Ada",
+    floor: "baja",
+  };
+
   return (
     <div
       style={{
@@ -115,22 +127,7 @@ export const InfoSlotPage = () => {
         <h1>
           {date !== "" ? `You have clicked "${date}"` : "No button clicked yet"}
         </h1>
-        <Row>
-          <Text strong style={{ fontSize: 15, color: "#1890FF" }}>
-            Info Slots of {name}
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-            fermentum felis a lorem gravida malesuada. Pellentesque justo nulla,
-            eleifend a mauris sit amet, dignissim tempor turpis. Aliquam erat
-            volutpat. Aenean urna nulla, semper sed risus pretium, rutrum
-            ultrices massa. Morbi sit amet orci finibus, pulvinar nunc vitae,
-            aliquet massa. Nulla facilisi. Morbi interdum quam et porta
-            hendrerit. Vestibulum ut pellentesque turpis. Nam viverra, nulla
-            eget accumsan semper, justo dolor vestibulum erat, eu scelerisque
-            turpis nisl id enim.
-          </Text>
-        </Row>
+        <SlotDataInBox slotData={slotData} />
       </Box>
       <TableInfoSlots infoSlots={slots} />
     </div>
