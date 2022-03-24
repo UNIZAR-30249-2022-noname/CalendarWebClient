@@ -20,3 +20,8 @@ export type Reserve = {
   date: string;
   person: string;
 };
+
+export type ReqInfoSlot = {
+  name: string;
+  date: string;
+};
