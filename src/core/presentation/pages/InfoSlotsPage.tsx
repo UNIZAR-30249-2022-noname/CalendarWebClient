@@ -1,5 +1,5 @@
 import Text from "antd/lib/typography/Text";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Row, DatePicker } from "antd";
 import locale from "antd/es/date-picker/locale/es_ES";
 import { useLocation } from "react-router-dom";

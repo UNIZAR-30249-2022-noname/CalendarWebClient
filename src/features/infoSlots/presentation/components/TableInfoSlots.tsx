@@ -1,8 +1,8 @@
 import { HourglassTwoTone } from "@ant-design/icons";
 import { Button, Table, Tag } from "antd";
-import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { InfoSlots, InfoSlotsKey } from "../../domain/models/InfoSlots";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { InfoSlotsKey } from "../../domain/models/InfoSlots";
 
 type Props = {
   infoSlots: InfoSlotsKey[];
