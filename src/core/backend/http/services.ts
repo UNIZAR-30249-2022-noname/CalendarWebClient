@@ -16,5 +16,6 @@ const httpServices = {
   filterSlots: url + "/filterSlots",
   reserve: url + "/reserve",
   reserveArray: url + "/reserveArray",
+  requestInfoSlots: url + "/requestInfoSlots",
 };
 export { url, httpServices };

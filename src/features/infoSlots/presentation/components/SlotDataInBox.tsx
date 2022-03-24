@@ -1,9 +1,7 @@
-import { HourglassTwoTone } from "@ant-design/icons";
-import { Button, Row, Table, Tag } from "antd";
+import { Row } from "antd";
 import Text from "antd/lib/typography/Text";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { InfoSlotsKey, SlotData } from "../../domain/models/InfoSlots";
+import React from "react";
+import { SlotData } from "../../domain/models/InfoSlots";
 
 type Props = {
   slotData: SlotData;
@@ -16,9 +14,9 @@ const SlotDataInBox = ({ slotData }: Props) => {
         Info Slots of {slotData.name}
       </Text>
       <Text>Descripción: {slotData.description}</Text>
-      <Text>Capacidad: {slotData.capacity}</Text>
-      <Text>Edificio: {slotData.building}</Text>
-      <Text>Planta: {slotData.floor}</Text>
+      <Text style={{ width: "100%" }}>Capacidad: {slotData.capacity}</Text>
+      <Text style={{ width: "100%" }}>Edificio: {slotData.building}</Text>
+      <Text style={{ width: "100%" }}>Planta: {slotData.floor}</Text>
     </Row>
   );
 };

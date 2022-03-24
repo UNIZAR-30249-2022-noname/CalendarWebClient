@@ -1,6 +1,5 @@
-import Text from "antd/lib/typography/Text";
 import React, { useState } from "react";
-import { Row, DatePicker } from "antd";
+import { DatePicker } from "antd";
 import locale from "antd/es/date-picker/locale/es_ES";
 import { useLocation } from "react-router-dom";
 import TableInfoSlots from "../../../features/infoSlots/presentation/components/TableInfoSlots";
