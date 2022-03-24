@@ -5,6 +5,7 @@ import locale from "antd/es/date-picker/locale/es_ES";
 import { useLocation } from "react-router-dom";
 import TableInfoSlots from "../../../features/infoSlots/presentation/components/TableInfoSlots";
 import Box from "@mui/material/Box";
+import moment from "moment";
 
 export const InfoSlotPage = () => {
   const search = useLocation().search;
@@ -30,6 +31,7 @@ export const InfoSlotPage = () => {
         }}
       >
         <DatePicker
+          defaultValue={moment(Date())}
           locale={locale}
           onChange={(_, dateString) => {
             setDate(dateString);
