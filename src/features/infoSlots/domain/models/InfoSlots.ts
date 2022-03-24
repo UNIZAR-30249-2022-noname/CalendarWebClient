@@ -25,3 +25,15 @@ export type ReqInfoSlot = {
   name: string;
   date: string;
 };
+
+export type SlotData = {
+  capacity: number;
+  description: string;
+  building: string;
+  floor: string;
+};
+
+export type AllInfoSlot = {
+  slotData: SlotData;
+  infoSlots: InfoSlots[];
+};

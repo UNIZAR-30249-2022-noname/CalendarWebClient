@@ -8,7 +8,7 @@ type Props = {
   infoSlots: InfoSlotsKey[];
 };
 
-const TableInfoSlots = ({ infoSlots }: Props) => {
+const SlotDataInBox = ({ infoSlots }: Props) => {
   const [clickedButton, setClickedButton] = useState("");
   const [rows, setRows] = useState<React.Key[]>([""]);
   const [selectionType] = useState<"checkbox">("checkbox");
@@ -83,4 +83,4 @@ const TableInfoSlots = ({ infoSlots }: Props) => {
   );
 };
 
-export default React.memo(TableInfoSlots);
+export default React.memo(SlotDataInBox);
