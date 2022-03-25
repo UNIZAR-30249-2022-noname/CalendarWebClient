@@ -22,7 +22,7 @@ export type Reserve = {
 };
 
 export type ReqInfoSlot = {
-  name: string;
+  name: string | null;
   date: string;
 };
 

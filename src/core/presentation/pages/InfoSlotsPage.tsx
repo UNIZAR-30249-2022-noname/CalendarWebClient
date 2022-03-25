@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DatePicker } from "antd";
+import { DatePicker, message } from "antd";
 import locale from "antd/es/date-picker/locale/es_ES";
 import { useLocation } from "react-router-dom";
 import TableInfoSlots from "../../../features/infoSlots/presentation/components/TableInfoSlots";
@@ -7,14 +7,31 @@ import Box from "@mui/material/Box";
 import moment from "moment";
 import {
   InfoSlotsKey,
+  ReqInfoSlot,
   SlotData,
 } from "../../../features/infoSlots/domain/models/InfoSlots";
+import { infoSlotsService } from "../../../features/infoSlots/domain/services/InfoSlots.service";
 import SlotDataInBox from "../../../features/infoSlots/presentation/components/SlotDataInBox";
 
 export const InfoSlotPage = () => {
   const search = useLocation().search;
   const name = new URLSearchParams(search).get("slot");
   const [date, setDate] = useState<string>("");
+  const [slot, setSlots] = useState<InfoSlotsKey[]>([]);
+  const [slotData, setSlotData] = useState<SlotData>({
+    name: "Voy",
+    capacity: 5,
+    description: "Lorem ipsum no leas mas porque esto es dummy text",
+    building: "Ada",
+    floor: "baja",
+  });
+
+  const request: ReqInfoSlot = {
+    name: name,
+    date: date,
+  };
+
+  //const allinfo = await infoSlotsService.requestInfoSlots(request);
 
   const slots: InfoSlotsKey[] = [
     {
@@ -89,14 +106,6 @@ export const InfoSlotPage = () => {
     },
   ];
 
-  const slotData: SlotData = {
-    name: name,
-    capacity: 5,
-    description: "Lorem ipsum no leas mas porque esto es dummy text",
-    building: "Ada",
-    floor: "baja",
-  };
-
   return (
     <div
       style={{
@@ -107,6 +116,21 @@ export const InfoSlotPage = () => {
         padding: "3%",
       }}
     >
+      <div
+        onLoad={async () => {
+          const allinfo = await infoSlotsService.requestInfoSlots(request);
+          if (allinfo.isError) message.error("Error al obtener los espacios");
+          //else setSlotData(allinfo.value.slotData);
+          else
+            setSlotData({
+              name: name,
+              capacity: 5,
+              description: "Lorem ipsum no leas mas porque esto es dummy text",
+              building: "Ada",
+              floor: "baja",
+            });
+        }}
+      />
       <Box
         component="span"
         sx={{
