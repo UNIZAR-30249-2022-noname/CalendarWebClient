@@ -1,21 +1,15 @@
-import { InfoSlots } from "../models/InfoSlots";
-/*
-import { SlotsRepo } from "../../infraestructure/repositories/Slots.repositories";
-import { SlotsFilterForm } from "../models/SlotsFilterForm";
+import { InfoSlots, ReqInfoSlot, Reserve } from "../models/InfoSlots";
 
-const fakeData: Slots[] = [
-  {
-    name: "hola",
-    capacity: 20,
-    building: "lo k sea",
-    kind: "aula",
-  },
-];
+import { InfoSlotsRepo } from "../../infraestructure/repositories/Slots.repositories";
 
 export const searchSlotsService = {
-  filterBy: async (params: SlotsFilterForm) => {
-    const data = await SlotsRepo.filterBy(params);
+  requestInfoSlots: async (params: ReqInfoSlot) => {
+    const data = await InfoSlotsRepo.requestInfoSlots(params);
+    return data;
+  },
+
+  reserve: async (params: Reserve[]) => {
+    const data = await InfoSlotsRepo.reserve(params);
     return data;
   },
 };
-*/
