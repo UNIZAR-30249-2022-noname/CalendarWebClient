@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DatePicker, message } from "antd";
 import locale from "antd/es/date-picker/locale/es_ES";
 import { useLocation } from "react-router-dom";
@@ -19,11 +19,11 @@ export const InfoSlotPage = () => {
   const [date, setDate] = useState<string>("");
   const [slot, setSlots] = useState<InfoSlotsKey[]>([]);
   const [slotData, setSlotData] = useState<SlotData>({
-    name: "Voy",
-    capacity: 5,
-    description: "Lorem ipsum no leas mas porque esto es dummy text",
-    building: "Ada",
-    floor: "baja",
+    name: "",
+    capacity: 0,
+    description: "",
+    building: "",
+    floor: "",
   });
 
   const request: ReqInfoSlot = {
@@ -31,7 +31,15 @@ export const InfoSlotPage = () => {
     date: date,
   };
 
-  //const allinfo = await infoSlotsService.requestInfoSlots(request);
+  useEffect(() => {
+    loadFields();
+  }, []);
+
+  const loadFields = async () => {
+    const allinfo = await infoSlotsService.requestInfoSlots(request);
+    if (allinfo.isError) message.error("Error al obtener los espacios");
+    else setSlotData(allinfo.value.slotData);
+  };
 
   const slots: InfoSlotsKey[] = [
     {
