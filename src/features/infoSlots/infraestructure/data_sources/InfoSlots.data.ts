@@ -31,7 +31,7 @@ const is: InfoSlotsKey[] = [
     key: 9,
     hour: 9,
     occupied: true,
-    person: "Urriku",
+    person: "Urrikuu",
   },
   {
     key: 10,
