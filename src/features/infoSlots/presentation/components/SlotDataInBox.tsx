@@ -14,6 +14,7 @@ const SlotDataInBox = ({ slotData }: Props) => {
         Info Slots of {slotData.name}
       </Text>
       <Text>Descripción: {slotData.description}</Text>
+      <Text style={{ width: "100%" }}>Tipo: {slotData.type}</Text>
       <Text style={{ width: "100%" }}>Capacidad: {slotData.capacity}</Text>
       <Text style={{ width: "100%" }}>Edificio: {slotData.building}</Text>
       <Text style={{ width: "100%" }}>Planta: {slotData.floor}</Text>

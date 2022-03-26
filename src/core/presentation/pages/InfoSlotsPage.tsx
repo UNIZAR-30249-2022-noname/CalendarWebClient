@@ -24,6 +24,7 @@ export const InfoSlotPage = () => {
     description: "",
     building: "",
     floor: "",
+    type: "",
   });
 
   const request: ReqInfoSlot = {

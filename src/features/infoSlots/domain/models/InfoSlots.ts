@@ -32,6 +32,7 @@ export type SlotData = {
   description: string;
   building: string;
   floor: string;
+  type: string;
 };
 
 export type AllInfoSlot = {
