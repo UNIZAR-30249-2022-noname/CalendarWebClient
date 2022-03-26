@@ -32,15 +32,23 @@ export const InfoSlotPage = () => {
     date: date,
   };
 
+  function delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
   useEffect(() => {
     loadFields();
   }, []);
 
   const loadFields = async () => {
     const allinfo = await infoSlotsService.requestInfoSlots(request);
+    const key = "update";
+    message.loading({ content: "Actualizando datos...", key });
     if (allinfo.isError)
       message.error("Error al obtener los datos de este espacio");
     else {
+      await delay(500);
+      message.success({ content: "Datos actualizados", key, duration: 1 });
       setSlotData(allinfo.value.slotData);
       var infoSlotsKey: InfoSlotsKey[] = new Array();
 
@@ -80,6 +88,7 @@ export const InfoSlotPage = () => {
           locale={locale}
           onChange={(_, dateString) => {
             setDate(dateString);
+            loadFields();
           }}
         />
         <h1>
