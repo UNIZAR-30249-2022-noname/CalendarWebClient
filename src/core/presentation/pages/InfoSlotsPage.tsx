@@ -16,7 +16,7 @@ import SlotDataInBox from "../../../features/infoSlots/presentation/components/S
 export const InfoSlotPage = () => {
   const search = useLocation().search;
   const name = new URLSearchParams(search).get("slot");
-  const [date, setDate] = useState<string>("");
+  const [date, setDate] = useState<string>("a"); //Esto me lo pasara iñigo
   const [hS, sethS] = useState<InfoSlotsKey[]>([]);
   const [slotData, setSlotData] = useState<SlotData>({
     name: "",
