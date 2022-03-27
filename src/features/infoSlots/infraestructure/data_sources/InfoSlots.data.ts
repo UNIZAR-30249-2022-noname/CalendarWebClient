@@ -41,6 +41,8 @@ export const testData = {
           return { isError: true, error: new Error() };
         }
       } else {
+        //Esto ahora es un bucle pero cuando nos pongamos
+        //de acuerdo con el back será reserva array
         for (var i in params) {
           res = await http.get(service, params[i]);
           if (res.status !== 200) {
