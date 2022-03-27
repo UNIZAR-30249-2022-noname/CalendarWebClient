@@ -37,7 +37,7 @@ export const testData = {
       let res;
       if (params.length === 1) {
         message.info("No bucle");
-        res = await http.get(service, params);
+        res = await http.get(service, params[0]);
         if (res.status !== 200) {
           message.info("Ha reventao");
           return { isError: true, error: new Error() };
