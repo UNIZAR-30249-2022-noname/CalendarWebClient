@@ -1,6 +1,6 @@
 import { HourglassTwoTone } from "@ant-design/icons";
+import { duration } from "@mui/material";
 import { Button, message, Table, Tag } from "antd";
-import { all } from "cypress/types/bluebird";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { InfoSlotsKey, Reserve } from "../../domain/models/InfoSlots";
@@ -55,10 +55,11 @@ const TableInfoSlots = ({ infoSlots, space, date, person }: Props) => {
     }),
   };
 
-  const reserveHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    message.success("AAAAAAAAAA");
-    const button: HTMLButtonElement = event.currentTarget;
+  function delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  const reserveHandler = async () => {
     var reserve: Reserve[] = new Array();
     for (var i in rows) {
       reserve[i] = {
@@ -68,13 +69,21 @@ const TableInfoSlots = ({ infoSlots, space, date, person }: Props) => {
         person: person,
       };
     }
-    message.success(reserve);
     const allreserves = await infoSlotsService.reserve(reserve);
+    const key = "update";
+    message.loading({ content: "Reservando...", key });
+    await delay(500);
     if (allreserves.isError) {
-      message.error("Error al obtener los datos de este espacio");
+      message.error("No se ha podido completar la reserva");
     } else {
-      message.success(reserve);
       setClickedButton("HOLA");
+      message.success({
+        content: "Espacios reservados, actualizando página",
+        key,
+        duration: 1,
+      });
+      await delay(300);
+      window.location.reload();
     }
   };
 

@@ -36,14 +36,11 @@ export const testData = {
     try {
       let res;
       if (params.length === 1) {
-        message.info("No bucle");
         res = await http.get(service, params[0]);
         if (res.status !== 200) {
-          message.info("Ha reventao");
           return { isError: true, error: new Error() };
         }
       } else {
-        message.info("Bucle");
         for (var i in params) {
           res = await http.get(service, params[i]);
           if (res.status !== 200) {
