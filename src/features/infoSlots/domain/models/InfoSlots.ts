@@ -15,7 +15,7 @@ export type InfoSlotsKey = {
 };
 
 export type Reserve = {
-  space: string;
+  space: string | null;
   hour: number;
   date: string;
   person: string;

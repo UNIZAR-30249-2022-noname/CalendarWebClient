@@ -96,7 +96,7 @@ export const InfoSlotPage = () => {
         </h1>
         <SlotDataInBox slotData={slotData} />
       </Box>
-      <TableInfoSlots infoSlots={hS} />
+      <TableInfoSlots infoSlots={hS} space={name} date={date} person={"Yo"} />
     </div>
   );
 };

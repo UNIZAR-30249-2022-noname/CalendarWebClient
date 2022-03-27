@@ -1,14 +1,19 @@
 import { HourglassTwoTone } from "@ant-design/icons";
-import { Button, Table, Tag } from "antd";
+import { Button, message, Table, Tag } from "antd";
+import { all } from "cypress/types/bluebird";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { InfoSlotsKey } from "../../domain/models/InfoSlots";
+import { InfoSlotsKey, Reserve } from "../../domain/models/InfoSlots";
+import { infoSlotsService } from "../../domain/services/InfoSlots.service";
 
 type Props = {
   infoSlots: InfoSlotsKey[];
+  space: string | null;
+  date: string;
+  person: string;
 };
 
-const TableInfoSlots = ({ infoSlots }: Props) => {
+const TableInfoSlots = ({ infoSlots, space, date, person }: Props) => {
   const [clickedButton, setClickedButton] = useState("");
   const [rows, setRows] = useState<React.Key[]>([""]);
   const [selectionType] = useState<"checkbox">("checkbox");
@@ -50,11 +55,27 @@ const TableInfoSlots = ({ infoSlots }: Props) => {
     }),
   };
 
-  const reserveHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const reserveHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-
+    message.success("AAAAAAAAAA");
     const button: HTMLButtonElement = event.currentTarget;
-    setClickedButton("HOLA");
+    var reserve: Reserve[] = new Array();
+    for (var i in rows) {
+      reserve[i] = {
+        space: space,
+        hour: infoSlots[i].hour,
+        date: date,
+        person: person,
+      };
+    }
+    message.success(reserve);
+    const allreserves = await infoSlotsService.reserve(reserve);
+    if (allreserves.isError) {
+      message.error("Error al obtener los datos de este espacio");
+    } else {
+      message.success(reserve);
+      setClickedButton("HOLA");
+    }
   };
 
   return (

@@ -4,14 +4,12 @@ import { httpServices } from "../../../../core/backend/http/services";
 import { Result } from "../../../../core/config/result";
 import {
   AllInfoSlot,
-  InfoSlotsKey,
   ReqInfoSlot,
   Reserve,
-  SlotData,
 } from "../../domain/models/InfoSlots";
 
 let service = httpServices.reserve;
-let service2 = httpServices.reserveArray;
+//let service2 = httpServices.reserveArray;
 let service3 = httpServices.requestInfoSlots;
 
 export const testData = {
@@ -38,15 +36,23 @@ export const testData = {
     try {
       let res;
       if (params.length === 1) {
+        message.info("No bucle");
         res = await http.get(service, params);
+        if (res.status !== 200) {
+          message.info("Ha reventao");
+          return { isError: true, error: new Error() };
+        }
       } else {
-        res = await http.get(service2, params);
+        message.info("Bucle");
+        for (var i in params) {
+          res = await http.get(service, params[i]);
+          if (res.status !== 200) {
+            message.info("Ha reventao " + i);
+            return { isError: true, error: new Error() };
+          }
+        }
       }
-      if (res.status === 200) {
-        return { isError: false, value: res.data };
-      } else {
-        return { isError: true, error: new Error() };
-      }
+      return { isError: false, value: params };
     } catch (e) {
       console.error((e as Error).message);
       return { isError: true, error: e as Error };
