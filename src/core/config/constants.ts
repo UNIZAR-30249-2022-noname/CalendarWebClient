@@ -6,4 +6,6 @@ const colors = {
   },
 };
 
-export { colors };
+const dateFormat = 'DD-MM-yyyy';
+
+export { colors,dateFormat};

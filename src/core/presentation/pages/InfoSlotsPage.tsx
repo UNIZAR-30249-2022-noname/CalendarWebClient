@@ -4,6 +4,7 @@ import locale from "antd/es/date-picker/locale/es_ES";
 import { useLocation } from "react-router-dom";
 import TableInfoSlots from "../../../features/infoSlots/presentation/components/TableInfoSlots";
 import Box from "@mui/material/Box";
+import {dateFormat} from "../../config/constants"
 import moment from "moment";
 import {
   InfoSlotsKey,
@@ -16,7 +17,8 @@ import SlotDataInBox from "../../../features/infoSlots/presentation/components/S
 export const InfoSlotPage = () => {
   const search = useLocation().search;
   const name = new URLSearchParams(search).get("slot");
-  const [date, setDate] = useState<string>("a"); //Esto me lo pasara iñigo
+  const queryDate = new URLSearchParams(search).get("date");
+  const [date, setDate] = useState<string>(queryDate!); //Esto me lo pasara iñigo
   const [hS, sethS] = useState<InfoSlotsKey[]>([]);
   const [slotData, setSlotData] = useState<SlotData>({
     name: "",
@@ -84,16 +86,14 @@ export const InfoSlotPage = () => {
         }}
       >
         <DatePicker
-          defaultValue={moment(Date())}
+          format={dateFormat}
+          defaultValue={moment(queryDate,dateFormat)}
           locale={locale}
           onChange={(_, dateString) => {
             setDate(dateString);
             loadFields();
           }}
         />
-        <h1>
-          {date !== "" ? `You have clicked "${date}"` : "No button clicked yet"}
-        </h1>
         <SlotDataInBox slotData={slotData} />
       </Box>
       <TableInfoSlots infoSlots={hS} space={name} date={date} person={"Yo"} />

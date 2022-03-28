@@ -5,18 +5,20 @@ import locale from 'antd/es/date-picker/locale/es_ES'
 import { floor } from "cypress/types/lodash";
 import { searchSlotsService } from "../../domain/services/SearchSlots.service";
 import { SlotsFilterForm } from "../../domain/models/SlotsFilterForm";
+import {dateFormat} from "../../../../core/config/constants"
 
 type Props ={
   updateSlots: Function
+  updateDate: Function
 }
 
 
-const SlotsFrom = ({updateSlots}:Props)=>{
+const SlotsFrom = ({updateSlots, updateDate}:Props)=>{
 
   const [bookEnabled, setBookEnabled] = useState(false);
 
   const onFinish = async (values: any) => {
-    const formDate = bookEnabled?values.date.format("DD-mm-yyyy") : undefined
+    const formDate = bookEnabled?values.date.format(dateFormat) : undefined
     const formHour = bookEnabled? {
       hour: values.hour.hours(),
       min: values.hour.minutes(),
@@ -76,7 +78,7 @@ const SlotsFrom = ({updateSlots}:Props)=>{
       </Form.Item>
       <Form.Item label="Fecha" name="date">
      
-        <DatePicker locale={locale} disabled={!bookEnabled} />
+        <DatePicker  locale={locale} disabled={!bookEnabled} format={dateFormat} onChange={((d)=>updateDate(d?.format(dateFormat)))} />
    
       </Form.Item>
       <Form.Item label="Fecha" name="hour" style={{width:"500px"}}>
