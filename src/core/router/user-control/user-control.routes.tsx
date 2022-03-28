@@ -9,8 +9,6 @@ export const userControlRoutes = {
       routes.calendar,
       routes.map,
       routes.login,
-      routes.slots,
-      routes.infoSlot,
       routes.error,
      
     ];

@@ -22,6 +22,9 @@ export const AuthButton = () => {
 
   const logout = ()=>{
     contextUser.actions.logout()
+    let path = `/scheduler`;
+    history.replace(path);
+
   }
 
   const loggedButton=()=>{
