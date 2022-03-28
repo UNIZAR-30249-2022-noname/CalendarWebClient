@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import TextArea from "antd/lib/input/TextArea";
+import IssuesTags from "./IssuesTags";
+import { CreateIssueFormValues } from "../../domain/models/CreateIssueFormValues";
+import { useHistory } from "react-router-dom";
+import { IssueService } from "../../domain/service/Issues.services";
 
 
 type Props ={
@@ -9,11 +13,28 @@ type Props ={
 
 
 const CreateIssueFrom = ({slot}:Props)=>{
-
+  const tagsData = ['Urgente', 'Rotura', 'Peligo', 'Aviso'];//TODO get etqiquetas
+  const [tags,setTags] = useState<string[]>([])
+  const history = useHistory();
 
   const onFinish = async (values: any) => {
-
+    console.log(values)
+    console.log(tags)
+    const params:CreateIssueFormValues = {
+      tags:tags,
+      title: values.title,
+      description:values.description
+      
+    }
+    const res = await IssueService.create(params)
+    if(res.isError)
+      message.error("Error al obtener los espacios")
+    else{
+      message.info("Aviso creado correctamente")
+      history.goBack()
+    }
      
+
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -38,9 +59,16 @@ const CreateIssueFrom = ({slot}:Props)=>{
       <Form.Item label="Descripción:" name="description" style={{height:"200px", width:"500px"}}>
       <TextArea rows={4} placeholder="Descripción" />
       </Form.Item>
+      <IssuesTags setTags={setTags} selectedTags={tags} allTags={tagsData}/>
+      
+      <Form.Item style={{marginTop:"15px", marginLeft:"200px"}}>
+      <Button type="primary" htmlType="submit">Enviar reporte</Button>
+      </Form.Item>
+      
       
       
     </Form>
+
   );
 }
 
