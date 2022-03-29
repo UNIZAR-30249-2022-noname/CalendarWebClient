@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { DatePicker, message } from "antd";
 import locale from "antd/es/date-picker/locale/es_ES";
 import { useLocation } from "react-router-dom";
@@ -12,6 +12,7 @@ import {
 } from "../../../features/infoSlots/domain/models/InfoSlots";
 import { infoSlotsService } from "../../../features/infoSlots/domain/services/InfoSlots.service";
 import SlotDataInBox from "../../../features/infoSlots/presentation/components/SlotDataInBox";
+import { UserContext } from "../../context/context";
 
 export const InfoSlotPage = () => {
   const search = useLocation().search;
@@ -96,7 +97,12 @@ export const InfoSlotPage = () => {
         </h1>
         <SlotDataInBox slotData={slotData} />
       </Box>
-      <TableInfoSlots infoSlots={hS} space={name} date={date} person={"Yo"} />
+      <TableInfoSlots
+        infoSlots={hS}
+        space={name}
+        date={date}
+        person={useContext(UserContext).usr.name}
+      />
     </div>
   );
 };
