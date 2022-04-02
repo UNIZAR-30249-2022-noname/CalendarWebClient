@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Form, Input, Button, message } from 'antd';
 import TextArea from "antd/lib/input/TextArea";
 import IssuesTags from "./IssuesTags";
-import { CreateIssueFormValues } from "../../domain/models/CreateIssueFormValues";
 import { useHistory } from "react-router-dom";
 import { IssueService } from "../../domain/service/Issues.services";
+import { Issue } from "../../domain/models/Issue";
 
 
 type Props ={
@@ -20,10 +20,12 @@ const CreateIssueFrom = ({slot}:Props)=>{
   const onFinish = async (values: any) => {
     console.log(values)
     console.log(tags)
-    const params:CreateIssueFormValues = {
+    const params:Issue = {
       tags:tags,
+      slot:values.slot,
       title: values.title,
-      description:values.description
+      description:values.description,
+      key:values.key
       
     }
     const res = await IssueService.create(params)

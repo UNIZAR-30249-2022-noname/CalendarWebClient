@@ -1,12 +1,13 @@
 import { http } from "../../../../core/backend/http/http";
 import { httpServices } from "../../../../core/backend/http/services";
 import { Result } from "../../../../core/config/result";
-import { CreateIssueFormValues } from "../../domain/models/CreateIssueFormValues";
+import { Issue } from "../../domain/models/Issue";
+
 
 let service = httpServices.createIssue
 
 export const issueData = {
-    create:  async (params:CreateIssueFormValues) :Promise<Result<boolean>> => {
+    create:  async (params:Issue) :Promise<Result<boolean>> => {
         try {
             const res = await http.get(service,params);
             if (res.status === 200) {
