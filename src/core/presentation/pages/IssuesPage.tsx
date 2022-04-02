@@ -1,7 +1,7 @@
-import { Tabs } from "antd";
-import Text from "antd/lib/typography/Text";
+import { Button, Tabs } from "antd";
 import { useEffect, useState } from "react";
 import { Issue } from "../../../features/issues/domain/models/Issue";
+import DownloadReportButton from "../../../features/issues/presentation/components/DownloadReportButton";
 import IssueTable from "../../../features/issues/presentation/components/IssueTable";
 const { TabPane } = Tabs;
 
@@ -38,7 +38,6 @@ export const IssuesPage = () => {
     
 
   }
-
 
 
   const cancelIssue = (issue:Issue)=>{
@@ -78,7 +77,7 @@ export const IssuesPage = () => {
   return (
  
        <div style={{"marginLeft":"100px"}}>
-    <Tabs defaultActiveKey="1" type="card" size={"small"} >
+    <Tabs defaultActiveKey="1" type="card" size={"small"} tabBarExtraContent={<DownloadReportButton/>} >
           <TabPane tab="Actuales" key="1">
             {contentTab1()}
           </TabPane>
