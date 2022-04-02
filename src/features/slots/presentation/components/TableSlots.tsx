@@ -5,12 +5,13 @@ import { Slots } from "../../domain/models/Slots";
 
 type Props ={
     slots: Slots[]
+    date:string
   }
   
 
 
 
- const TableSlots = ({slots}:Props)=>{
+ const TableSlots = ({slots,date}:Props)=>{
   const history = useHistory();
    
     const [slotsData,setSlots] = useState<Slots[]>([])
@@ -21,7 +22,7 @@ type Props ={
   },[]);
 
     const openSlotInfo = (slot:String)=>{
-      let path = `/infoSlot`+"?slot="+slot; 
+      let path = `/infoSlot`+"?slot="+slot+"&date="+date; 
       history.push(path);
 
 
