@@ -11,5 +11,6 @@ const httpServices = {
   test: url + "/ping",
   login: url + "/login",
   filterSlots: url + "/filterSlots",
+  createIssue: url +"/createIssue"
 };
 export { url, httpServices };
