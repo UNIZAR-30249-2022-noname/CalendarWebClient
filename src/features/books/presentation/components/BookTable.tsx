@@ -1,70 +1,95 @@
 import { Button, Space, Table, Tag } from "antd"
 import React, { useEffect, useState } from "react";
+import { Time } from "../../../scheduler/entries/domain/models/Entry";
 import { Book } from "../../domain/models/Book";
 
-type Props ={
-    action: Function
-    deleteAction: Function
-    actionName:string
-    issues:Book[] 
-  }
+const IssueTable = ()=>{
 
-const IssueTable = ({issues,deleteAction, action,actionName}:Props)=>{
+
+const fakeData:Book[] = [
+  {
+    event:"Prog 1",
+    scheduled:[{ hour:8,min:0   },{ hour:9,min:0   }],
+    owner:"Luigi",
+    slot:"A0.01",
+    day:"21/1/10"
+  },
+  {
+    event:"Prog 1",
+    scheduled:[{ hour:8,min:0   },{ hour:9,min:0   }],
+    owner:"Luigi",
+    slot:"A0.01",
+    day:"21/1/10"
+  },
+  {
+    event:"Prog 1",
+    scheduled:[{ hour:8,min:0   },{ hour:9,min:0   }],
+    owner:"Luigi",
+    slot:"A0.01",
+    day:"21/1/10"
+  },
+  {
+    event:"Prog 1",
+    scheduled:[{ hour:8,min:0   },{ hour:9,min:0   }],
+    owner:"Luigi",
+    slot:"A0.01",
+    day:"21/1/10"
+  },
+]
+
+  const [books,setBook]= useState<Book[]>(fakeData)
 
 
   useEffect(() => {
     //Runs on the first render
     //And any time any dependency value changes
-  }, [issues]);
+  }, []);
+
+
+  const cancelBook=(book : Book)=>{
+    console.log(book)
+
+  }
 
     const columns = [
         {
-          title: 'Nombre',
-          dataIndex: 'title',
-          key: 'title',
+          title: 'Evento',
+          dataIndex: 'event',
+          key: 'event',
         },
         {
-          title: 'Descripción',
-          dataIndex: 'description',
-          key: 'description',
+          title: 'Horario',
+          dataIndex: 'scheduled',
+          key: 'scheduled',
+          render:(scheduled:Time[]) => (
+            <div>
+              {scheduled[0].hour+":"+scheduled[0].min +" - "+scheduled[1].hour+":"+scheduled[1].min}
+              </div>
+          ),
+        },
+        {
+          title: 'Fecha',
+          dataIndex: 'day',
+          key: 'day',
         },
         {
           title: 'Espacio',
           dataIndex: 'slot',
-          key: 'descriptisloton',
+          key: 'slot',
         },
         {
-          title: 'Tags',
-          key: 'tags',
-          dataIndex: 'tags',
-          render: (tags: string[]) => (
-            <>
-              {tags.map(tag => {
-                return (
-                  <Tag color={"default"} key={tag}>
-                    {tag.toUpperCase()}
-                  </Tag>
-                );
-              })}
-            </>
-          ),
-        },
-          {
-            title: 'Acciones',
-            key: 'key',
-            dataIndex: 'key',
-            render: (text: any, record: Book) => (
-            <Space size="middle">
-             <Button type="primary" onClick={()=>action(record)}>
-               {actionName}
-             </Button>
-             <Button type="primary" danger={true} onClick={()=>{deleteAction(record)}}>
-               {"Denegar"}
-             </Button>
+          title: 'Acciones',
+          key: 'key',
+          dataIndex: 'key',
+          render: (text: any, record: Book) => (
+          <Space size="middle">
+            <Button type="primary" danger={true} onClick={()=>cancelBook(record)}>
+              Cancelar reserva
+            </Button>
              
-             </Space>
-            ),
-          }
+            </Space>
+          ),
+        }
       ];
 
 
@@ -73,7 +98,7 @@ const IssueTable = ({issues,deleteAction, action,actionName}:Props)=>{
         <div style={{margin:"10px", width:"800px"}}>
           <Table
           
-            dataSource={issues}
+            dataSource={books}
             columns={columns} 
            />
            </div>
