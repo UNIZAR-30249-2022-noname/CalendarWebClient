@@ -6,7 +6,7 @@ export const userControlRoutes = {
     return [
       routes.index,
       routes.scheduler,
-      routes.calendar,
+      routes.book,
       routes.map,
       routes.login,
       routes.slots,
@@ -20,7 +20,7 @@ export const userControlRoutes = {
     return [
       routes.index,
       routes.scheduler,
-      routes.calendar,
+      routes.book,
       routes.data,
       routes.slots,
       routes.issues,
