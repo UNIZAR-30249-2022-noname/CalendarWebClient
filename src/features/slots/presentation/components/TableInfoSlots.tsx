@@ -3,8 +3,8 @@ import { duration } from "@mui/material";
 import { Button, message, Table, Tag } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { InfoSlotsKey, Reserve } from "../../domain/models/InfoSlots";
-import { infoSlotsService } from "../../domain/services/InfoSlots.service";
+import { InfoSlotsKey, Reserve } from "../../../slots/domain/models/InfoSlots";
+import { infoSlotsService } from "../../../slots/domain/services/InfoSlots.service";
 
 type Props = {
   infoSlots: InfoSlotsKey[];
