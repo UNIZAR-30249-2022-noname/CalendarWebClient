@@ -8,4 +8,8 @@ export const ReserveService = {
     const data = await ReserveRepo.getPerUser(user);
     return data;
   },
+  cancel: async (reserve: string): Promise<Result<Boolean>>=> {
+    const data = await ReserveRepo.cancel(reserve);
+    return data;
+  },
 };

@@ -1,53 +1,57 @@
-import { Button, Space, Table, Tag } from "antd"
-import React, { useEffect, useState } from "react";
+import { Button, message, Space, Table, Tag } from "antd"
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../../core/context/context";
 import { Time } from "../../../scheduler/entries/domain/models/Entry";
 import { Reserve } from "../../domain/models/Reserve";
+import { ReserveService } from "../../domain/services/Reserve.service";
 
 const IssueTable = ()=>{
 
 
-const fakeData:Reserve[] = [
-  {
-    event:"Prog 1",
-    scheduled:[{ hour:8,min:0   },{ hour:9,min:0   }],
-    owner:"Luigi",
-    slot:"A0.01",
-    day:"21/1/10"
-  },
-  {
-    event:"Prog 1",
-    scheduled:[{ hour:8,min:0   },{ hour:9,min:0   }],
-    owner:"Luigi",
-    slot:"A0.01",
-    day:"21/1/10"
-  },
-  {
-    event:"Prog 1",
-    scheduled:[{ hour:8,min:0   },{ hour:9,min:0   }],
-    owner:"Luigi",
-    slot:"A0.01",
-    day:"21/1/10"
-  },
-  {
-    event:"Prog 1",
-    scheduled:[{ hour:8,min:0   },{ hour:9,min:0   }],
-    owner:"Luigi",
-    slot:"A0.01",
-    day:"21/1/10"
-  },
-]
 
-  const [books,setBook]= useState<Reserve[]>(fakeData)
+  const [books,setBook]= useState<Reserve[]>([])
+  const contextUser = useContext(UserContext).usr.name;
+  function delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+
+
+  const loadData = async () =>{
+    const key = "update";
+    message.loading({ content: "Actualizando datos...", key });
+    const reserves = await ReserveService.getPerUser(contextUser)
+    if (reserves.isError)
+      message.error("Error al obtener las reservas");
+    else {
+      await delay(500);
+      message.success({ content: "Datos actualizados", key, duration: 1 });
+      setBook(reserves.value)
+     
+  
+    }
+
+  }
 
 
   useEffect(() => {
     //Runs on the first render
     //And any time any dependency value changes
+    loadData()
   }, []);
 
 
-  const cancelBook=(book : Reserve)=>{
+  const cancelBook= async(book : Reserve)=>{
     console.log(book)
+    const succes = await ReserveService.cancel(book.key!)
+    if (succes.isError){
+      message.error("Error al cancelar la reserva");
+    }
+    else
+    {
+      message.success({ content: "Datos actualizados"});
+      setBook(books.filter(value=>value.key!=book.key))
+    }
 
   }
 

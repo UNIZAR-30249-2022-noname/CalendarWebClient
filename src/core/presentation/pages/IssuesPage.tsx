@@ -1,6 +1,6 @@
 import { Button, message, Tabs } from "antd";
 import { useEffect, useState } from "react";
-import { Issue } from "../../../features/issues/domain/models/Issue";
+import { CompletedIssue, CurrentIssue, Issue } from "../../../features/issues/domain/models/Issue";
 import { IssueService } from "../../../features/issues/domain/service/Issues.services";
 import DownloadReportButton from "../../../features/issues/presentation/components/DownloadReportButton";
 import IssueTable from "../../../features/issues/presentation/components/IssueTable";
@@ -40,30 +40,64 @@ const loadFields =async () => {
 }
 
 
-  const acceptIssue = (issue:Issue)=> {
+  const acceptIssue = async (issue:Issue)=> {
     console.log("issue aceptada "+ issue.title)
-    setIssues(state => [...state, issue])
-    setNewIssues(newIssues.filter(value=>value.key!=issue.key))
+    const res = await IssueService.changeState(issue.key,CurrentIssue)
+    if(res.isError){
+      message.error("Error al eliminar inicidencia")
+    }
+    else{
+      if(res.value){
+        setIssues(state => [...state, issue])
+        setNewIssues(newIssues.filter(value=>value.key!=issue.key))
+      }else{
+        message.error("Error al eliminar inicidencia")
+      }
+      
+    }
   }
 
-  const completIssue = (issue:Issue)=> {
+  const completIssue = async (issue:Issue)=> {
     console.log("issue completada "+ issue.title)
-    setCompletedIssues(state => [...state, issue])
-    setIssues(issues.filter(value=>value.key!=issue.key))
+
+    const res = await IssueService.changeState(issue.key,CompletedIssue)
+    if(res.isError){
+      message.error("Error al completar la incidencia")
+    }
+    else{
+      if(res.value){
+        setCompletedIssues(state => [...state, issue])
+        setIssues(issues.filter(value=>value.key!=issue.key))
+      }else{
+        message.error("Error al eliminar inicidencia")
+      }
+      
+    }
   }
 
-  const reopenIssue = (issue:Issue)=>{
+  const reopenIssue = async (issue:Issue)=>{
     console.log("issue reabierto "+ issue.title)
-    setIssues(state => [...state, issue])
-    setCompletedIssues(completedIssues.filter(value=>value.key!=issue.key))
-    
 
+    const res = await IssueService.changeState(issue.key,CurrentIssue)
+    if(res.isError){
+      message.error("Error al eliminar inicidencia")
+    }
+    else{
+      if(res.value){
+
+        setIssues(state => [...state, issue])
+        setCompletedIssues(completedIssues.filter(value=>value.key!=issue.key))
+      }else{
+        message.error("Error al eliminar inicidencia")
+      }
+      
+    }
   }
 
 
   const cancelIssue = async (issue:Issue)=>{
     console.log("issue cancelado " + issue.title)
-    const res = await IssueService.delete(issue)
+    const res = await IssueService.delete(issue.key)
     if(res.isError){
       message.error("Error al eliminar inicidencia")
     }
@@ -79,7 +113,7 @@ const loadFields =async () => {
   }
   const cancelNewIssue = async(issue:Issue)=>{
     console.log("issue cancelado " + issue.title)
-    const res = await IssueService.delete(issue)
+    const res = await IssueService.delete(issue.key)
     if(res.isError){
       message.error("Error al eliminar inicidencia")
     }
@@ -96,7 +130,7 @@ const loadFields =async () => {
   }
   const cancelCompletedIssue = async(issue:Issue)=>{
     console.log("issue cancelado " + issue.title)
-    const res = await IssueService.delete(issue)
+    const res = await IssueService.delete(issue.key)
     if(res.isError){
       message.error("Error al eliminar inicidencia")
     }

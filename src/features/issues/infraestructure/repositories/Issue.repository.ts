@@ -13,8 +13,19 @@ export const IssueRepo = {
         
     },
 
-    delete: async (params:Issue) :Promise<Result<boolean>> => {
-        const res = await issueData.delete(params)
+    delete: async (issue:string) :Promise<Result<boolean>> => {
+        const res = await issueData.delete(issue)
+        if (res.isError) {
+            return { isError: true, error: res.error };
+          }
+          return res
+
+        
+    },
+
+    changeState: async (issue:string,newState: number) :Promise<Result<boolean>> => {
+        
+        const res = await issueData.changeState(issue,newState)
         if (res.isError) {
             return { isError: true, error: res.error };
           }

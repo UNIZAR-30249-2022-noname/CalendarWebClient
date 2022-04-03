@@ -20,7 +20,9 @@ const httpServices = {
   requestInfoSlots: url + "/requestInfoSlots",
   requestReservesPerOwner:url +"/getReservesPerOwner",
   getAllIssues: url+"/getAllIssue",
-  deleteIssue:  url+"/deleteIssue"
+  deleteIssue:  url+"/deleteIssue",
+  cancelReserve: url+"/cancelReserve",
+  changeIssueState: url+"/changeIssueState"
 
 };
 export { url, httpServices };

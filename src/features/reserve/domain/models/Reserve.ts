@@ -6,5 +6,5 @@ export type Reserve= {
     day: string
     scheduled: Time[]
     slot: string
-
+    key?: string
 }

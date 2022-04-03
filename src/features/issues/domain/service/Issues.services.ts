@@ -1,15 +1,21 @@
 import { IndexSignatureDeclaration } from "typescript";
 import { Result } from "../../../../core/config/result";
 import { IssueRepo } from "../../infraestructure/repositories/Issue.repository";
-import { CurrentIssue, Issue, IssuesLists } from "../models/Issue";
+import { CompletedIssue, CurrentIssue, Issue, IssuesLists } from "../models/Issue";
 
 export const IssueService = {
-  create: async (params:Issue) :Promise<Result<boolean>> => {
-    const data: Result<boolean> =  await IssueRepo.create(params)
+  create: async (issue:Issue) :Promise<Result<boolean>> => {
+    const data: Result<boolean> =  await IssueRepo.create(issue)
     return data;
   },
-  delete: async (params:Issue) :Promise<Result<boolean>> => {
-    const data: Result<boolean> =  await IssueRepo.delete(params)
+  delete: async (issue:string) :Promise<Result<boolean>> => {
+    const data: Result<boolean> =  await IssueRepo.delete(issue)
+    return data;
+  },
+
+  changeState: async (issue:string,newState: number) :Promise<Result<boolean>> => {
+   
+    const data: Result<boolean> =  await IssueRepo.changeState(issue, newState)
     return data;
   },
 
@@ -22,7 +28,7 @@ export const IssueService = {
         if(issue.state===CurrentIssue){
           lists.current.push(issue)
         }
-        else if(issue.state===CurrentIssue){
+        else if(issue.state===CompletedIssue){
           lists.completed.push(issue)
         }
         else{

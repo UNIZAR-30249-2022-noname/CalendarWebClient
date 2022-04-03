@@ -11,6 +11,15 @@ export const ReserveRepo = {
       return res
   
     },
+    cancel: async (reserve: string): Promise<Result<Boolean>>=> {
+
+      const res = await ReserveData.cancel(reserve);
+      if (res.isError) {
+        return { isError: true, error: res.error };
+      }
+      return res
+
+    }
   
   
   };
