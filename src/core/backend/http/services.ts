@@ -18,6 +18,9 @@ const httpServices = {
   reserve: url + "/reserve",
   reserveArray: url + "/reserveArray",
   requestInfoSlots: url + "/requestInfoSlots",
-  requestReservesPerOwner:url +"/getReservesPerOwner"
+  requestReservesPerOwner:url +"/getReservesPerOwner",
+  getAllIssues: url+"/getAllIssue",
+  deleteIssue:  url+"/deleteIssue"
+
 };
 export { url, httpServices };

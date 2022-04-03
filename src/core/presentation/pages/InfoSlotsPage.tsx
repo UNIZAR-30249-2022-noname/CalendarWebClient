@@ -44,9 +44,10 @@ export const InfoSlotPage = () => {
   }, []);
 
   const loadFields = async () => {
-    const allinfo = await infoSlotsService.requestInfoSlots(request);
     const key = "update";
     message.loading({ content: "Actualizando datos...", key });
+    const allinfo = await infoSlotsService.requestInfoSlots(request);
+   
     if (allinfo.isError)
       message.error("Error al obtener los datos de este espacio");
     else {

@@ -11,5 +11,24 @@ export const IssueRepo = {
           return res
 
         
+    },
+
+    delete: async (params:Issue) :Promise<Result<boolean>> => {
+        const res = await issueData.delete(params)
+        if (res.isError) {
+            return { isError: true, error: res.error };
+          }
+          return res
+
+        
+    },
+
+    getAll: async () :Promise<Result<Issue[]>> => {
+        const res = await issueData.getAll()
+        if (res.isError) {
+            return { isError: true, error: res.error };
+          }
+          return res
+
     }
 }

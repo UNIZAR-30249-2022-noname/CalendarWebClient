@@ -1,23 +1,44 @@
-import { Button, Tabs } from "antd";
+import { Button, message, Tabs } from "antd";
 import { useEffect, useState } from "react";
 import { Issue } from "../../../features/issues/domain/models/Issue";
+import { IssueService } from "../../../features/issues/domain/service/Issues.services";
 import DownloadReportButton from "../../../features/issues/presentation/components/DownloadReportButton";
 import IssueTable from "../../../features/issues/presentation/components/IssueTable";
 const { TabPane } = Tabs;
 
 export const IssuesPage = () => {
 
-  const fakeData =[
-    {title:"hola", description:"caracola",tags: ['nice', 'developer',"sapo"],key:"1",slot:"A0.01"},
-    {title:"hola", description:"caracola",tags: ['nice', 'developer'],key:"2",slot:"A0.01"},
-    {title:"hola", description:"caracola",tags: ['nice', 'developer'],key:"3",slot:"A0.02"},
-    {title:"hola", description:"caracola",tags: ['nice', 'developer'],key:"4",slot:"A0.03"}
-]
-
 
   const [issues,setIssues] = useState<Issue[]>([]) 
-  const [newIssues,setNewIssues] = useState<Issue[]>(fakeData) 
+  const [newIssues,setNewIssues] = useState<Issue[]>([]) 
   const [completedIssues,setCompletedIssues] = useState<Issue[]>([]) 
+
+  function delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  useEffect(() => {
+    loadFields();
+  }, []);
+
+
+const loadFields =async () => {
+  const key = "update";
+  message.loading({ content: "Actualizando datos...", key });
+  const lists = await IssueService.getAll()
+  if (lists.isError)
+    message.error("Error al obtener las inicidencias");
+  else {
+    await delay(500);
+    message.success({ content: "Datos actualizados", key, duration: 1 });
+    setNewIssues(lists.value.new)
+    setIssues(lists.value.current)
+    setCompletedIssues(lists.value.completed)
+
+  }
+  
+}
+
 
   const acceptIssue = (issue:Issue)=> {
     console.log("issue aceptada "+ issue.title)
@@ -40,17 +61,53 @@ export const IssuesPage = () => {
   }
 
 
-  const cancelIssue = (issue:Issue)=>{
+  const cancelIssue = async (issue:Issue)=>{
     console.log("issue cancelado " + issue.title)
-    setIssues(issues.filter(value=>value.key!=issue.key))
+    const res = await IssueService.delete(issue)
+    if(res.isError){
+      message.error("Error al eliminar inicidencia")
+    }
+    else{
+      if(res.value){
+        setIssues(issues.filter(value=>value.key!=issue.key))
+      }else{
+        message.error("Error al eliminar inicidencia")
+      }
+      
+    }
+    
   }
-  const cancelNewIssue = (issue:Issue)=>{
+  const cancelNewIssue = async(issue:Issue)=>{
     console.log("issue cancelado " + issue.title)
-    setNewIssues(newIssues.filter(value=>value.key!=issue.key))
+    const res = await IssueService.delete(issue)
+    if(res.isError){
+      message.error("Error al eliminar inicidencia")
+    }
+    else{
+      if(res.value){
+        setNewIssues(newIssues.filter(value=>value.key!=issue.key))
+      }else{
+        message.error("Error al eliminar inicidencia")
+      }
+      
+    }
+
+    
   }
-  const cancelCompletedIssue = (issue:Issue)=>{
+  const cancelCompletedIssue = async(issue:Issue)=>{
     console.log("issue cancelado " + issue.title)
-    setCompletedIssues( completedIssues.filter(value=>value.key!=issue.key))
+    const res = await IssueService.delete(issue)
+    if(res.isError){
+      message.error("Error al eliminar inicidencia")
+    }
+    else{
+      if(res.value){
+        setCompletedIssues( completedIssues.filter(value=>value.key!=issue.key))
+      }else{
+        message.error("Error al eliminar inicidencia")
+      }
+      
+    }
   }
 
   const contentTab1 = ()=>{

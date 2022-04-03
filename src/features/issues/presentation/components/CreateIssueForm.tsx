@@ -4,7 +4,7 @@ import TextArea from "antd/lib/input/TextArea";
 import IssuesTags from "./IssuesTags";
 import { useHistory } from "react-router-dom";
 import { IssueService } from "../../domain/service/Issues.services";
-import { Issue } from "../../domain/models/Issue";
+import { Issue, NewIssue } from "../../domain/models/Issue";
 
 
 type Props ={
@@ -25,7 +25,8 @@ const CreateIssueFrom = ({slot}:Props)=>{
       slot:values.slot,
       title: values.title,
       description:values.description,
-      key:values.key
+      key:values.key,
+      state:NewIssue
       
     }
     const res = await IssueService.create(params)
