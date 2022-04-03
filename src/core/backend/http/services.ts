@@ -14,8 +14,15 @@ const httpServices = {
   test: url + "/ping",
   login: url + "/login",
   filterSlots: url + "/filterSlots",
+  createIssue: url +"/createIssue",
   reserve: url + "/reserve",
   reserveArray: url + "/reserveArray",
   requestInfoSlots: url + "/requestInfoSlots",
+  requestReservesPerOwner:url +"/getReservesPerOwner",
+  getAllIssues: url+"/getAllIssue",
+  deleteIssue:  url+"/deleteIssue",
+  cancelReserve: url+"/cancelReserve",
+  changeIssueState: url+"/changeIssueState"
+
 };
 export { url, httpServices };

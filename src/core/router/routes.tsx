@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { EmptyLayout } from "../presentation/layouts/EmptyLayout ";
 import { ProfessorLayout } from "../presentation/layouts/ProfessorLayout";
 import { SlotsPage } from "../presentation/pages/SlotsPage";
-import { CalendarPage } from "../presentation/pages/CalendarPage";
+import { ReservePage } from "../presentation/pages/ReservePage";
 import { DataPage } from "../presentation/pages/DataPage";
 import { IssuesPage } from "../presentation/pages/IssuesPage";
 import { LoginPage } from "../presentation/pages/LoginPage";
@@ -12,6 +12,7 @@ import { MapPage } from "../presentation/pages/MapPage";
 import { SchedulerPage } from "../presentation/pages/SchedulerPage";
 import RouteType from "./models/RouteType";
 import { InfoSlotPage } from "../presentation/pages/InfoSlotsPage";
+import { CreateIssuePage } from "../presentation/pages/CreateIssuePage";
 
 const index: RouteType = {
   path: "/",
@@ -27,11 +28,11 @@ const scheduler: RouteType = {
   component: SchedulerPage,
 };
 
-const calendar: RouteType = {
-  name: "Calendario",
-  path: "/calendar",
+const reserve: RouteType = {
+  name: "Reservas",
+  path: "/reserve",
   layout: ProfessorLayout,
-  component: CalendarPage,
+  component: ReservePage,
 };
 
 const data: RouteType = {
@@ -68,6 +69,12 @@ const infoSlot: RouteType = {
   component: InfoSlotPage,
 };
 
+const crateIssue: RouteType = {
+  path: "/createIssue",
+  layout: ProfessorLayout,
+  component: CreateIssuePage,
+};
+
 
 const login: RouteType = {
   path: "/login",
@@ -95,4 +102,4 @@ const error: RouteType = {
   ),
 };
 
-export const routes = { index, scheduler, calendar, data, error, issues,map, slots,login ,infoSlot};
+export const routes = { index, scheduler, reserve, data, error, issues,map, slots,login ,infoSlot, crateIssue};

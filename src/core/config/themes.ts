@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 
 const lightMode: CSSProperties = {
-  backgroundColor: "#E1E2E3",
+  backgroundColor: "#FFFFFF",
   color: "#585858",
 };
 
