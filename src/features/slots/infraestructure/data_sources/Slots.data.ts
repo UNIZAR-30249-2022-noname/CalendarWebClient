@@ -3,7 +3,8 @@ import { message } from "antd";
 import { http } from "../../../../core/backend/http/http";
 import { httpServices } from "../../../../core/backend/http/services";
 import { Result } from "../../../../core/config/result";
-import { AllInfoSlot, ReqInfoSlot, Reserve } from "../../domain/models/InfoSlots";
+import { Reserve } from "../../../reserve/domain/models/Reserve";
+import { AllInfoSlot, ReqInfoSlot } from "../../domain/models/InfoSlots";
 import { Slots } from "../../domain/models/Slots";
 import { SlotsFilterForm } from "../../domain/models/SlotsFilterForm";
 

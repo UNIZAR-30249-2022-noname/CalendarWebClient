@@ -1,5 +1,6 @@
+import { Reserve } from "../../../reserve/domain/models/Reserve";
 import { SlotsRepo } from "../../infraestructure/repositories/Slots.repositories";
-import { InfoSlots, ReqInfoSlot, Reserve } from "../models/InfoSlots";
+import { InfoSlots, ReqInfoSlot } from "../models/InfoSlots";
 
 
 export const infoSlotsService = {
