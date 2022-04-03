@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { EmptyLayout } from "../presentation/layouts/EmptyLayout ";
 import { ProfessorLayout } from "../presentation/layouts/ProfessorLayout";
 import { SlotsPage } from "../presentation/pages/SlotsPage";
-import { BookPage } from "../presentation/pages/BooksPage";
+import { ReservePage } from "../presentation/pages/ReservePage";
 import { DataPage } from "../presentation/pages/DataPage";
 import { IssuesPage } from "../presentation/pages/IssuesPage";
 import { LoginPage } from "../presentation/pages/LoginPage";
@@ -28,11 +28,11 @@ const scheduler: RouteType = {
   component: SchedulerPage,
 };
 
-const book: RouteType = {
+const reserve: RouteType = {
   name: "Reservas",
-  path: "/book",
+  path: "/reserve",
   layout: ProfessorLayout,
-  component: BookPage,
+  component: ReservePage,
 };
 
 const data: RouteType = {
@@ -102,4 +102,4 @@ const error: RouteType = {
   ),
 };
 
-export const routes = { index, scheduler, book, data, error, issues,map, slots,login ,infoSlot, crateIssue};
+export const routes = { index, scheduler, reserve, data, error, issues,map, slots,login ,infoSlot, crateIssue};

@@ -1,12 +1,12 @@
 import { Button, Space, Table, Tag } from "antd"
 import React, { useEffect, useState } from "react";
 import { Time } from "../../../scheduler/entries/domain/models/Entry";
-import { Book } from "../../domain/models/Book";
+import { Reserve } from "../../domain/models/Reserve";
 
 const IssueTable = ()=>{
 
 
-const fakeData:Book[] = [
+const fakeData:Reserve[] = [
   {
     event:"Prog 1",
     scheduled:[{ hour:8,min:0   },{ hour:9,min:0   }],
@@ -37,7 +37,7 @@ const fakeData:Book[] = [
   },
 ]
 
-  const [books,setBook]= useState<Book[]>(fakeData)
+  const [books,setBook]= useState<Reserve[]>(fakeData)
 
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const fakeData:Book[] = [
   }, []);
 
 
-  const cancelBook=(book : Book)=>{
+  const cancelBook=(book : Reserve)=>{
     console.log(book)
 
   }
@@ -81,7 +81,7 @@ const fakeData:Book[] = [
           title: 'Acciones',
           key: 'key',
           dataIndex: 'key',
-          render: (text: any, record: Book) => (
+          render: (text: any, record: Reserve) => (
           <Space size="middle">
             <Button type="primary" danger={true} onClick={()=>cancelBook(record)}>
               Cancelar reserva

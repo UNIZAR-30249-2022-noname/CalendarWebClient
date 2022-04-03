@@ -1,6 +1,6 @@
 import { Time } from "../../../scheduler/entries/domain/models/Entry"
 
-export type Book= {
+export type Reserve= {
     owner: string
     event: String
     day: string

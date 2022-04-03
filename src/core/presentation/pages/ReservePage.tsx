@@ -1,9 +1,8 @@
 import { Typography } from "antd";
-import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
-import BookTable from "../../../features/books/presentation/components/BookTable";
+import ReserveTable from "../../../features/reserve/presentation/components/ReserveTable";
 
-export const BookPage = () => {
+export const ReservePage = () => {
   return (
     <div>
 
@@ -27,7 +26,7 @@ export const BookPage = () => {
       justifyContent: "center",
     }}
   >
-    <BookTable />
+    <ReserveTable />
     </div>
     </div>
   );
