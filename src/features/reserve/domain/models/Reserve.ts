@@ -5,6 +5,6 @@ export type Reserve= {
     event: String
     day: string
     scheduled: Time[]
-    slot: string
+    space: string
     key?: string
 }
