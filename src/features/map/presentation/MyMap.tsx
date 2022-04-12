@@ -1,21 +1,7 @@
-import { LatLng } from "leaflet";
 import { Radio, Select } from "antd";
 import { useState } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  WMSTileLayer,
-  LayersControl,
-} from "react-leaflet";
 import { MapLayers } from "./MapLayers";
-
-//TODO Meter opcion tipo
-
-const { BaseLayer } = LayersControl;
-
-const coordAda = new LatLng(41.6835, -0.8886);
-const coordQuevedo = new LatLng(41.6835, -0.8874);
-const coordBetan = new LatLng(41.6835, -0.8845);
+import Text from "antd/lib/typography/Text";
 
 type MapProps = {
   height: string;
@@ -24,26 +10,15 @@ type MapProps = {
 };
 
 export function MyMap({ height, width, zoom }: MapProps) {
-  var scope = {
-    sStyle: {
-      height: height,
-      width: width,
-      zoom: zoom,
-    },
-  };
-  const [value, setValue] = useState(1);
+  const [layerToShow, setLayerToShow] = useState("reserved");
+  const [floor, setFloor] = useState("1");
 
   const onChange = (e: any) => {
-    console.log("radio checked", e.target.value);
-    setValue(e.target.value);
+    setLayerToShow(e.target.value);
   };
-  var center;
-  if (scope.sStyle.zoom === 1) {
-    center = coordAda;
-  } else if (scope.sStyle.zoom === 3) {
-    center = coordBetan;
-  } else {
-    center = coordQuevedo;
+  function handleChange(value: any) {
+    console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
+    setFloor(value);
   }
   return (
     <div
@@ -54,7 +29,7 @@ export function MyMap({ height, width, zoom }: MapProps) {
         justifyContent: "center",
       }}
     >
-      <Select defaultValue="1">
+      <Select defaultValue="1" style={{ left: "48%" }} onChange={handleChange}>
         <Select.Option value="1">Planta 1</Select.Option>
         <Select.Option value="2">Planta 2</Select.Option>
         <Select.Option value="3">Planta 3</Select.Option>
@@ -64,19 +39,26 @@ export function MyMap({ height, width, zoom }: MapProps) {
       </Select>
       <Radio.Group
         onChange={onChange}
-        value={value}
+        value={layerToShow}
         style={{
           alignItems: "center",
           justifyContent: "center",
           display: "flex",
         }}
       >
-        <Radio.Button value={1}>Reservado</Radio.Button>
-        <Radio.Button value={2}>Por edificio</Radio.Button>
-        <Radio.Button value={3}>Capacidad total</Radio.Button>
-        <Radio.Button value={4}>Ocupación actual</Radio.Button>
+        <Radio.Button value={"reserved"}>Reservado</Radio.Button>
+        <Radio.Button value={"building"}>Por edificio</Radio.Button>
+        <Radio.Button value={"capacity"}>Capacidad total</Radio.Button>
+        <Radio.Button value={"occupation"}>Ocupación actual</Radio.Button>
+        <Radio.Button value={"type"}>Tipo de espacio</Radio.Button>
       </Radio.Group>
-      <MapLayers height={height} width={width} zoom={zoom} />
+      <MapLayers
+        height={height}
+        width={width}
+        zoom={zoom}
+        layerToShow={layerToShow}
+        floor={floor}
+      />
     </div>
   );
 }

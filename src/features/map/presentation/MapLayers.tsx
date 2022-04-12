@@ -20,9 +20,17 @@ type MapProps = {
   height: string;
   width: string;
   zoom: number;
+  layerToShow: string;
+  floor: string;
 };
 
-export function MapLayers({ height, width, zoom }: MapProps) {
+export function MapLayers({
+  height,
+  width,
+  zoom,
+  layerToShow,
+  floor,
+}: MapProps) {
   var scope = {
     sStyle: {
       height: height,
