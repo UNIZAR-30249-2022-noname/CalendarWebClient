@@ -7,6 +7,7 @@ import {
   WMSTileLayer,
   LayersControl,
 } from "react-leaflet";
+import { MapLayers } from "./MapLayers";
 
 //TODO Meter opcion tipo
 
@@ -75,63 +76,7 @@ export function MyMap({ height, width, zoom }: MapProps) {
         <Radio.Button value={3}>Capacidad total</Radio.Button>
         <Radio.Button value={4}>Ocupación actual</Radio.Button>
       </Radio.Group>
-      <MapContainer
-        center={center}
-        zoom={18}
-        scrollWheelZoom={true}
-        style={scope.sStyle}
-      >
-        <LayersControl>
-          <BaseLayer checked name="OpenStreetMap">
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-
-            <LayersControl.Overlay name="ESPAÑA">
-              <WMSTileLayer
-                transparent
-                format="image/png"
-                layers={"OI.OrthoimageCoverage"}
-                attribution='&copy; <a href="https://pnoa.ign.es/">IGN</a>'
-                url="http://www.ign.es/wms-inspire/pnoa-ma?"
-              />
-            </LayersControl.Overlay>
-          </BaseLayer>
-          <LayersControl.Overlay name="Colores por aulas reservadas">
-            <WMSTileLayer
-              format="image/png"
-              transparent
-              layers="topp:states"
-              url="http://localhost:8081/geoserver/topp/wms?"
-            />
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="Colores por edificio">
-            <WMSTileLayer
-              format="image/png"
-              transparent
-              layers="topp:states"
-              url="http://localhost:8081/geoserver/topp/wms?"
-            />
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="Colores por capacidad del aula">
-            <WMSTileLayer
-              format="image/png"
-              transparent
-              layers="topp:states"
-              url="http://localhost:8081/geoserver/topp/wms?"
-            />
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="Colores por ocupación actual">
-            <WMSTileLayer
-              format="image/png"
-              transparent
-              layers="topp:states"
-              url="http://localhost:8081/geoserver/topp/wms?"
-            />
-          </LayersControl.Overlay>
-        </LayersControl>
-      </MapContainer>
+      <MapLayers height={height} width={width} zoom={zoom} />
     </div>
   );
 }
