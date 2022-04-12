@@ -8,6 +8,8 @@ import {
   LayersControl,
 } from "react-leaflet";
 
+//TODO Meter opcion tipo
+
 const { BaseLayer } = LayersControl;
 
 const coordAda = new LatLng(41.6835, -0.8886);
