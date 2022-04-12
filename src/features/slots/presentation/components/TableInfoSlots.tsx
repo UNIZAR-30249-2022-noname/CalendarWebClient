@@ -64,7 +64,7 @@ const TableInfoSlots = ({ infoSlots, space, date, person }: Props) => {
     var reserve: Reserve[] = new Array();
     for (var i in rows) {
       reserve[i] = {
-        slot: space!,
+        space: space!,
         scheduled:[{hour:infoSlots[i].hour,min:0},{hour:infoSlots[i].hour,min:0}],
         day: date,
         owner: person,
