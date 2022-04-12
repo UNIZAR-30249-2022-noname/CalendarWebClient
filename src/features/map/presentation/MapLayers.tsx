@@ -1,14 +1,12 @@
 import { LatLng } from "leaflet";
-import { Radio, Select } from "antd";
 import { useState } from "react";
+import Text from "antd/lib/typography/Text";
 import {
   MapContainer,
   TileLayer,
   WMSTileLayer,
   LayersControl,
 } from "react-leaflet";
-
-//TODO Meter opcion tipo
 
 const { BaseLayer } = LayersControl;
 
@@ -20,6 +18,12 @@ type MapProps = {
   height: string;
   width: string;
   zoom: number;
+  layerToShow: string;
+  floor: string;
+};
+
+type OverlayProps = {
+  labelName: string;
   layerToShow: string;
   floor: string;
 };
@@ -38,6 +42,30 @@ export function MapLayers({
       zoom: zoom,
     },
   };
+  var layerName = "";
+  switch (layerToShow) {
+    case "reserved": {
+      layerName = "Colores por aulas reservadas";
+      break;
+    }
+    case "building": {
+      layerName = "Colores por edificio";
+      break;
+    }
+    case "capacity": {
+      layerName = "Colores por capacidad";
+      break;
+    }
+    case "occupation": {
+      layerName = "Colores por ocupación actual";
+      break;
+    }
+    case "type": {
+      layerName = "Colores por tipo de espacio";
+      break;
+    }
+  }
+  var labelName = layerName + " Planta " + floor;
   var center;
   if (scope.sStyle.zoom === 1) {
     center = coordAda;
@@ -47,62 +75,67 @@ export function MapLayers({
     center = coordQuevedo;
   }
   return (
-    <MapContainer
-      center={center}
-      zoom={18}
-      scrollWheelZoom={true}
-      style={scope.sStyle}
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
     >
-      <LayersControl>
-        <BaseLayer checked name="OpenStreetMap">
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+      <Text>{floor + layerToShow + "   "}</Text>
+      <Text>{labelName}</Text>
+      <MapContainer
+        center={center}
+        zoom={18}
+        scrollWheelZoom={true}
+        style={scope.sStyle}
+      >
+        <LayersControl>
+          <BaseLayer checked name="OpenStreetMap">
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
 
-          <LayersControl.Overlay name="ESPAÑA">
+            <LayersControl.Overlay name="ESPAÑA">
+              <WMSTileLayer
+                transparent
+                format="image/png"
+                layers={"OI.OrthoimageCoverage"}
+                attribution='&copy; <a href="https://pnoa.ign.es/">IGN</a>'
+                url="http://www.ign.es/wms-inspire/pnoa-ma?"
+              />
+            </LayersControl.Overlay>
+          </BaseLayer>
+          <LayersControl.Overlay name="EEUU">
             <WMSTileLayer
-              transparent
               format="image/png"
-              layers={"OI.OrthoimageCoverage"}
-              attribution='&copy; <a href="https://pnoa.ign.es/">IGN</a>'
-              url="http://www.ign.es/wms-inspire/pnoa-ma?"
+              transparent
+              layers="topp:states"
+              url="http://localhost:8081/geoserver/topp/wms?"
             />
           </LayersControl.Overlay>
-        </BaseLayer>
-        <LayersControl.Overlay name="Colores por aulas reservadas">
-          <WMSTileLayer
-            format="image/png"
-            transparent
-            layers="topp:states"
-            url="http://localhost:8081/geoserver/topp/wms?"
+          <MyOverlay
+            labelName={labelName}
+            layerToShow={layerToShow}
+            floor={floor}
           />
-        </LayersControl.Overlay>
-        <LayersControl.Overlay name="Colores por edificio">
-          <WMSTileLayer
-            format="image/png"
-            transparent
-            layers="topp:states"
-            url="http://localhost:8081/geoserver/topp/wms?"
-          />
-        </LayersControl.Overlay>
-        <LayersControl.Overlay name="Colores por capacidad del aula">
-          <WMSTileLayer
-            format="image/png"
-            transparent
-            layers="topp:states"
-            url="http://localhost:8081/geoserver/topp/wms?"
-          />
-        </LayersControl.Overlay>
-        <LayersControl.Overlay name="Colores por ocupación actual">
-          <WMSTileLayer
-            format="image/png"
-            transparent
-            layers="topp:states"
-            url="http://localhost:8081/geoserver/topp/wms?"
-          />
-        </LayersControl.Overlay>
-      </LayersControl>
-    </MapContainer>
+        </LayersControl>
+      </MapContainer>
+    </div>
+  );
+}
+
+function MyOverlay({ labelName, layerToShow, floor }: OverlayProps) {
+  return (
+    <LayersControl.Overlay name={labelName} checked>
+      <WMSTileLayer
+        format="image/png"
+        transparent
+        layers="topp:states" //TODO Esto se cambiará
+        url={"http://localhost:8081/geoserver/topp/" + layerToShow + floor} //TODO Cambiar
+      />
+    </LayersControl.Overlay>
   );
 }

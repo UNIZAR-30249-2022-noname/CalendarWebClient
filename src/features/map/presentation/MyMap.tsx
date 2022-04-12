@@ -29,6 +29,7 @@ export function MyMap({ height, width, zoom }: MapProps) {
         justifyContent: "center",
       }}
     >
+      <Text>{floor + layerToShow}</Text>
       <Select defaultValue="1" style={{ left: "48%" }} onChange={handleChange}>
         <Select.Option value="1">Planta 1</Select.Option>
         <Select.Option value="2">Planta 2</Select.Option>
