@@ -1,5 +1,5 @@
 import { LatLng } from "leaflet";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Text from "antd/lib/typography/Text";
 import {
   MapContainer,
@@ -83,8 +83,6 @@ export function MapLayers({
         justifyContent: "center",
       }}
     >
-      <Text>{floor + layerToShow + "   "}</Text>
-      <Text>{labelName}</Text>
       <MapContainer
         center={center}
         zoom={18}

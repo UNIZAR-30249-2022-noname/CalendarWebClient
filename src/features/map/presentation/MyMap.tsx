@@ -1,6 +1,7 @@
 import { Radio, Select } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MapLayers } from "./MapLayers";
+import { useHistory, useLocation } from "react-router-dom";
 import Text from "antd/lib/typography/Text";
 
 type MapProps = {
@@ -10,15 +11,33 @@ type MapProps = {
 };
 
 export function MyMap({ height, width, zoom }: MapProps) {
-  const [layerToShow, setLayerToShow] = useState("reserved");
-  const [floor, setFloor] = useState("1");
+  const history = useHistory();
+  const search = useLocation().search;
+  var lastlayer = new URLSearchParams(search).get("layerToShow");
+  var lastfloor = new URLSearchParams(search).get("floor");
+  if (lastlayer === null) lastlayer = "reserved";
+  if (lastfloor === null) lastfloor = "1";
+  const [layerToShow, setLayerToShow] = useState(lastlayer);
+  const [floor, setFloor] = useState(lastfloor);
+
+  useEffect(() => {
+    var lastlayer = new URLSearchParams(search).get("layerToShow");
+    var lastfloor = new URLSearchParams(search).get("floor");
+    if (lastlayer === null) lastlayer = "reserved";
+    if (lastfloor === null) lastfloor = "1";
+    setLayerToShow(lastlayer);
+    setFloor(lastfloor);
+  }, []);
 
   const onChange = (e: any) => {
-    setLayerToShow(e.target.value);
+    let path = `/map` + "?layerToShow=" + e.target.value + "&floor=" + floor;
+    history.push(path);
+    window.location.reload();
   };
   function handleChange(value: any) {
-    console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
-    setFloor(value);
+    let path = `/map` + "?layerToShow=" + layerToShow + "&floor=" + value;
+    history.push(path);
+    window.location.reload();
   }
   return (
     <div
@@ -29,8 +48,11 @@ export function MyMap({ height, width, zoom }: MapProps) {
         justifyContent: "center",
       }}
     >
-      <Text>{floor + layerToShow}</Text>
-      <Select defaultValue="1" style={{ left: "48%" }} onChange={handleChange}>
+      <Select
+        defaultValue={lastfloor}
+        style={{ left: "48%" }}
+        onChange={handleChange}
+      >
         <Select.Option value="1">Planta 1</Select.Option>
         <Select.Option value="2">Planta 2</Select.Option>
         <Select.Option value="3">Planta 3</Select.Option>
