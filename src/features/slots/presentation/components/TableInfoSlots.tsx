@@ -1,11 +1,15 @@
 import { HourglassTwoTone } from "@ant-design/icons";
 import { duration } from "@mui/material";
-import { Button, message, Table, Tag } from "antd";
+import { Button, message, Table, Tag, Input } from "antd";
+import Text from "antd/lib/typography/Text";
+import { CalendarOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Reserve } from "../../../reserve/domain/models/Reserve";
 import { InfoSlotsKey } from "../../../slots/domain/models/InfoSlots";
 import { infoSlotsService } from "../../../slots/domain/services/InfoSlots.service";
+
+const { TextArea } = Input;
 
 type Props = {
   infoSlots: InfoSlotsKey[];
@@ -17,6 +21,7 @@ type Props = {
 const TableInfoSlots = ({ infoSlots, space, date, person }: Props) => {
   const [clickedButton, setClickedButton] = useState("");
   const [rows, setRows] = useState<React.Key[]>([""]);
+  const [event, setEvent] = useState("");
   const [selectionType] = useState<"checkbox">("checkbox");
   const columns = [
     {
@@ -65,10 +70,13 @@ const TableInfoSlots = ({ infoSlots, space, date, person }: Props) => {
     for (var i in rows) {
       reserve[i] = {
         slot: space!,
-        scheduled:[{hour:infoSlots[i].hour,min:0},{hour:infoSlots[i].hour,min:0}],
+        scheduled: [
+          { hour: infoSlots[i].hour, min: 0 },
+          { hour: infoSlots[i].hour, min: 0 },
+        ],
         day: date,
         owner: person,
-        event:""//TODO
+        event: event,
       };
     }
     const allreserves = await infoSlotsService.reserve(reserve);
@@ -89,6 +97,10 @@ const TableInfoSlots = ({ infoSlots, space, date, person }: Props) => {
     }
   };
 
+  const onChange = (value: any) => {
+    setEvent(value.target.value);
+  };
+
   return (
     <div style={{ margin: "10px", width: "800px" }}>
       <Table
@@ -100,6 +112,15 @@ const TableInfoSlots = ({ infoSlots, space, date, person }: Props) => {
           ...rowSelection,
         }}
       />
+      <div style={{ flexDirection: "row" }}>
+        <TextArea
+          size="large"
+          placeholder="Evento"
+          prefix="Evento: "
+          onChange={onChange}
+        />
+      </div>
+      <br />
       <div style={{ flexDirection: "row" }}>
         <Button type="primary" onClick={reserveHandler}>
           Reservar selección
