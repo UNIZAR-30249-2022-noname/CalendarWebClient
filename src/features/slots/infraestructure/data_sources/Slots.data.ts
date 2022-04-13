@@ -51,7 +51,7 @@ export const SlotData = {
     try {
       let res;
       if (params.length === 1) {
-        res = await http.get(serviceReserve, params[0]);
+        res = await http.post(serviceReserve, params[0]);
         if (res.status !== 200) {
           return { isError: true, error: new Error() };
         }
