@@ -14,13 +14,6 @@ export type InfoSlotsKey = {
   person?: String;
 };
 
-export type Reserve = {
-  space: string | null;
-  hour: number;
-  date: string;
-  person: string;
-};
-
 export type ReqInfoSlot = {
   name: string | null;
   date: string;

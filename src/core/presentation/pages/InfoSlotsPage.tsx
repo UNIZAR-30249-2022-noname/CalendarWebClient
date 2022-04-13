@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { DatePicker, message } from "antd";
 import locale from "antd/es/date-picker/locale/es_ES";
 import { useLocation } from "react-router-dom";
-import TableInfoSlots from "../../../features/infoSlots/presentation/components/TableInfoSlots";
 import Box from "@mui/material/Box";
 import {dateFormat} from "../../config/constants"
 import moment from "moment";
@@ -10,10 +9,11 @@ import {
   InfoSlotsKey,
   ReqInfoSlot,
   SlotData,
-} from "../../../features/infoSlots/domain/models/InfoSlots";
-import { infoSlotsService } from "../../../features/infoSlots/domain/services/InfoSlots.service";
-import SlotDataInBox from "../../../features/infoSlots/presentation/components/SlotDataInBox";
+} from "../../../features/slots/domain/models/InfoSlots";
+import { infoSlotsService } from "../../../features/slots/domain/services/InfoSlots.service";
+import SlotDataInBox from "../../../features/slots/presentation/components/SlotDataInBox";
 import { UserContext } from "../../context/context";
+import TableInfoSlots from "../../../features/slots/presentation/components/TableInfoSlots";
 
 export const InfoSlotPage = () => {
   const search = useLocation().search;
@@ -44,9 +44,10 @@ export const InfoSlotPage = () => {
   }, []);
 
   const loadFields = async () => {
-    const allinfo = await infoSlotsService.requestInfoSlots(request);
     const key = "update";
     message.loading({ content: "Actualizando datos...", key });
+    const allinfo = await infoSlotsService.requestInfoSlots(request);
+   
     if (allinfo.isError)
       message.error("Error al obtener los datos de este espacio");
     else {

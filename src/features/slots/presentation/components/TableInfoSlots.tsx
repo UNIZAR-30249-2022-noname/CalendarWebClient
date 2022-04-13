@@ -3,8 +3,9 @@ import { duration } from "@mui/material";
 import { Button, message, Table, Tag } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { InfoSlotsKey, Reserve } from "../../domain/models/InfoSlots";
-import { infoSlotsService } from "../../domain/services/InfoSlots.service";
+import { Reserve } from "../../../reserve/domain/models/Reserve";
+import { InfoSlotsKey } from "../../../slots/domain/models/InfoSlots";
+import { infoSlotsService } from "../../../slots/domain/services/InfoSlots.service";
 
 type Props = {
   infoSlots: InfoSlotsKey[];
@@ -63,10 +64,11 @@ const TableInfoSlots = ({ infoSlots, space, date, person }: Props) => {
     var reserve: Reserve[] = new Array();
     for (var i in rows) {
       reserve[i] = {
-        space: space,
-        hour: infoSlots[i].hour,
-        date: date,
-        person: person,
+        slot: space!,
+        scheduled:[{hour:infoSlots[i].hour,min:0},{hour:infoSlots[i].hour,min:0}],
+        day: date,
+        owner: person,
+        event:""//TODO
       };
     }
     const allreserves = await infoSlotsService.reserve(reserve);
