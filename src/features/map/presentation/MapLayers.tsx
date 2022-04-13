@@ -95,25 +95,7 @@ export function MapLayers({
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-
-            <LayersControl.Overlay name="ESPAÑA">
-              <WMSTileLayer
-                transparent
-                format="image/png"
-                layers={"OI.OrthoimageCoverage"}
-                attribution='&copy; <a href="https://pnoa.ign.es/">IGN</a>'
-                url="http://www.ign.es/wms-inspire/pnoa-ma?"
-              />
-            </LayersControl.Overlay>
           </BaseLayer>
-          <LayersControl.Overlay name="EEUU">
-            <WMSTileLayer
-              format="image/png"
-              transparent
-              layers="topp:states"
-              url="http://localhost:8081/geoserver/topp/wms?"
-            />
-          </LayersControl.Overlay>
           <MyOverlay
             labelName={labelName}
             layerToShow={layerToShow}
