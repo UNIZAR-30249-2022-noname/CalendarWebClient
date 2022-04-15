@@ -1,94 +1,87 @@
-import { LatLng } from "leaflet";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  WMSTileLayer,
-  LayersControl,
-} from "react-leaflet";
-
-const { BaseLayer } = LayersControl;
-
-const  coordAda = new LatLng(41.6835, -0.8886)
-const coordQuevedo = new LatLng(41.6835, -0.8874)
-const coordBetan = new LatLng(41.6835, -0.8845)
+import { Radio, Select } from "antd";
+import { useEffect, useState } from "react";
+import { MapLayers } from "./MapLayers";
+import { useHistory, useLocation } from "react-router-dom";
+import Text from "antd/lib/typography/Text";
 
 type MapProps = {
   height: string;
   width: string;
-  zoom: number
+  zoom: number;
 };
 
 export function MyMap({ height, width, zoom }: MapProps) {
-  var scope = {
-    sStyle: {
-      height: height,
-      width: width,
-      zoom: zoom
-    },
+  const history = useHistory();
+  const search = useLocation().search;
+  var lastlayer = new URLSearchParams(search).get("layerToShow");
+  var lastfloor = new URLSearchParams(search).get("floor");
+  if (lastlayer === null) lastlayer = "reserved";
+  if (lastfloor === null) lastfloor = "1";
+  const [layerToShow, setLayerToShow] = useState(lastlayer);
+  const [floor, setFloor] = useState(lastfloor);
+
+  useEffect(() => {
+    var lastlayer = new URLSearchParams(search).get("layerToShow");
+    var lastfloor = new URLSearchParams(search).get("floor");
+    if (lastlayer === null) lastlayer = "reserved";
+    if (lastfloor === null) lastfloor = "1";
+    setLayerToShow(lastlayer);
+    setFloor(lastfloor);
+  }, []);
+
+  const onChange = (e: any) => {
+    let path = `/map` + "?layerToShow=" + e.target.value + "&floor=" + floor;
+    history.push(path);
+    window.location.reload();
   };
-  var center
-  if(scope.sStyle.zoom == 1){
-    center = coordAda
-  } else if (scope.sStyle.zoom == 3){
-    center = coordBetan
-  } else {
-    center = coordQuevedo
+  function handleChange(value: any) {
+    let path = `/map` + "?layerToShow=" + layerToShow + "&floor=" + value;
+    history.push(path);
+    window.location.reload();
   }
   return (
-    <MapContainer
-      center={center}
-      zoom={18}
-      scrollWheelZoom={true}
-      style={scope.sStyle}
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
     >
-      <LayersControl>
-        <BaseLayer checked name="OpenStreetMap">
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <LayersControl.Overlay name="Ada" checked={scope.sStyle.zoom == 1}>
-            <Marker position={coordAda}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="Quevedo" checked={scope.sStyle.zoom == 2}>
-            <Marker position={coordQuevedo}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="Betan" checked={scope.sStyle.zoom == 3}>
-            <Marker position={coordBetan}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="ESPAÑA">
-            <WMSTileLayer
-              transparent
-              format="image/png"
-              layers={"OI.OrthoimageCoverage"}
-              attribution='&copy; <a href="https://pnoa.ign.es/">IGN</a>'
-              url="http://www.ign.es/wms-inspire/pnoa-ma?"
-            />
-          </LayersControl.Overlay>
-        </BaseLayer>
-        <LayersControl.Overlay name="EEUU">
-          <WMSTileLayer
-            format="image/png"
-            transparent
-            layers="topp:states"
-            url="http://172.18.0.5:8080/geoserver/topp/wms?"
-          />
-        </LayersControl.Overlay>
-      </LayersControl>
-    </MapContainer>
+      <Select
+        defaultValue={lastfloor}
+        style={{ left: "48%" }}
+        onChange={handleChange}
+      >
+        <Select.Option value="1">Planta 1</Select.Option>
+        <Select.Option value="2">Planta 2</Select.Option>
+        <Select.Option value="3">Planta 3</Select.Option>
+        <Select.Option value="4">Planta 4</Select.Option>
+        <Select.Option value="5">Planta 5</Select.Option>
+        <Select.Option value="6">Planta 6</Select.Option>
+      </Select>
+      <Radio.Group
+        onChange={onChange}
+        value={layerToShow}
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+        }}
+      >
+        <Radio.Button value={"reserved"}>Reservado</Radio.Button>
+        <Radio.Button value={"building"}>Por edificio</Radio.Button>
+        <Radio.Button value={"capacity"}>Capacidad total</Radio.Button>
+        <Radio.Button value={"occupation"}>Ocupación actual</Radio.Button>
+        <Radio.Button value={"type"}>Tipo de espacio</Radio.Button>
+      </Radio.Group>
+      <MapLayers
+        height={height}
+        width={width}
+        zoom={zoom}
+        layerToShow={layerToShow}
+        floor={floor}
+      />
+    </div>
   );
 }
