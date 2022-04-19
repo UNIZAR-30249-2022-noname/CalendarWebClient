@@ -58,6 +58,7 @@ const TableSlots = ({ slots, date, onClickMap }: Props) => {
         <Space size="middle">
           <Button
             type="primary"
+            //TODO Cambiar por coordenadas del servidor
             onClick={() => onClickMap(new LatLng(41.683, -0.8886))}
           >
             {"Ver en mapa"}
