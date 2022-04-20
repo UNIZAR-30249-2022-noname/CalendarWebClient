@@ -7,6 +7,7 @@ import Text from "antd/lib/typography/Text";
 export const ImportForm = () => {
   const [upload, setUpload] = useState<File>();
   const [content, setContent] = useState("");
+  const [enabled, setEnabled] = useState(false);
   function onFileChange(event: any) {
     // Update the state
     setUpload(event.target.files[0]);
@@ -17,15 +18,24 @@ export const ImportForm = () => {
       if (typeof reader.result === "string") {
         setContent(reader.result);
       }
+      setEnabled(true);
     };
     reader.readAsText(event.target.files[0]);
   }
+  const styleEnable = () => {
+    if (!enabled) {
+      return {};
+    } else {
+      return { backgroundColor: "blue", color: "white" };
+    }
+  };
   return (
     <div>
       <input type="file" accept=".csv" onChange={onFileChange} />
-      <button>Upload!</button>
+      <button disabled={enabled} style={styleEnable()}>
+        Upload!
+      </button>
       <Text>{upload?.name}</Text>
-      <Text>{content}</Text>
     </div>
   );
 };
