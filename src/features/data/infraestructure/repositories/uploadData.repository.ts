@@ -1,7 +1,7 @@
 import { Result } from "../../../../core/config/result";
 import { entriesData } from "../data_sources/DataInput.data";
 
-export const entriesRepo = {
+export const uploadDataRepo = {
   postCSV: async (body: string): Promise<Result<boolean>> => {
     try {
       const res = await entriesData.postCSV(body);

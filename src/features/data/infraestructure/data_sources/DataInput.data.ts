@@ -4,7 +4,7 @@ import { Result } from "../../../../core/config/result";
 
 export const entriesData = {
   postCSV: async (body: string): Promise<Result<true>> => {
-    const service = httpServices.entries;
+    const service = httpServices.uploadData;
     try {
       const res = await http.post(service, body);
       if (res.status === 200) {
