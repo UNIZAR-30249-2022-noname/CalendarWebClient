@@ -2,6 +2,7 @@ import { http } from "../../../../core/backend/http/http";
 import { httpServices } from "../../../../core/backend/http/services";
 import { Result } from "../../../../core/config/result";
 import { Issue } from "../../domain/models/Issue";
+import fileDownload from "js-file-download";
 
 let serviceCreate = httpServices.createIssue;
 let serviceDelete = httpServices.deleteIssue;
@@ -77,8 +78,9 @@ export const issueData = {
   download: async (): Promise<Result<Uint8Array>> => {
     try {
       const res = await http.get(serviceDownload, {
-        responseType: "arraybuffer",
+        responseType: "blob",
       });
+      await fileDownload(res.data, "owo.pdf");
       if (res.status === 200) {
         return { isError: false, value: res.data };
       } else {

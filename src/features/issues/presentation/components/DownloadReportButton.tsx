@@ -11,8 +11,8 @@ const DownloadReportButton = () => {
     if (res.isError) message.error("Error al descargar");
     else {
       message.info("Aviso creado correctamente" + res.value);
-      var blob = new Blob([res.value], { type: "application/pdf" });
-      saveAs(blob, "issues.pdf");
+      //var blob = new Blob([res.value], { type: "application/pdf" });
+      //saveAs(blob, "issues.pdf");
     }
   };
   return (
