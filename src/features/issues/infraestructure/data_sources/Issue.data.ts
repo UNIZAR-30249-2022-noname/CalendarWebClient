@@ -82,7 +82,7 @@ export const issueData = {
         responseType: "blob",
       });
       console.log(typeof res.data);
-      await fileDownload(res.data, "owo.pdf");
+      await fileDownload(res.data, "Incidencias.pdf");
       if (res.status === 200) {
         return { isError: false, value: res.data };
       } else {
