@@ -74,9 +74,11 @@ export const issueData = {
     }
   },
 
-  download: async (): Promise<Result<Int8Array>> => {
+  download: async (): Promise<Result<Uint8Array>> => {
     try {
-      const res = await http.get(serviceDownload);
+      const res = await http.get(serviceDownload, {
+        responseType: "arraybuffer",
+      });
       if (res.status === 200) {
         return { isError: false, value: res.data };
       } else {
