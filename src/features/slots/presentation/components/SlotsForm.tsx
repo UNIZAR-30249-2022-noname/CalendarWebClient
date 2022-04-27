@@ -6,6 +6,23 @@ import { floor } from "cypress/types/lodash";
 import { searchSlotsService } from "../../domain/services/SearchSlots.service";
 import { SlotsFilterForm } from "../../domain/models/SlotsFilterForm";
 import {dateFormat} from "../../../../core/config/constants"
+import { Edifcio } from "../../domain/models/Slots";
+
+const Edificios:Edifcio[] = [
+  {
+    name:"Ada Byron",
+    floors:["Sótano","Baja","Primera","Segunda","Tercera","Cuarta","Quinta"]
+  },
+  {
+    name:"Torres Quevedo",
+    floors:["Sótano","Baja","Primera","Segunda","Tercera"]
+  },
+  {
+    name:"Betancourt",
+    floors:["Sótano","Baja","Primera","Segunda","Tercera"]
+  },
+]
+
 
 type Props ={
   updateSlots: Function
@@ -16,6 +33,7 @@ type Props ={
 const SlotsFrom = ({updateSlots, updateDate}:Props)=>{
 
   const [bookEnabled, setBookEnabled] = useState(false);
+  const [edificio, setEdificio] = useState<Edifcio>(Edificios[0]);
 
   const onFinish = async (values: any) => {
     const formDate = bookEnabled?values.date.format(dateFormat) : undefined
@@ -54,25 +72,35 @@ const SlotsFrom = ({updateSlots, updateDate}:Props)=>{
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
+
+<Form.Item label="Edificio" name ="building" style={{width:"500px"}}>
+        <Select defaultValue={edificio.name} 
+        onChange={(newEdificio)=>{
+            const newState = Edificios.filter(function(e){
+              return e.name==newEdificio
+            })
+            setEdificio(newState[0]);
+
+        }}>
+          {Edificios.map(edificio=>( 
+          <Select.Option key={edificio.name} value={edificio.name}>{edificio.name}</Select.Option>))}
+
+        </Select>
+      </Form.Item>
+      
       <Form.Item label="Planta" name="floor" style={{width:"500px"}}>
-        <Radio.Group>
-          <Radio.Button value="zero">Baja</Radio.Button>
-          <Radio.Button value="first">Primera</Radio.Button>
-          <Radio.Button value="second">Segunda</Radio.Button>
-          <Radio.Button value="third">Tercera</Radio.Button>
-        </Radio.Group>
+      <Select defaultValue={edificio.floors[0] }>
+        {edificio.floors.map(floor=>(<Select.Option key={floor} value={floor}>{floor}</Select.Option>
+          ))}
+        </Select>
+
+
       </Form.Item>
       <Form.Item label="Afóro mínimo" name="capacity" style={{width:"500px"}}>
         <InputNumber/>
       </Form.Item>
       
-      <Form.Item label="Edificio" name ="building" style={{width:"500px"}}>
-        <Select>
-          <Select.Option value="Ada Byron">Ada Byron</Select.Option>
-          <Select.Option value="El otro">El otro</Select.Option>
-          <Select.Option value="TorresQuevedo">Torres Quevedo</Select.Option>
-        </Select>
-      </Form.Item>
+
       <Form.Item label="Solo disponibles" valuePropName="checked" style={{width:"500px"}}>
         <Switch onChange={(value)=>{setBookEnabled(value)}}/>
       </Form.Item>

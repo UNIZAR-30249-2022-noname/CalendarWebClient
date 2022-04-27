@@ -4,3 +4,8 @@ export type Slots= {
     building: String
     kind: String
 }
+
+export type Edifcio = {
+    name: string,
+    floors: string[]
+}
