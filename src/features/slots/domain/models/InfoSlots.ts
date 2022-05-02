@@ -15,7 +15,7 @@ export type InfoSlotsKey = {
 };
 
 export type ReqInfoSlot = {
-  name: string | null;
+  id: string | null;
   date: string;
 };
 
