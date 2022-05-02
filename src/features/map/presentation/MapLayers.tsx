@@ -6,6 +6,8 @@ import {
   TileLayer,
   WMSTileLayer,
   LayersControl,
+  Marker,
+  Popup,
 } from "react-leaflet";
 
 const { BaseLayer } = LayersControl;
@@ -20,6 +22,8 @@ type MapProps = {
   zoom: number;
   layerToShow: string;
   floor: string;
+  checked?: boolean;
+  coord?: LatLng;
 };
 
 type OverlayProps = {
@@ -34,6 +38,8 @@ export function MapLayers({
   zoom,
   layerToShow,
   floor,
+  checked,
+  coord,
 }: MapProps) {
   var scope = {
     sStyle: {
@@ -96,6 +102,13 @@ export function MapLayers({
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
           </BaseLayer>
+          <LayersControl.Overlay name="Ada" checked={checked}>
+            <Marker position={coord || coordAda}>
+              <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Popup>
+            </Marker>
+          </LayersControl.Overlay>
           <MyOverlay
             labelName={labelName}
             layerToShow={layerToShow}

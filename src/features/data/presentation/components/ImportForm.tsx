@@ -1,36 +1,56 @@
 import { Upload, message } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
 import { httpServices } from "../../../../core/backend/http/services";
-
-const { Dragger } = Upload;
+import Text from "antd/lib/typography/Text";
+import { UploadCSVService } from "../../domain/services/UploadCSV.service";
 
 export const ImportForm = () => {
+  const [upload, setUpload] = useState<File>();
+  const [content, setContent] = useState("");
+  const [enabled, setEnabled] = useState(false);
+  function onFileChange(event: any) {
+    // Update the state
+    setUpload(event.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      console.log(typeof reader.result);
+      console.log(reader.result);
+      if (typeof reader.result === "string") {
+        setContent(reader.result);
+      }
+      setEnabled(true);
+    };
+    reader.readAsText(event.target.files[0]);
+  }
+
+  const styleEnable = () => {
+    if (!enabled) {
+      return {};
+    } else {
+      return { backgroundColor: "blue", color: "white" };
+    }
+  };
+
+  const sendCSV = async () => {
+    const key = "update";
+    message.loading({ content: "Actualizando datos...", key });
+    const reserves = await UploadCSVService.uploadCSV(content);
+    if (reserves.isError) message.error("Error al importar csv");
+    else {
+      message.success(
+        "El archivo: " + upload?.name + " se ha importado correctamente."
+      );
+    }
+  };
+
   return (
-    <div style={{ width: "300px", height: "300px" }}>
-      <Dragger {...props} style={{ width: "300px", height: "300px" }}>
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-        </p>
-        <p className="ant-upload-text">
-          Clica o arrastra hasta aquí el fichero a subir
-        </p>
-        <p className="ant-upload-hint">Sólo soporta ficheros en formato csv</p>
-      </Dragger>
+    <div>
+      <input type="file" accept=".csv" onChange={onFileChange} />
+      <button disabled={!enabled} style={styleEnable()} onClick={sendCSV}>
+        {!upload?.name || "Subir "}
+        {upload?.name || "Ningún archivo seleccionado"}
+      </button>
     </div>
   );
-};
-
-const props = {
-  accept: "text/csv",
-  name: "file",
-  multiple: false,
-  action: httpServices.uploadData,
-  onChange(info: { file: { name?: any; status?: any }; fileList: any }) {
-    const { status } = info.file;
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
 };

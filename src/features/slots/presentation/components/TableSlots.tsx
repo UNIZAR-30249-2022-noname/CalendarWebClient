@@ -1,4 +1,5 @@
 import { Button, Space, Table } from "antd";
+import { LatLng } from "leaflet";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Slots } from "../../domain/models/Slots";
@@ -6,9 +7,11 @@ import { Slots } from "../../domain/models/Slots";
 type Props = {
   slots: Slots[];
   date: string;
+  onClickMap: any;
 };
 
-const TableSlots = ({ slots, date }: Props) => {
+const TableSlots = ({ slots, date, onClickMap }: Props) => {
+
   const history = useHistory();
 
   const [slotsData, setSlots] = useState<Slots[]>([]);
@@ -60,7 +63,11 @@ const TableSlots = ({ slots, date }: Props) => {
       dataIndex: "key",
       render: (text: any, record: any) => (
         <Space size="middle">
-          <Button type="primary" onClick={() => console.log(record)}>
+          <Button
+            type="primary"
+            //TODO Cambiar por coordenadas del servidor
+            onClick={() => onClickMap(new LatLng(41.683, -0.8886))}
+          >
             {"Ver en mapa"}
           </Button>
           <Button type="primary" onClick={() => openSlotInfo(record.id)}>
