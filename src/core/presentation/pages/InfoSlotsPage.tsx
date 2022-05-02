@@ -3,7 +3,7 @@ import { DatePicker, message } from "antd";
 import locale from "antd/es/date-picker/locale/es_ES";
 import { useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
-import {dateFormat} from "../../config/constants"
+import { dateFormat } from "../../config/constants";
 import moment from "moment";
 import {
   InfoSlotsKey,
@@ -31,7 +31,7 @@ export const InfoSlotPage = () => {
   });
 
   const request: ReqInfoSlot = {
-    name: name,
+    id: name,
     date: date,
   };
 
@@ -47,7 +47,7 @@ export const InfoSlotPage = () => {
     const key = "update";
     message.loading({ content: "Actualizando datos...", key });
     const allinfo = await infoSlotsService.requestInfoSlots(request);
-   
+
     if (allinfo.isError)
       message.error("Error al obtener los datos de este espacio");
     else {
@@ -89,7 +89,7 @@ export const InfoSlotPage = () => {
       >
         <DatePicker
           format={dateFormat}
-          defaultValue={moment(queryDate,dateFormat)}
+          defaultValue={moment(queryDate, dateFormat)}
           locale={locale}
           onChange={(_, dateString) => {
             setDate(dateString);

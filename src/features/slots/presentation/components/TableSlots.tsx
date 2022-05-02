@@ -11,6 +11,7 @@ type Props = {
 };
 
 const TableSlots = ({ slots, date, onClickMap }: Props) => {
+
   const history = useHistory();
 
   const [slotsData, setSlots] = useState<Slots[]>([]);
@@ -30,6 +31,12 @@ const TableSlots = ({ slots, date, onClickMap }: Props) => {
   };
 
   const columns = [
+    {
+      title: "Id",
+      dataIndex: "id",
+      key: "id",
+      hidden: true,
+    },
     {
       title: "Nombre",
       dataIndex: "name",
@@ -63,7 +70,7 @@ const TableSlots = ({ slots, date, onClickMap }: Props) => {
           >
             {"Ver en mapa"}
           </Button>
-          <Button type="primary" onClick={() => openSlotInfo(record.name)}>
+          <Button type="primary" onClick={() => openSlotInfo(record.id)}>
             {"Abrir info"}
           </Button>
           <Button type="primary" onClick={() => openCreateIssue(record.name)}>
@@ -72,7 +79,7 @@ const TableSlots = ({ slots, date, onClickMap }: Props) => {
         </Space>
       ),
     },
-  ];
+  ].filter((item) => !item.hidden);
 
   return (
     <div style={{ margin: "10px", width: "800px" }}>
