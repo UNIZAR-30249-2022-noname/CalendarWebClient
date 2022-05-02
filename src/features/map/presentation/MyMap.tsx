@@ -16,7 +16,7 @@ export function MyMap({ height, width, zoom }: MapProps) {
   var lastlayer = new URLSearchParams(search).get("layerToShow");
   var lastfloor = new URLSearchParams(search).get("floor");
   if (lastlayer === null) lastlayer = "reserved";
-  if (lastfloor === null) lastfloor = "1";
+  if (lastfloor === null) lastfloor = "Baja";
   const [layerToShow, setLayerToShow] = useState(lastlayer);
   const [floor, setFloor] = useState(lastfloor);
 
@@ -24,7 +24,7 @@ export function MyMap({ height, width, zoom }: MapProps) {
     var lastlayer = new URLSearchParams(search).get("layerToShow");
     var lastfloor = new URLSearchParams(search).get("floor");
     if (lastlayer === null) lastlayer = "reserved";
-    if (lastfloor === null) lastfloor = "1";
+    if (lastfloor === null) lastfloor = "Baja";
     setLayerToShow(lastlayer);
     setFloor(lastfloor);
   }, []);
@@ -53,12 +53,13 @@ export function MyMap({ height, width, zoom }: MapProps) {
         style={{ left: "48%" }}
         onChange={handleChange}
       >
-        <Select.Option value="1">Planta 1</Select.Option>
-        <Select.Option value="2">Planta 2</Select.Option>
-        <Select.Option value="3">Planta 3</Select.Option>
-        <Select.Option value="4">Planta 4</Select.Option>
-        <Select.Option value="5">Planta 5</Select.Option>
-        <Select.Option value="6">Planta 6</Select.Option>
+        <Select.Option value="Sótano"> Planta Sótano </Select.Option>
+        <Select.Option value="Baja">Planta Baja</Select.Option>
+        <Select.Option value="Primera">Planta Primera</Select.Option>
+        <Select.Option value="Segunda">Planta Segunda</Select.Option>
+        <Select.Option value="Tercera">Planta Tercera</Select.Option>
+        <Select.Option value="Cuarta">Planta Cuarta</Select.Option>
+        <Select.Option value="Quinta">Planta Quinta</Select.Option>
       </Select>
       <Radio.Group
         onChange={onChange}

@@ -113,8 +113,8 @@ function MyOverlay({ labelName, layerToShow, floor }: OverlayProps) {
       <WMSTileLayer
         format="image/png"
         transparent
-        layers="topp:states" //TODO Esto se cambiará
-        url={"http://localhost:8081/geoserver/topp/" + layerToShow + floor} //TODO Cambiar
+        layers={layerToShow + floor}
+        url={"http://localhost:8081/geoserver/eina/wms?"}
       />
     </LayersControl.Overlay>
   );
