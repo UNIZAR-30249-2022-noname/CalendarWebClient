@@ -3,10 +3,10 @@ import { httpServices } from "../../../../core/backend/http/services";
 import { Result } from "../../../../core/config/result";
 
 export const entriesData = {
-  postCSV: async (body: string): Promise<Result<true>> => {
+  postCSV: async (body: string, privileges: string): Promise<Result<true>> => {
     const service = httpServices.uploadData;
     try {
-      const res = await http.post(service, body);
+      const res = await http.post(service, body, { privileges: privileges });
       if (res.status === 200) {
         return { isError: false, value: true };
       } else {

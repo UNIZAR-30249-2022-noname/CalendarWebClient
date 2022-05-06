@@ -13,10 +13,21 @@ export const userControlRoutes = {
       routes.infoSlot,
       routes.crateIssue,
       routes.error,
-     
     ];
   },
   professorRoutes: (): RouteType[] => {
+    return [
+      routes.index,
+      routes.scheduler,
+      routes.reserve,
+      routes.slots,
+      routes.map,
+      routes.infoSlot,
+      routes.crateIssue,
+      routes.error,
+    ];
+  },
+  coordinatorRoutes: (): RouteType[] => {
     return [
       routes.index,
       routes.scheduler,
@@ -28,10 +39,6 @@ export const userControlRoutes = {
       routes.infoSlot,
       routes.crateIssue,
       routes.error,
-     
     ];
-  },
-  coordinatorRoutes: (): RouteType[] => {
-    return [routes.index, routes.error,];
   },
 };
