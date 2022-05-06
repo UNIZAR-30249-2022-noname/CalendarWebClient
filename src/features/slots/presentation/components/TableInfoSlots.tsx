@@ -68,16 +68,19 @@ const TableInfoSlots = ({ infoSlots, space, date, person }: Props) => {
   const reserveHandler = async () => {
     var reserve: Reserve[] = new Array();
     for (var i in rows) {
-      reserve[i] = {
-        space: space!,
-        scheduled: [
-          { hour: infoSlots[i].hour, min: 0 },
-          { hour: infoSlots[i].hour, min: 0 },
-        ],
-        day: date,
-        owner: person,
-        event: event,
-      };
+      var actualrow = rows[i];
+      if (typeof actualrow === "number") {
+        reserve[i] = {
+          space: space!,
+          scheduled: [
+            { hour: actualrow, min: 0 },
+            { hour: actualrow, min: 0 },
+          ],
+          day: date,
+          owner: person,
+          event: event,
+        };
+      }
     }
     const allreserves = await infoSlotsService.reserve(reserve);
     const key = "update";
