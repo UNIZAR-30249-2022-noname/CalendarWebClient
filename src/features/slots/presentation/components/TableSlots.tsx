@@ -11,7 +11,6 @@ type Props = {
 };
 
 const TableSlots = ({ slots, date, onClickMap }: Props) => {
-
   const history = useHistory();
 
   const [slotsData, setSlots] = useState<Slots[]>([]);
@@ -28,6 +27,22 @@ const TableSlots = ({ slots, date, onClickMap }: Props) => {
   const openCreateIssue = (slot: String) => {
     let path = `/createIssue` + "?slot=" + slot;
     history.push(path);
+  };
+
+  const openInfoButton = (record: any) => {
+    if (record.capacity > 0) {
+      return (
+        <Button type="primary" onClick={() => openSlotInfo(record.id)}>
+          {"Abrir info"}
+        </Button>
+      );
+    } else {
+      return (
+        <Button type="primary" disabled>
+          {"No reservable"}
+        </Button>
+      );
+    }
   };
 
   const columns = [
@@ -70,9 +85,7 @@ const TableSlots = ({ slots, date, onClickMap }: Props) => {
           >
             {"Ver en mapa"}
           </Button>
-          <Button type="primary" onClick={() => openSlotInfo(record.id)}>
-            {"Abrir info"}
-          </Button>
+          {openInfoButton(record)}
           <Button type="primary" onClick={() => openCreateIssue(record.name)}>
             {"Crear issue"}
           </Button>
