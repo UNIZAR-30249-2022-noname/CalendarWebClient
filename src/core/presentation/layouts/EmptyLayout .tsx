@@ -12,7 +12,7 @@ type Props = {
   path: string;
 };
 
-export const ProfessorLayout: FC<Props> = ({ children, user, theme, path }) => {
+export const EmptyLayout: FC<Props> = ({ children, user, theme, path }) => {
   const isMobile = useMediaQuery({ query: "(max-width: 800px)" });
   const [notesDrawerVisibility, setnotesDrawerVisibility] = useState(false);
 
@@ -29,27 +29,10 @@ export const ProfessorLayout: FC<Props> = ({ children, user, theme, path }) => {
   return (
     <>
       <Layout style={{ height: "100vh" }}>
-        <Header
-          style={{
-            backgroundColor: "white",
-            height: "auto",
-            paddingLeft: 20,
-            paddingRight: 20,
-          }}
-        >
-          {!isMobile ? <NavbarWeb /> : <NavbarMobile />}
-        </Header>
         <Layout>
           <Content style={{ ...theme }}>{children}</Content>
-          
         </Layout>
       </Layout>
-      <NotesDrawer
-        visible={notesDrawerVisibility}
-        closeNotesDrawer={closeNotesDrawer}
-      >
-        {/*TODO: Notes */}
-      </NotesDrawer>
     </>
   );
 };

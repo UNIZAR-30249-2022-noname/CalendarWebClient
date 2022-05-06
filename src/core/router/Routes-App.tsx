@@ -1,18 +1,19 @@
-import { CSSProperties } from "react";
+import { CSSProperties, useContext } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import User from "../../features/auth/domain/models/User";
+import { UserContext } from "../context/context";
 import { routerManager } from "./user-control/router-manager";
 
 type Props = {
-  user: User;
   theme: CSSProperties;
 };
 
-export const RoutesApp = ({ user, theme }: Props) => {
+export const RoutesApp = ({  theme }: Props) => {
+  const contextUser = useContext(UserContext);
   return (
     <BrowserRouter>
       <Switch>
-        {routerManager(user).map((route, index) => {
+        {routerManager(contextUser.usr).map((route, index) => {
           return (
             <Route
               exact={route.exact}
@@ -21,7 +22,7 @@ export const RoutesApp = ({ user, theme }: Props) => {
               component={(props: any) => {
                 return (
                   <route.layout {...props} theme={theme} path={route.path}>
-                    <route.component {...props} user={user} theme={theme} />
+                    <route.component {...props} user={contextUser.usr} theme={theme} />
                   </route.layout>
                 );
               }}

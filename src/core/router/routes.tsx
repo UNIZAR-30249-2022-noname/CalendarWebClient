@@ -1,10 +1,17 @@
 import Text from "antd/lib/typography/Text";
 import { Redirect } from "react-router-dom";
+import { EmptyLayout } from "../presentation/layouts/EmptyLayout ";
 import { ProfessorLayout } from "../presentation/layouts/ProfessorLayout";
+import { SlotsPage } from "../presentation/pages/SlotsPage";
 import { CalendarPage } from "../presentation/pages/CalendarPage";
 import { DataPage } from "../presentation/pages/DataPage";
+import { IssuesPage } from "../presentation/pages/IssuesPage";
+import { LoginPage } from "../presentation/pages/LoginPage";
+import { MapPage } from "../presentation/pages/MapPage";
+
 import { SchedulerPage } from "../presentation/pages/SchedulerPage";
 import RouteType from "./models/RouteType";
+import { InfoSlotPage } from "../presentation/pages/InfoSlotsPage";
 
 const index: RouteType = {
   path: "/",
@@ -34,6 +41,41 @@ const data: RouteType = {
   component: DataPage,
 };
 
+const issues: RouteType = {
+  name: "Incidencias",
+  path: "/issues",
+  layout: ProfessorLayout,
+  component: IssuesPage,
+};
+const slots: RouteType = {
+  name: "Espacios",
+  path: "/slots",
+  layout: ProfessorLayout,
+  component: SlotsPage,
+};
+
+
+const map: RouteType = {
+  name: "Mapa",
+  path: "/map",
+  layout: ProfessorLayout,
+  component: MapPage,
+};
+
+const infoSlot: RouteType = {
+  path: "/infoSlot",
+  layout: ProfessorLayout,
+  component: InfoSlotPage,
+};
+
+
+const login: RouteType = {
+  path: "/login",
+layout: EmptyLayout,
+  component: LoginPage
+};
+
+
 const error: RouteType = {
   path: "",
   layout: () => <div></div>,
@@ -53,4 +95,4 @@ const error: RouteType = {
   ),
 };
 
-export const routes = { index, scheduler, calendar, data, error };
+export const routes = { index, scheduler, calendar, data, error, issues,map, slots,login ,infoSlot};
