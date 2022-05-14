@@ -76,13 +76,16 @@ export const issueData = {
     }
   },
 
-  download: async (): Promise<Result<Uint8Array>> => {
+  download: async (building: string): Promise<Result<Uint8Array>> => {
     try {
       const res = await axios.get(serviceDownload, {
         responseType: "blob",
+        params: {
+          building: building,
+        },
       });
       console.log(typeof res.data);
-      await fileDownload(res.data, "Incidencias.pdf");
+      await fileDownload(res.data, "incidencias.pdf");
       if (res.status === 200) {
         return { isError: false, value: res.data };
       } else {

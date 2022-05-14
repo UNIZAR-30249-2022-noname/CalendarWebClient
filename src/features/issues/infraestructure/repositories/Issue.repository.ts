@@ -38,8 +38,8 @@ export const IssueRepo = {
     return res;
   },
 
-  download: async (): Promise<Result<Uint8Array>> => {
-    const res = await issueData.download();
+  download: async (building: string): Promise<Result<Uint8Array>> => {
+    const res = await issueData.download(building);
     if (res.isError) {
       return { isError: true, error: res.error };
     }

@@ -46,8 +46,8 @@ export const IssueService = {
     }
   },
 
-  download: async (): Promise<Result<Uint8Array>> => {
-    const data: Result<Uint8Array> = await IssueRepo.download();
+  download: async (building: string): Promise<Result<Uint8Array>> => {
+    const data: Result<Uint8Array> = await IssueRepo.download(building);
     if (!data.isError) {
       return { isError: false, value: data.value };
     } else {
