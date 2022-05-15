@@ -6,6 +6,8 @@ export const routerManager = (user?: User) => {
     switch (user.privileges) {
       case "coordinator":
         return userControlRoutes.coordinatorRoutes();
+      case "janitor":
+        return userControlRoutes.coordinatorRoutes();
       case "professor":
         return userControlRoutes.professorRoutes();
     }
