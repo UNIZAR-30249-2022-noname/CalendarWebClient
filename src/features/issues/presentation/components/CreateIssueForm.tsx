@@ -8,11 +8,12 @@ import { Issue, NewIssue } from "../../domain/models/Issue";
 
 
 type Props ={
-  slot?: string
+  slot: string
+  id: string
 }
 
 
-const CreateIssueFrom = ({slot}:Props)=>{
+const CreateIssueFrom = ({slot,id}:Props)=>{
   const tagsData = ['Urgente', 'Rotura', 'Peligo', 'Aviso'];//TODO get etqiquetas
   const [tags,setTags] = useState<string[]>([])
   const history = useHistory();
@@ -22,7 +23,7 @@ const CreateIssueFrom = ({slot}:Props)=>{
     console.log(tags)
     const params:Issue = {
       tags:tags,
-      slot:values.slot,
+      space:id,
       title: values.title,
       description:values.description,
       key:values.key,

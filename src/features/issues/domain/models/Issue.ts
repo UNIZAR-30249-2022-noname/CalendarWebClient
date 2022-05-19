@@ -6,7 +6,7 @@ export type Issue= {
     title: string
     description: string
     key:string
-    slot:string
+    space:string
     state:number
 
 }

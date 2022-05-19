@@ -24,8 +24,8 @@ const TableSlots = ({ slots, date, onClickMap }: Props) => {
     history.push(path);
   };
 
-  const openCreateIssue = (slot: String) => {
-    let path = `/createIssue` + "?slot=" + slot;
+  const openCreateIssue = (slot: String, id:String) => {
+    let path = `/createIssue` + "?slot=" + slot+"&id=" + id;;
     history.push(path);
   };
 
@@ -76,7 +76,7 @@ const TableSlots = ({ slots, date, onClickMap }: Props) => {
       title: "Acciones",
       key: "key",
       dataIndex: "key",
-      render: (text: any, record: any) => (
+      render: (text: any, record: Slots) => (
         <Space size="middle">
           <Button
             type="primary"
@@ -86,7 +86,7 @@ const TableSlots = ({ slots, date, onClickMap }: Props) => {
             {"Ver en mapa"}
           </Button>
           {openInfoButton(record)}
-          <Button type="primary" onClick={() => openCreateIssue(record.name)}>
+          <Button type="primary" onClick={() => openCreateIssue(record.name, record.id)}>
             {"Crear issue"}
           </Button>
         </Space>

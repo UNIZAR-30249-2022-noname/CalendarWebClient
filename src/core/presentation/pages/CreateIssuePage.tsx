@@ -7,6 +7,7 @@ import IssuesTags from "../../../features/issues/presentation/components/IssuesT
 export const CreateIssuePage = () => {
   const search = useLocation().search;
   const name = new URLSearchParams(search).get('slot');
+  const id = new URLSearchParams(search).get('id');
   let today = new Date().toLocaleDateString()
 
   return(
@@ -16,7 +17,7 @@ export const CreateIssuePage = () => {
         <div style={{paddingLeft:"70px", marginTop:"50px",fontSize:"50px" }}>Crear aviso en el espacio {name}</div>
         <div style={{marginLeft:"210px", marginTop:"50px",fontSize:"30px" }}>Día del reporte {today} </div>
         <div style={{paddingLeft:"100px"}}>
-       <CreateIssueForm  slot={name===null?undefined:name}  ></CreateIssueForm>
+       <CreateIssueForm  slot={name===null?"":name} id={id===null?"":id}  ></CreateIssueForm>
        
        
        </div>
