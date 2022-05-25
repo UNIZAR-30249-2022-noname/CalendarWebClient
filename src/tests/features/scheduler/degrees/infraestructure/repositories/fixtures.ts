@@ -6,6 +6,7 @@ import DegreeProperties, {
 import AvailableHoursParamsDTO from "../../../../../../features/scheduler/degrees/infraestructure/dto/AvailableHoursParamsDTO";
 import DegreePropertiesDTO from "../../../../../../features/scheduler/degrees/infraestructure/dto/DegreePropertiesDTO";
 import SubjectAvailableHoursDTO from "../../../../../../features/scheduler/degrees/infraestructure/dto/SubjectAvailableHoursDTO";
+import { SubjectKind } from "../../../../../../features/scheduler/entries/domain/models/Entry";
 
 const DegreeParams: AvailableHoursParamsDTO = {
   degree: "Verificación y validación",
@@ -17,16 +18,23 @@ const getAvailableHoursDTO: Result<SubjectAvailableHoursDTO[]> = {
   isError: false,
   value: [
     {
-      Subject: { Name: "Programación 1", Kind: 2 },
+      Subject: { Name: "Programación 1", Kind: SubjectKind.theory },
       RemainingHours: 10,
       MaxHours: 20,
       MaxMin: 0,
       RemainingMin: 0,
     },
     {
-      Subject: { Name: "Introducción a computadores", Kind: 1 },
-      RemainingHours: 23,
-      MaxHours: 60,
+      Subject: { Name: "Programación 1", Kind: SubjectKind.practices },
+      RemainingHours: 10,
+      MaxHours: 20,
+      MaxMin: 0,
+      RemainingMin: 0,
+    },
+    {
+      Subject: { Name: "Programación 1", Kind: SubjectKind.problems },
+      RemainingHours: 10,
+      MaxHours: 20,
       MaxMin: 0,
       RemainingMin: 0,
     },
@@ -38,7 +46,7 @@ const getAvailableHours: Result<SubjectAvailableHours[]> = {
   value: [
     {
       
-      subject: "Verificación y validación",
+      subject: "Programación 1",
       theory: {
         remaining: 10,
         total: 20,

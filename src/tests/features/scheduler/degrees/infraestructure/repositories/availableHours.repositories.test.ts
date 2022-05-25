@@ -12,7 +12,8 @@ describe("Degree available hours repository tests", () => {
     jest
       .spyOn(degreeAvailableHoursData, "getDegreeAvailableHours")
       .mockReturnValue(Promise.resolve(fixtures.getAvailableHoursDTO));
-    jest.spyOn(degreeAvailableHoursRepo, "getDegreeAvailableHours");
+    jest.
+    spyOn(degreeAvailableHoursRepo, "getDegreeAvailableHours");
     // When
     const subjectListRes =
       await degreeAvailableHoursRepo.getDegreeAvailableHours(
