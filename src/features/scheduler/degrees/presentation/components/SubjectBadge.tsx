@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const SubjectBadget = ({ setDraggedEvent, subjectB }: Props) => {
-  const { subject, hours } = subjectB;
+  const { subject, theory, practice,exercises } = subjectB;
   return (
     <Button
       type="primary"
@@ -40,7 +40,7 @@ export const SubjectBadget = ({ setDraggedEvent, subjectB }: Props) => {
           <Tag color="blue" style={{ paddingBottom: 5 }}>
             <Space direction="vertical" size={1}>
               <Text>Teo.</Text>
-              <Badge count={hours.remaining} />
+              <Badge count={theory.remaining} />
             </Space>
           </Tag>
         </div>
@@ -56,7 +56,7 @@ export const SubjectBadget = ({ setDraggedEvent, subjectB }: Props) => {
           <Tag color="magenta" style={{ paddingBottom: 5 }}>
             <Space direction="vertical" size={1}>
               <Text>Prac.</Text>
-              <Badge count={hours.remaining} />
+              <Badge count={practice.remaining} />
             </Space>
           </Tag>
         </div>
@@ -72,7 +72,7 @@ export const SubjectBadget = ({ setDraggedEvent, subjectB }: Props) => {
           <Tag color="green" style={{ paddingBottom: 5 }}>
             <Space direction="vertical" size={1}>
               <Text>Prob.</Text>
-              <Badge count={hours.remaining} />
+              <Badge count={exercises.remaining} />
             </Space>
           </Tag>
         </div>

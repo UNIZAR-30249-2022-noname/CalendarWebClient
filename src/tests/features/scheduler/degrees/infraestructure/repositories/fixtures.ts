@@ -37,21 +37,22 @@ const getAvailableHours: Result<SubjectAvailableHours[]> = {
   isError: false,
   value: [
     {
-      kind: 2,
-      subject: "Programación 1",
-      hours: {
+      
+      subject: "Verificación y validación",
+      theory: {
+        remaining: 10,
+        total: 20,
+      },
+      exercises: {
+        remaining: 10,
+        total: 20,
+      },
+      practice: {
         remaining: 10,
         total: 20,
       },
     },
-    {
-      kind: 1,
-      subject: "Introducción a computadores",
-      hours: {
-        remaining: 23,
-        total: 60,
-      },
-    },
+
   ],
 };
 
