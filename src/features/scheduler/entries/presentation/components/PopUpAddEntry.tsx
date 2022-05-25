@@ -4,6 +4,7 @@ import React, { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { SubjectKind } from "../../domain/models/Entry";
 import { EntryScheduler } from "../../domain/models/EntryScheduler";
+import Text from "antd/lib/typography/Text";
 import { entryForm } from "../../domain/services/EntryForm.service";
 import { Description } from "./Description";
 import { KindSelector } from "./KindSelector";
@@ -24,6 +25,7 @@ type Props = {
 const PopupAddEntry = ({ event, visible, onCancel, onOk, edit }: Props) => {
   const [problemSelectorDisabled, setProblemSelectorDisabled] = useState(true);
   const [weekSelectorDisabled, setWeekSelectorDisabled] = useState(true);
+  const [hour, setHour] = useState("");
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -76,10 +78,11 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk, edit }: Props) => {
             <WeekSelector disabled={weekSelectorDisabled} />
           </Col>
           <Col flex={1}>
-            <RoomSelector />
+            <RoomSelector hour={hour} />
           </Col>
         </Row>
-        <TimeSelector />
+        <TimeSelector setHour={setHour} />
+        <Text>Hour: {hour}</Text>
         <KindSelector check={checkProblemSelector} />
         <ProblemsGroupSelector disabled={problemSelectorDisabled} />
         <Description />
