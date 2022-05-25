@@ -25,7 +25,7 @@ export const issueData = {
     },
     delete:  async (issue:string) :Promise<Result<boolean>> => {
       try {
-          const res = await http.get(serviceDelete,issue);
+          const res = await http.get(serviceDelete,{issue:issue});
           if (res.status === 200) {
             return { isError: false, value: true };
           } else {
