@@ -10,7 +10,7 @@ let cancelReserve = httpServices.cancelReserve;
 export const ReserveData = {
     getPerUser: async (name: string): Promise<Result<Reserve[]>> => {
     try {
-      const res = await http.get(serviceReservePerOwner,name);
+      const res = await http.get(serviceReservePerOwner,{name:name});
       if (res.status === 200) {
         return { isError: false, value: res.data };
       } else {
