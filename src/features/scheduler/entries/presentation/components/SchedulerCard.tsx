@@ -52,7 +52,15 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
       setLoading(false);
       return;
     }
-    setEvents(entriesService.loadEntries(entryListRes.value));
+    const loadedEvents:EntryScheduler[]=entriesService.loadEntries(entryListRes.value)
+
+
+    console.log("loaded");
+    console.log(loadedEvents);
+    setEvents(loadedEvents)
+    console.log("events");
+    console.log(events);
+    
     setLoading(false);
   };
 
@@ -73,6 +81,7 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
   const onCreateEvent = (event: EntryScheduler, edit: boolean) => {
     setVisiblePopup(false);
     edit ? editEvent(event) : setEvents([...events, event]);
+    console.log(event)
   };
 
   const onCancelCreateEvent = () => {
