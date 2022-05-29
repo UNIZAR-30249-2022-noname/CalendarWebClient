@@ -53,7 +53,7 @@ export const RoomSelector = ({ hour }: Props) => {
   ));
 
   const loadData = async () => {
-    console.log(edificio, floor);
+  
     const params: SlotsFilterForm = {
       //day: formDate ,
       //hour:formHour,
@@ -72,7 +72,8 @@ export const RoomSelector = ({ hour }: Props) => {
             name: slotvalue[i].name,
           };
           auxslots.push(auxslot);
-          console.log(auxslots);
+        
+          
         }
       }
       setRoomList(auxslots);
@@ -121,7 +122,7 @@ export const RoomSelector = ({ hour }: Props) => {
         <Select
           defaultValue={edificio.floors[1]}
           onChange={(newfloor) => {
-            console.log(newfloor);
+           
             setFloor(newfloor);
           }}
         >
