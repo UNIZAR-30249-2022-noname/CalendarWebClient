@@ -34,6 +34,20 @@ export const userControlRoutes = {
       routes.reserve,
       routes.data,
       routes.slots,
+      routes.map,
+      routes.infoSlot,
+      routes.crateIssue,
+      routes.error,
+    ];
+  },
+
+  janitorRoutes: (): RouteType[] => {
+    return [
+      routes.index,
+      routes.scheduler,
+      routes.reserve,
+      routes.data,
+      routes.slots,
       routes.issues,
       routes.map,
       routes.infoSlot,

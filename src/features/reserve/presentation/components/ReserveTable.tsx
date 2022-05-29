@@ -70,8 +70,8 @@ const IssueTable = () => {
     },
     {
       title: "Espacio",
-      dataIndex: "slot",
-      key: "slot",
+      dataIndex: "space",
+      key: "space",
     },
     {
       title: "Acciones",

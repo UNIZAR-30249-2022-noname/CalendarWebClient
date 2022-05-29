@@ -7,7 +7,7 @@ export const routerManager = (user?: User) => {
       case "coordinator":
         return userControlRoutes.coordinatorRoutes();
       case "janitor":
-        return userControlRoutes.coordinatorRoutes();
+        return userControlRoutes.janitorRoutes();
       case "professor":
         return userControlRoutes.professorRoutes();
     }
