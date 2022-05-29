@@ -91,7 +91,7 @@ export function MapLayers({
     >
       <MapContainer
         center={center}
-        zoom={18}
+        zoom={25}
         scrollWheelZoom={true}
         style={scope.sStyle}
       >
@@ -121,13 +121,15 @@ export function MapLayers({
 }
 
 function MyOverlay({ labelName, layerToShow, floor }: OverlayProps) {
+  console.log(layerToShow);
   return (
     <LayersControl.Overlay name={labelName} checked>
       <WMSTileLayer
         format="image/png"
         transparent
-        layers={layerToShow + floor}
-        url={"http://localhost:8081/geoserver/eina/wms?"}
+        layers={"proyecto:" + "p" + floor}
+        url={"http://localhost:8081/geoserver/proyecto/wms?"}
+        styles={"proyecto:" + layerToShow}
       />
     </LayersControl.Overlay>
   );
