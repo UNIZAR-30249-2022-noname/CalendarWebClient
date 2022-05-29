@@ -7,13 +7,15 @@ import { DegreePropertiesContextWrapper } from "../../context/DegreePropertiesCo
 import { SelectedDegreeContextWrapper } from "../../context/DegreeSelectedContext";
 import LeftDrawer from "../../../features/scheduler/degrees/presentation/components/LeftDrawer";
 import SchedulerCard from "../../../features/scheduler/entries/presentation/components/SchedulerCard";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SiderTheme } from "antd/lib/layout/Sider";
 import { ButtonToggleND } from "../components/notes-drawer/ButtonToggleND";
 import Text from "antd/lib/typography/Text";
 import DegreeForm from "../../../features/scheduler/degrees/presentation/components/DegreeForm";
 import { IcalButton } from "../../../features/scheduler/exportData/ical/presentation/IcalButton";
 import { EntryScheduler } from "../../../features/scheduler/entries/domain/models/EntryScheduler";
+import { UserContext } from "../../context/context";
+import User, { Privileges } from "../../../features/auth/domain/models/User";
 
 const { Sider, Content, Header } = Layout;
 
@@ -21,6 +23,8 @@ export const SchedulerPage = () => {
   const isDrawerClosed = useMediaQuery({ query: "(min-width: 600px)" });
   const [visible, setvisible] = useState(leftDrawerContext.getVisibility());
   const [draggedEvent, setDraggedEvent] = useState<any | null>(null);
+  const user:User = useContext(UserContext).usr;
+
 
   const toggleVisibility = () => {
     setvisible(!visible);
@@ -47,7 +51,7 @@ export const SchedulerPage = () => {
               backgroundColor: "#E1E2E3",
             }}
           >
-            {isDrawerClosed && (
+            {isDrawerClosed && user.privileges==="coordinator"  && (
               <Sider
                 {...siderProps}
                 style={{
@@ -72,6 +76,7 @@ export const SchedulerPage = () => {
                 <Row justify="space-between" align="middle">
                   <Row align="middle">
                     {isDrawerClosed && (
+                      
                       <ButtonToggleND
                         toggleDrawer={toggleVisibility}
                         visibility={!visible}
