@@ -30,8 +30,8 @@ const IssueTable = ({issues,deleteAction, action,actionName}:Props)=>{
         },
         {
           title: 'Espacio',
-          dataIndex: 'slot',
-          key: 'descriptisloton',
+          dataIndex: 'space',
+          key: 'space',
         },
         {
           title: 'Tags',
