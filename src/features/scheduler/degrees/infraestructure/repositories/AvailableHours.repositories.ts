@@ -52,14 +52,14 @@ export const degreeAvailableHoursRepo = {
           lastSubject= hour.Subject.Name
           const avHour = fillHours(newSubjectAvailableHours(lastSubject),hour)
           availableHours.push(avHour)
-          console.log(avHour);
+  
           
         }
         else {
           const subject = availableHours.pop()!
           const avHour = fillHours(subject,hour)
           availableHours.push(avHour)
-          console.log(avHour);
+         
 
 
         }
