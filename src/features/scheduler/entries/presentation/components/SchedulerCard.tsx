@@ -14,7 +14,7 @@ import {
   SelectedDegreeContext,
 } from "../../../../../core/context/context";
 import { notifications } from "../../../../../core/presentation/components/notifications/notifications";
-import { Button, Row, Spin } from "antd";
+import { Button, message, Row, Spin } from "antd";
 import { SaveFilled } from "@ant-design/icons";
 import { EntryScheduler } from "../../domain/models/EntryScheduler";
 import { IcalButton } from "../../../exportData/ical/presentation/IcalButton";
@@ -65,6 +65,8 @@ const SchedulerCard = ({ draggedEvent }: Props) => {
     setLoadingPost(false);
     if (res.isError) {
       notifications.error("Error al guardar los datos del horario");
+    } else {
+      message.success({ content: "Datos actualizados", duration: 1 });
     }
   };
 

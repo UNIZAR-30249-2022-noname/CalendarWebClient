@@ -40,9 +40,11 @@ export const ImportForm = () => {
       const reserves = await UploadCSVService.uploadCSV(content, privileges);
       if (reserves.isError) message.error("Error al importar csv");
       else {
-        message.success(
-          "El archivo: " + upload?.name + " se ha importado correctamente."
-        );
+        message.success({
+          content:
+            "El archivo: " + upload?.name + " se ha importado correctamente.",
+          duration: 1,
+        });
       }
     } else {
       message.error("Error de privilegios");

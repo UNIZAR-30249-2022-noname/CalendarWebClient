@@ -2,17 +2,24 @@ import { Button, message, Tabs } from "antd";
 import React, { useState } from "react";
 import { IssueService } from "../../domain/service/Issues.services";
 import { saveAs } from "file-saver";
+import { duration } from "@mui/material";
 const { TabPane } = Tabs;
 
 const DownloadReportButton = () => {
   const [building, setBuilding] = useState("Ada Byron");
   const onDownload = async (values: any) => {
     console.log(values);
-
+    const key = "update";
+    message.loading({ content: "Descargando reporte...", key });
     const res = await IssueService.download(building);
-    if (res.isError) message.error("Error al descargar");
+    if (res.isError)
+      message.error({ content: "Error al descargar", duration: 2, key: key });
     else {
-      message.info("Descargado registro de incidencias");
+      message.info({
+        content: "Descargado registro de incidencias",
+        duration: 2,
+        key: key,
+      });
     }
   };
   function callback(key: any) {

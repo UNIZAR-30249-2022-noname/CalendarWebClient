@@ -1,4 +1,4 @@
-import { Radio, Select } from "antd";
+import { Radio, Select, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { MapLayers } from "./MapLayers";
 import { useHistory, useLocation } from "react-router-dom";
@@ -70,11 +70,18 @@ export function MyMap({ height, width, zoom }: MapProps) {
           display: "flex",
         }}
       >
-        <Radio.Button value={"reserved"}>Reservado</Radio.Button>
-        <Radio.Button value={"building"}>Por edificio</Radio.Button>
         <Radio.Button value={"capacity"}>Capacidad total</Radio.Button>
-        <Radio.Button value={"occupation"}>Ocupación actual</Radio.Button>
         <Radio.Button value={"type"}>Tipo de espacio</Radio.Button>
+        <Tooltip placement="topLeft" title="Próximamente">
+          <Radio.Button value={"reserved"} disabled>
+            Reservado
+          </Radio.Button>
+        </Tooltip>
+        <Tooltip placement="topLeft" title="Próximamente">
+          <Radio.Button value={"occupation"} disabled>
+            Ocupación actual
+          </Radio.Button>
+        </Tooltip>
       </Radio.Group>
       <MapLayers
         height={height}
