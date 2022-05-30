@@ -1,7 +1,8 @@
 import { Button, Space, Table } from "antd";
 import { LatLng } from "leaflet";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../../../../core/context/context";
 import { Slots } from "../../domain/models/Slots";
 
 type Props = {
@@ -12,7 +13,8 @@ type Props = {
 
 const TableSlots = ({ slots, date, onClickMap }: Props) => {
   const history = useHistory();
-
+  const privileges=useContext(UserContext).usr.privileges
+  const isAllowed =  privileges!=="logged" && privileges!=="none"
   const [slotsData, setSlots] = useState<Slots[]>([]);
 
   useEffect(() => {
@@ -86,7 +88,7 @@ const TableSlots = ({ slots, date, onClickMap }: Props) => {
             {"Ver en mapa"}
           </Button>
           {openInfoButton(record)}
-          <Button type="primary" onClick={() => openCreateIssue(record.name, record.id)}>
+          <Button  disabled={!isAllowed}  type="primary" onClick={() => openCreateIssue(record.name, record.id)}>
             {"Crear issue"}
           </Button>
         </Space>

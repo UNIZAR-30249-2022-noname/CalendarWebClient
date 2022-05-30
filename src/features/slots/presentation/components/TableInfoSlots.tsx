@@ -3,11 +3,12 @@ import { duration } from "@mui/material";
 import { Button, message, Table, Tag, Input } from "antd";
 import Text from "antd/lib/typography/Text";
 import { CalendarOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Reserve } from "../../../reserve/domain/models/Reserve";
 import { InfoSlotsKey } from "../../../slots/domain/models/InfoSlots";
 import { infoSlotsService } from "../../../slots/domain/services/InfoSlots.service";
+import { UserContext } from "../../../../core/context/context";
 
 const { TextArea } = Input;
 
@@ -23,6 +24,9 @@ const TableInfoSlots = ({ infoSlots, space, date, person }: Props) => {
   const [rows, setRows] = useState<React.Key[]>([""]);
   const [event, setEvent] = useState("");
   const [selectionType] = useState<"checkbox">("checkbox");
+  const privileges=useContext(UserContext).usr.privileges
+  const isAllowed =  privileges!=="logged" && privileges!=="none"
+
   const columns = [
     {
       title: "Hora",
@@ -125,7 +129,7 @@ const TableInfoSlots = ({ infoSlots, space, date, person }: Props) => {
       </div>
       <br />
       <div style={{ flexDirection: "row" }}>
-        <Button type="primary" onClick={reserveHandler}>
+        <Button disabled={!isAllowed} type="primary" onClick={reserveHandler}>
           Reservar selección
         </Button>
         <Link to="/slots" id="mainLogo" style={{ cursor: "pointer" }}>

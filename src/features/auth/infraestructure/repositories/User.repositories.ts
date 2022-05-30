@@ -12,7 +12,7 @@ const setPrivileges = (privilegeName: String): Privileges => {
       return "coordinator";
 
     default:
-      return "none";
+      return "logged";
   }
 };
 

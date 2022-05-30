@@ -10,6 +10,9 @@ export const routerManager = (user?: User) => {
         return userControlRoutes.janitorRoutes();
       case "professor":
         return userControlRoutes.professorRoutes();
+      case "logged":
+        return userControlRoutes.loggedRoutes();
+
     }
   }
   return userControlRoutes.defaultRoutes();

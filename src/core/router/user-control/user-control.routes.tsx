@@ -6,12 +6,10 @@ export const userControlRoutes = {
     return [
       routes.index,
       routes.scheduler,
-      routes.reserve,
       routes.map,
       routes.login,
       routes.slots,
       routes.infoSlot,
-      routes.crateIssue,
       routes.error,
     ];
   },
@@ -49,6 +47,18 @@ export const userControlRoutes = {
       routes.data,
       routes.slots,
       routes.issues,
+      routes.map,
+      routes.infoSlot,
+      routes.crateIssue,
+      routes.error,
+    ];
+  },
+
+  loggedRoutes: (): RouteType[] => {
+    return [
+      routes.index,
+      routes.scheduler,
+      routes.slots,
       routes.map,
       routes.infoSlot,
       routes.crateIssue,
