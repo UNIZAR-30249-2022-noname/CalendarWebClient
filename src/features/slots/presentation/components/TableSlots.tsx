@@ -14,7 +14,7 @@ type Props = {
 const TableSlots = ({ slots, date, onClickMap }: Props) => {
   const history = useHistory();
   const privileges=useContext(UserContext).usr.privileges
-  const isAllowed =  privileges!=="logged" && privileges!=="none"
+  const isAllowed =   privileges!=="none"
   const [slotsData, setSlots] = useState<Slots[]>([]);
 
   useEffect(() => {
