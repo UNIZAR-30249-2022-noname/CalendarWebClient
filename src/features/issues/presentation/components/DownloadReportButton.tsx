@@ -10,7 +10,11 @@ const DownloadReportButton = () => {
   const onDownload = async (values: any) => {
     console.log(values);
     const key = "update";
-    message.loading({ content: "Descargando reporte...", key });
+    message.loading({
+      content: "Descargando reporte...",
+      key: key,
+      duration: 20,
+    });
     const res = await IssueService.download(building);
     if (res.isError)
       message.error({ content: "Error al descargar", duration: 2, key: key });

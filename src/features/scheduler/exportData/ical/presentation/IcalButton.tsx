@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { SelectedDegreeContext } from "../../../../../core/context/context";
 import { notifications } from "../../../../../core/presentation/components/notifications/notifications";
 import { Button } from "antd";
+import { Tooltip } from "@mui/material";
 
 export const IcalButton = () => {
   const selectedDegree = useContext(SelectedDegreeContext).store;
@@ -23,9 +24,11 @@ export const IcalButton = () => {
     <DownloadLink
       style={{ padding: 0 }}
       label={
-        <Button type="primary" icon={<SaveFilled />} size="small">
-          Descargar iCal
-        </Button>
+        <Tooltip placement="top" title="Próximamente">
+          <Button type="primary" icon={<SaveFilled />} size="small" disabled>
+            Descargar iCal
+          </Button>
+        </Tooltip>
       }
       filename={`horario_21/22_${selectedDegree.degree}_${selectedDegree.year}.ics`}
       exportFile={handleError}
