@@ -9,6 +9,7 @@ import {
   Marker,
   Popup,
 } from "react-leaflet";
+import { relative } from "path";
 
 const { BaseLayer } = LayersControl;
 
@@ -49,6 +50,7 @@ export function MapLayers({
     },
   };
   var layerName = "";
+  var lts = layerToShow;
   switch (layerToShow) {
     case "reserved": {
       layerName = "Colores por aulas reservadas";
@@ -60,6 +62,8 @@ export function MapLayers({
     }
     case "capacity": {
       layerName = "Colores por capacidad";
+      lts = lts + "p" + floor;
+      floor = floor + "C";
       break;
     }
     case "occupation": {
@@ -80,6 +84,18 @@ export function MapLayers({
   } else {
     center = coordQuevedo;
   }
+  var url =
+    "http://localhost:8081/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=proyecto:p" +
+    floor;
+  fetch(url)
+    .then((res) => {
+      return res.blob();
+    })
+    .then((blob) => {
+      var img = URL.createObjectURL(blob);
+      // Do whatever with the img
+      document.getElementById("legend")?.setAttribute("src", img);
+    });
   return (
     <div
       style={{
@@ -109,13 +125,12 @@ export function MapLayers({
               </Popup>
             </Marker>
           </LayersControl.Overlay>
-          <MyOverlay
-            labelName={labelName}
-            layerToShow={layerToShow}
-            floor={floor}
-          />
+          <MyOverlay labelName={labelName} layerToShow={lts} floor={floor} />
         </LayersControl>
       </MapContainer>
+      <div>
+        <img id="legend" />
+      </div>
     </div>
   );
 }
