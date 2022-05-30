@@ -35,7 +35,7 @@ export const ImportForm = () => {
 
   const sendCSV = async () => {
     const key = "update";
-    message.loading({ content: "Actualizando datos...", key });
+    message.loading({ content: "Actualizando datos...", key: key });
     if (privileges) {
       const reserves = await UploadCSVService.uploadCSV(content, privileges);
       if (reserves.isError) message.error("Error al importar csv");
@@ -44,10 +44,11 @@ export const ImportForm = () => {
           content:
             "El archivo: " + upload?.name + " se ha importado correctamente.",
           duration: 1,
+          key: key,
         });
       }
     } else {
-      message.error("Error de privilegios");
+      message.error({ content: "Error de privilegios", key: key });
     }
   };
 
