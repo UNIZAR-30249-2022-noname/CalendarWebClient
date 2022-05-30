@@ -10,6 +10,20 @@ type Time = {
   min: number;
 };
 
+const substractTime=(start:Time,end:Time):Time=>{
+  var hour = end.hour-start.hour
+  var min = end.min -start.min
+  if (min<0){
+    min+=60
+    hour-=1
+  }
+
+  return {
+    hour:hour,
+    min:min
+  }
+}
+
 enum WeekDay {
   MONDAY,
   TUESDAY,
@@ -37,4 +51,4 @@ type Entry = {
 };
 export default Entry;
 export type { Time };
-export { SubjectKind, Week, WeekDay };
+export { SubjectKind, Week, WeekDay,substractTime };

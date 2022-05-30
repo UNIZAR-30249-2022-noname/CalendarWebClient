@@ -3,6 +3,7 @@ import User from "../../features/auth/domain/models/User";
 import { SubjectAvailableHours } from "../../features/scheduler/degrees/domain/models/SubjectAvailableHours";
 import DegreeProperties from "../../features/scheduler/degrees/domain/models/SubjectDegrees";
 import AvailableHoursParamsDTO from "../../features/scheduler/degrees/infraestructure/dto/AvailableHoursParamsDTO";
+import { SubjectKind, Time } from "../../features/scheduler/entries/domain/models/Entry";
 import { AppTheme } from "../config/themes";
 import { DefaultUser } from "./UserContext";
 
@@ -15,7 +16,12 @@ const NotesDrawerContext = createContext({
 
 interface IContextDegreeSubjects {
   store: SubjectAvailableHours[] | undefined;
-  actions: { setDegreeSubjects: (subject: SubjectAvailableHours[]) => void };
+  actions: { 
+    setDegreeSubjects: (subject: SubjectAvailableHours[]) => void 
+    updateSubject:(subject: string, time: Time, kind: SubjectKind)=>void
+  
+  };
+    
 }
 
 const DegreeSubjectsContext = createContext({} as IContextDegreeSubjects);

@@ -1,8 +1,8 @@
 import { Modal, Form, Button, Row, Col } from "antd";
 import Title from "antd/lib/typography/Title";
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useContext } from "react";
 import { useEffect, useState } from "react";
-import { SubjectKind } from "../../domain/models/Entry";
+import { SubjectKind, substractTime, Time } from "../../domain/models/Entry";
 import { EntryScheduler } from "../../domain/models/EntryScheduler";
 import Text from "antd/lib/typography/Text";
 import { entryForm } from "../../domain/services/EntryForm.service";
@@ -13,6 +13,8 @@ import { RoomSelector } from "./RoomSelector";
 import { SubjectSelector } from "./SubjectSelector";
 import { TimeSelector } from "./TimeSelector";
 import { WeekSelector } from "./WeekSelector";
+import { DegreeSubjectsContext } from "../../../../../core/context/context";
+import moment from "moment";
 
 type Props = {
   event?: EntryScheduler;
@@ -27,6 +29,7 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk, edit }: Props) => {
   const [weekSelectorDisabled, setWeekSelectorDisabled] = useState(true);
   const [hour, setHour] = useState("");
   const [form] = Form.useForm();
+  const contextSubjects = useContext(DegreeSubjectsContext);
 
   useEffect(() => {
     if (!event) return;
@@ -46,9 +49,22 @@ const PopupAddEntry = ({ event, visible, onCancel, onOk, edit }: Props) => {
    * Create a new entry when form is valid
    */
   const onCorrectForm = () => {
+   
     const values = form.getFieldsValue();
+    
+    const start:Time={
+      hour: values.time[0].hours(),
+      min: values.time[0].minutes(),
+    }
+    const end:Time={
+      hour: values.time[1].hours(),
+      min: values.time[1].minutes(),
+    }
+    const time:Time = substractTime(start,end)
+    
+    contextSubjects.actions.updateSubject(values.subject,time,values.kind)
     entryForm.createEntry(event!, values, onOk, edit);
-    form.resetFields();
+    form.resetFields();;
   };
 
   const onCreateSeminar = () => {
