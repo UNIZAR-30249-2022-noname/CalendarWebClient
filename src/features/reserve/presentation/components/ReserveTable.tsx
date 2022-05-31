@@ -52,15 +52,7 @@ const IssueTable = () => {
       dataIndex: "scheduled",
       key: "scheduled",
       render: (scheduled: Time[]) => (
-        <div>
-          {scheduled[0].hour +
-            ":" +
-            scheduled[0].min +
-            " - " +
-            scheduled[1].hour +
-            ":" +
-            scheduled[1].min}
-        </div>
+        <div>{scheduled[0].hour + " - " + scheduled[1].hour}</div>
       ),
     },
     {
