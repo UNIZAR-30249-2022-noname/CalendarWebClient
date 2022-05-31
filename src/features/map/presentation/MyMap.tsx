@@ -15,7 +15,7 @@ export function MyMap({ height, width, zoom }: MapProps) {
   const search = useLocation().search;
   var lastlayer = new URLSearchParams(search).get("layerToShow");
   var lastfloor = new URLSearchParams(search).get("floor");
-  if (lastlayer === null) lastlayer = "reserved";
+  if (lastlayer === null) lastlayer = "type";
   if (lastfloor === null) lastfloor = "Baja";
   const [layerToShow, setLayerToShow] = useState(lastlayer);
   const [floor, setFloor] = useState(lastfloor);
@@ -23,7 +23,7 @@ export function MyMap({ height, width, zoom }: MapProps) {
   useEffect(() => {
     var lastlayer = new URLSearchParams(search).get("layerToShow");
     var lastfloor = new URLSearchParams(search).get("floor");
-    if (lastlayer === null) lastlayer = "reserved";
+    if (lastlayer === null) lastlayer = "type";
     if (lastfloor === null) lastfloor = "Baja";
     setLayerToShow(lastlayer);
     setFloor(lastfloor);

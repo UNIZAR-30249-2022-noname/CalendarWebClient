@@ -32,7 +32,7 @@ export const SlotsPage = () => {
           width="700px"
           zoom={1}
           layerToShow="type"
-          floor={"1"}
+          floor={"Baja"}
           checked={checked}
           coord={coord}
         />
