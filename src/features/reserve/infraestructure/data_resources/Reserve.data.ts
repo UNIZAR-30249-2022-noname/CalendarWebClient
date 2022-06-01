@@ -24,7 +24,7 @@ export const ReserveData = {
 
   cancel: async (reserve: string): Promise<Result<Boolean>> => {
     try {
-      const res = await http.get(cancelReserve,reserve);
+      const res = await http.get(cancelReserve,{key:reserve});
       if (res.status === 200) {
         return { isError: false, value: true};
       } else {
